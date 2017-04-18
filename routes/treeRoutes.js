@@ -52,7 +52,7 @@ treeRoutes.post('/newChunk', function(req, res) {
 });
 
 treeRoutes.get('/getTrees', function(req, res, next) {
-  Tree.find().sort({popularity: "descending"}).exec(function(err, trees){
+  Tree.find().sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
     if(err){
       return next(err);
     }else{
@@ -61,8 +61,8 @@ treeRoutes.get('/getTrees', function(req, res, next) {
   });
 });
 
-treeRoutes.get('/getChunk', function(req, res, next) {
-  Chunk.findById(req.body._id, function(err, chunk){
+treeRoutes.get('/getChunk:chunkid', function(req, res, next) {
+  Chunk.findById(req.params.chunkid, function(err, chunk){
     if(err){
       return next(err);
     }else{

@@ -9,6 +9,7 @@ class Tree extends React.Component {
       trees: []
     };
     this.fetchTrees = this.fetchTrees.bind(this);
+    // this.chunkBody = this.chunkBody.bind(this);
   }
 
   componentWillMount(){
@@ -31,22 +32,23 @@ class Tree extends React.Component {
     });
   }
 
-  chunkBody(_id){
-    fetch("/getChunk",{
-      method:"GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        _id: _id,
-      })
-    })
-    .then(result => result.json())
-    .then(res => {
-      return res.content;
-    });
-  }
+  // chunkBody(_id){
+  //   let content ="";
+  //   fetch("/getChunk",{
+  //     method:"GET",
+  //     headers: {
+  //       "Accept": "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       _id: _id,
+  //     })
+  //   })
+  //   .then(result => result.json())
+  //   .then(res => {
+  //     return res.content;
+  //   });
+  // }
 
   prepareTrees(){
     return this.state.trees.map(function(tree){
@@ -56,16 +58,18 @@ class Tree extends React.Component {
           <br/>
           {tree.cover}
           <br/>
+          {tree.chunk[0].content}
+          <br/>
           {tree.popularity}
         </Panel>
       );
-    });
+    },this);
   }
 
 
   render() {
     let trees = this.prepareTrees();
-    console.log(trees);
+
     return (
       <Panel>
         {trees}

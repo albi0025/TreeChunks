@@ -30,6 +30,7 @@ class Tree extends React.Component {
   }
 
   submitTreeHandler(e){
+    e.preventDefault();
     fetch("/newTree",{
       method:"POST",
       headers: {

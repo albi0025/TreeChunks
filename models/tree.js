@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 let TreeSchema = new mongoose.Schema({
   title: String,
-  chunk: mongoose.Schema.Types.ObjectId,
+  chunk: [{type: mongoose.Schema.Types.ObjectId, ref: 'Chunk'}],
   cover: String,
   popularity: Number
 });
