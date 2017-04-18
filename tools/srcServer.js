@@ -9,11 +9,8 @@ import uriUtil from 'mongodb-uri';
 import morgan from 'morgan';
 import configAuth from './configAuth';
 import User from '../models/user';
-import Pet from'../models/pet';
-import petRoutes from '../routes/petRoutes';
 import userRoutes from '../routes/userRoutes';
-import scrapeRunner from '../helpers/scrape';
-import syncRunner from '../helpers/sync';
+import treeRoutes from '../routes/treeRoutes';
 /* eslint-disable no-console */
 
 const port = process.env.PORT || 3000;
@@ -30,7 +27,7 @@ app.use(morgan('dev'));
 //MongoDB -- Mongoose Import - Start
 mongoose.Promise = global.Promise;
 
-let mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/petsdata';
+let mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/treeChunks';
 let mongooseUri = uriUtil.formatMongoose(mongodbUri);
 let options = {
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -41,22 +38,6 @@ mongoose.connect(mongooseUri, options);
 //End
 
 const PROD = process.env.NODE_ENV === 'production';
-
-//Timed scrape and sync
-
-let url = "http://ws.petango.com/Webservices/adoptablesearch/" +
-  "wsAdoptableAnimals.aspx?sex=All&agegroup=All&colnum=" +
-  "1&authkey=1t4v495156y98t2wd78317102f933h83or1340ptjm31spd04d";
-//Call it when you npm start
-scrapeAndSync();
-//Call again every hour
-setInterval(scrapeAndSync, 3600000);
-
-function scrapeAndSync() {
-  scrapeRunner.scrapePetango(url, function(arr) {
-    syncRunner.syncPets(arr);
-  });
-}
 
 app.use(express.static('src/public'));
 
@@ -75,9 +56,9 @@ if (PROD) {
   }));
 }
 
-app.use('/', petRoutes);
+app.use('/', treeRoutes);
 
-app.use('/user', userRoutes);
+// app.use('/user', userRoutes);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/public/index.html'));

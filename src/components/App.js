@@ -1,9 +1,8 @@
 import React from 'react';
-import Home from './Home';
-import Navigation from './Navigation';
-import DisplayPets from './DisplayPets';
 import { Button, Col, Row, Thumbnail, Grid } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
+import Chunk from './Chunk';
+import Tree from './Tree';
 
 class App extends React.Component {
 
@@ -18,8 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Navigation/>
-        {this.props.children}
+      <Tree />
       </div>
     );
   }
