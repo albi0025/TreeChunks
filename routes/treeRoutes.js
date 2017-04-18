@@ -13,7 +13,6 @@ treeRoutes.use(function(req, res, next){
 
 treeRoutes.post('/newTree', function(req, res) {
   let chunk = new Chunk();
-  chunk.parentchunk = req.body.parentchunk;
   chunk.content = req.body.content;
   chunk.popularity = 0;
 

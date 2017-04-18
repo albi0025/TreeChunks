@@ -3,6 +3,7 @@ import { Button, Col, Row, Thumbnail, Grid } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
 import Chunk from './Chunk';
 import Tree from './Tree';
+import NewStoryForm from './NewStoryForm';
 
 class App extends React.Component {
 
@@ -18,6 +19,7 @@ class App extends React.Component {
     return (
       <div>
       <Tree />
+      <NewStoryForm />
       </div>
     );
   }

@@ -1,19 +1,10 @@
-# Bozeman Pet Project
+# Tree Chunks
 
 ## Description
-A node/mongo/react web application that populates itself with data from any shelter's [Petango](http://petango.com/) listings and displays them in a responsive, user-friendly interface.
+It's a tree of chunks
 
 ## Features
-- User account creation.
-- Browse pets by species.
-- Subscribe and receive email notifications about new pets.
-- Save favorite pets.
-  - Get notified of sponsorships and changes to status of their favorite pets (future version).
-- Donate money (sponsor) specific pets.
-- Mobile friendly, responsive interface
-
-## Srape N' Sync
-![scrape n sync 1](https://cloud.githubusercontent.com/assets/15158614/24844650/90a61e0e-1d69-11e7-85a5-75ccb981c164.png)
+Trees n' chunks
 
 ## Local Setup
 

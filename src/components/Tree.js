@@ -44,7 +44,6 @@ class Tree extends React.Component {
     })
     .then(result => result.json())
     .then(res => {
-      console.log(res.content);
       return res.content;
     });
   }
@@ -54,7 +53,9 @@ class Tree extends React.Component {
       return(
         <Panel key={tree._id}>
           {tree.title}
+          <br/>
           {tree.cover}
+          <br/>
           {tree.popularity}
         </Panel>
       );
