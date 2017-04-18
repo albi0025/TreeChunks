@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel} from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 
 class Tree extends React.Component {
 
@@ -9,11 +9,26 @@ class Tree extends React.Component {
       trees: []
     };
     this.fetchTrees = this.fetchTrees.bind(this);
-    // this.chunkBody = this.chunkBody.bind(this);
+    this.adjustPopularity = this.adjustPopularity.bind(this);
   }
 
   componentWillMount(){
     this.fetchTrees();
+  }
+
+  adjustPopularity(treeId, adjust){
+    // e.preventDefault();
+    fetch("/adjustTree",{
+      method:"PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chunkId: treeId,
+        adjustment: adjust
+      })
+    });
   }
 
   fetchTrees(){
@@ -32,24 +47,6 @@ class Tree extends React.Component {
     });
   }
 
-  // chunkBody(_id){
-  //   let content ="";
-  //   fetch("/getChunk",{
-  //     method:"GET",
-  //     headers: {
-  //       "Accept": "application/json",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       _id: _id,
-  //     })
-  //   })
-  //   .then(result => result.json())
-  //   .then(res => {
-  //     return res.content;
-  //   });
-  // }
-
   prepareTrees(){
     return this.state.trees.map(function(tree){
       return(
@@ -61,6 +58,9 @@ class Tree extends React.Component {
           {tree.chunk[0].content}
           <br/>
           {tree.popularity}
+          <br/>
+          <Button onClick = {this.adjustPopularity(tree._id, 1)}>Up</Button>
+          <Button onClick = {this.adjustPopularity(tree._id, -1)}>Down</Button>
         </Panel>
       );
     },this);
