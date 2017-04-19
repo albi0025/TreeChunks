@@ -26,6 +26,15 @@ chunkRoutes.post('/newChunk', function(req, res) {
   });
 });
 
+chunkRoutes.get('/getChunks/:parentId', function(req, res) {
+  Chunk.find({"parentchunk": req.params.parentId}, function(err, chunks){
+    if(err){
+      res.send(err);
+    } else {
+      res.json(chunks);
+    }
+  });
+});
 
 
 export default chunkRoutes;

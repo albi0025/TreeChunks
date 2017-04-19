@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel, Button, Form } from 'react-bootstrap';
-
+import Chunks from './Chunks';
 
 class Story extends React.Component {
 
@@ -8,15 +8,18 @@ class Story extends React.Component {
     super(props);
     this.state = {
       tree: {},
-      content: ""
+      content: "",
+      chunks: []
     };
     this.fetchTree = this.fetchTree.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.submitChunkHandler = this.submitChunkHandler.bind(this);
+    this.getChunks = this.getChunks.bind(this);
   }
 
   componentWillMount(){
     this.fetchTree();
+
   }
 
   fetchTree(){
@@ -32,11 +35,24 @@ class Story extends React.Component {
       this.setState({
         tree: res
       });
-    });
+    }).then(()=>{this.getChunks();});
   }
 
   handleContentChange(e) {
     this.setState({content: e.target.value});
+  }
+
+  getChunks(){
+    console.log(this.state.tree);
+    fetch("/getChunks/" + this.state.tree.chunk[0]._id,{
+      method:"GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(result => result.json())
+    .then(data => this.setState({chunks: data}));
   }
 
   submitChunkHandler(e){
@@ -55,7 +71,8 @@ class Story extends React.Component {
   }
 
   render() {
-    console.log(this.state.tree);
+
+    console.log(this.state.chunks);
     return (
     <div>
       <Panel key={this.state.tree._id}>
@@ -66,6 +83,9 @@ class Story extends React.Component {
         {this.state.tree.chunk[0].content}
         <br/>
         {this.state.tree.popularity}
+      </Panel>
+      <Panel>
+        <Chunks chunks = {this.state.chunks}/>
       </Panel>
       <Form>
         <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
