@@ -3,21 +3,16 @@ import { Panel, Button } from 'react-bootstrap';
 
 class Tree extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      trees: []
     };
-    this.fetchTrees = this.fetchTrees.bind(this);
     this.adjustPopularity = this.adjustPopularity.bind(this);
-  }
-
-  componentWillMount(){
-    this.fetchTrees();
+    this.upChunk = this.upChunk.bind(this);
+    this.downChunk = this.downChunk.bind(this);
   }
 
   adjustPopularity(treeId, adjust){
-    // e.preventDefault();
     fetch("/adjustTree",{
       method:"PUT",
       headers: {
@@ -31,56 +26,35 @@ class Tree extends React.Component {
     });
   }
 
-  fetchTrees(){
-    fetch("/getTrees",{
-      method:"GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then(result => result.json())
-    .then(res => {
-      this.setState({
-        trees: res
-      });
-    });
+  upChunk(){
+    this.adjustPopularity(this.props.tree._id, 1);
   }
 
-  prepareTrees(){
-    return this.state.trees.map(function(tree){
-      return(
-        <Panel key={tree._id}>
-          {tree.title}
-          <br/>
-          {tree.cover}
-          <br/>
-          {tree.chunk[0].content}
-          <br/>
-          {tree.popularity}
-          <br/>
-          <Button onClick = {this.adjustPopularity(tree._id, 1)}>Up</Button>
-          <Button onClick = {this.adjustPopularity(tree._id, -1)}>Down</Button>
-        </Panel>
-      );
-    },this);
+  downChunk(){
+    this.adjustPopularity(this.props.tree._id, -1);
   }
 
 
   render() {
-    let trees = this.prepareTrees();
-
     return (
-      <Panel>
-        {trees}
+      <Panel key={this.props.tree._id}>
+        {this.props.tree.title}
+        <br/>
+        {this.props.tree.cover}
+        <br/>
+        {this.props.tree.chunk[0].content}
+        <br/>
+        {this.props.tree.popularity}
+        <br/>
+        <Button onClick = {this.upChunk}>Up</Button>
+        <Button onClick = {this.downChunk}>Down</Button>
       </Panel>
     );
   }
 }
 
 Tree.propTypes = {
-  content: React.PropTypes.string,
-  popularity: React.PropTypes.number
+  tree: React.PropTypes.object
 };
 
 export default Tree;

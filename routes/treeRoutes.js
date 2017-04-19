@@ -95,6 +95,16 @@ treeRoutes.put('/adjustTree', function(req, res, next) {
     });
 });
 
+treeRoutes.get('/getTree/:treeId', function(req, res, next) {
+  Tree.findById(req.params.treeId).populate('chunk').exec(function(err, tree){
+    if(err){
+      return next(err);
+    }else{
+      res.json(tree);
+    }
+  });
+});
+
 
 
 

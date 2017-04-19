@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Col, Row, Thumbnail, Grid } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
 import Chunk from './Chunk';
-import Tree from './Tree';
+import Trees from './Trees';
 import NewStoryForm from './NewStoryForm';
 
 class App extends React.Component {
@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <Tree />
+      <Trees />
       <NewStoryForm />
       </div>
     );

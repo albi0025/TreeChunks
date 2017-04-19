@@ -5,14 +5,15 @@ import React from 'react';
 import { Provider } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import App from './components/App';
+import Story from './components/Story';
 
 const userStore = new UserStore();
 
 render((
   <Provider userStore={userStore}>
     <Router history={hashHistory}>
-      <Route path="/" component={App}>
-      </Route>
+      <Route path="/" component={App}/>
+      <Route path= "/story/:treeId" component={Story}/>
     </Router>
   </Provider>
 ),
