@@ -6,6 +6,7 @@ import { Provider } from 'mobx-react';
 import UserStore from './stores/UserStore';
 import App from './components/App';
 import Story from './components/Story';
+import Chunk from './components/Chunk';
 
 const userStore = new UserStore();
 
@@ -14,6 +15,7 @@ render((
     <Router history={hashHistory}>
       <Route path="/" component={App}/>
       <Route path= "/story/:treeId" component={Story}/>
+      <Route path= "/chunk/:chunkId" component={Chunk}/>
     </Router>
   </Provider>
 ),

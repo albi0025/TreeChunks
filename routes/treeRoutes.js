@@ -36,21 +36,6 @@ treeRoutes.post('/newTree', function(req, res) {
   });
 });
 
-// treeRoutes.post('/newChunk', function(req, res) {
-//   let chunk = new Chunk();
-//   chunk.parentchunk = req.body.parentchunk;
-//   chunk.content = req.body.content;
-//   chunk.popularity = 0;
-//
-//   chunk.save(function(err, chunk){
-//     if(err){
-//       res.send(err);
-//     } else {
-//       res.json(chunk);
-//     }
-//   });
-// });
-
 treeRoutes.get('/getTrees', function(req, res, next) {
   Tree.find().sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
     if(err){
@@ -61,7 +46,7 @@ treeRoutes.get('/getTrees', function(req, res, next) {
   });
 });
 
-treeRoutes.get('/getChunk:chunkid', function(req, res, next) {
+treeRoutes.get('/getChunk/:chunkid', function(req, res, next) {
   Chunk.findById(req.params.chunkid, function(err, chunk){
     if(err){
       return next(err);

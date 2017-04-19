@@ -12,7 +12,7 @@ class Chunks extends React.Component {
   prepareChunks(){
     return this.props.chunks.map(function(chunk){
       return(
-        <Panel key={chunk._id}><Link  to= {{pathname: '/Story/' + chunk._id}}>{chunk.content}</Link></Panel>
+        <Panel key={chunk._id}><Link  to= {{pathname: '/Chunk/' + chunk._id}}>{chunk.content}</Link></Panel>
       );
     },this);
   }

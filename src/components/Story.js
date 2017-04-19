@@ -43,7 +43,6 @@ class Story extends React.Component {
   }
 
   getChunks(){
-    console.log(this.state.tree);
     fetch("/getChunks/" + this.state.tree.chunk[0]._id,{
       method:"GET",
       headers: {
@@ -71,8 +70,6 @@ class Story extends React.Component {
   }
 
   render() {
-
-    console.log(this.state.chunks);
     return (
     <div>
       <Panel key={this.state.tree._id}>
