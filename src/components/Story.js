@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Form } from 'react-bootstrap';
 
 
 class Story extends React.Component {
@@ -7,9 +7,12 @@ class Story extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tree: {}
+      tree: {},
+      content: ""
     };
     this.fetchTree = this.fetchTree.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
+    this.submitChunkHandler = this.submitChunkHandler.bind(this);
   }
 
   componentWillMount(){
@@ -32,18 +35,44 @@ class Story extends React.Component {
     });
   }
 
+  handleContentChange(e) {
+    this.setState({content: e.target.value});
+  }
+
+  submitChunkHandler(e){
+    e.preventDefault();
+    fetch("/newChunk",{
+      method:"POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        content: this.state.content,
+        parentchunk:this.state.tree.chunk[0]._id
+      })
+    });
+  }
 
   render() {
     console.log(this.state.tree);
-    return (<Panel key={this.state.tree._id}>
-      {this.state.tree.title}
-      <br/>
-      {this.state.tree.cover}
-      <br/>
-      {this.state.tree.chunk[0].content}
-      <br/>
-      {this.state.tree.popularity}
-    </Panel>
+    return (
+    <div>
+      <Panel key={this.state.tree._id}>
+        {this.state.tree.title}
+        <br/>
+        {this.state.tree.cover}
+        <br/>
+        {this.state.tree.chunk[0].content}
+        <br/>
+        {this.state.tree.popularity}
+      </Panel>
+      <Form>
+        <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
+        <br/>
+        <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
+      </Form>
+    </div>
     );
   }
 }

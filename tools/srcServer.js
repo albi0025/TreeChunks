@@ -11,6 +11,7 @@ import configAuth from './configAuth';
 import User from '../models/user';
 import userRoutes from '../routes/userRoutes';
 import treeRoutes from '../routes/treeRoutes';
+import chunkRoutes from '../routes/chunkRoutes';
 /* eslint-disable no-console */
 
 const port = process.env.PORT || 3000;
@@ -57,6 +58,7 @@ if (PROD) {
 }
 
 app.use('/', treeRoutes);
+app.use('/', chunkRoutes);
 
 // app.use('/user', userRoutes);
 
