@@ -37,7 +37,7 @@ chunkRoutes.get('/getStory/:chunkid', function(req, res, next) {
 });
 
 chunkRoutes.get('/getChunks/:parentId', function(req, res) {
-  Chunk.find({"parentchunk": req.params.parentId}, function(err, chunks){
+  Chunk.find({"parentchunk": req.params.parentId}).sort({popularity: "descending"}).exec( function(err, chunks){
     if(err){
       res.send(err);
     } else {

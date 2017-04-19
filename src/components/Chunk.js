@@ -42,7 +42,7 @@ class Chunk extends React.Component {
     })
     .then(result => result.json())
     .then(res => {
-      story.push(res.content);
+      story.push(res.content + " ");
       if(typeof(res.parentchunk) == "string"){
         this.prepareChunks(res.parentchunk, story);
       } else {
