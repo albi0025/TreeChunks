@@ -52,7 +52,7 @@ class Tree extends React.Component {
         <br/>
         <input onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover"/>
         <br/>
-        <input onChange={this.handleContentChange} type="textarea" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
+        <textarea onChange={this.handleContentChange} name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
         <br/>
         <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
       </Form>

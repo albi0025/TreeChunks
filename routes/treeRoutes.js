@@ -11,6 +11,10 @@ treeRoutes.use(function(req, res, next){
   next();
 });
 
+// RECOMMEND
+// split this into a chunkRoutes and treeRoutes file
+
+//rename: POST /trees
 treeRoutes.post('/newTree', function(req, res) {
   let chunk = new Chunk();
   chunk.content = req.body.content;
@@ -36,6 +40,7 @@ treeRoutes.post('/newTree', function(req, res) {
   });
 });
 
+//rename: POST /chunks
 treeRoutes.post('/newChunk', function(req, res) {
   let chunk = new Chunk();
   chunk.parentchunk = req.body.parentchunk;
@@ -51,6 +56,7 @@ treeRoutes.post('/newChunk', function(req, res) {
   });
 });
 
+//rename: GET /trees
 treeRoutes.get('/getTrees', function(req, res, next) {
   Tree.find().sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
     if(err){
@@ -61,6 +67,7 @@ treeRoutes.get('/getTrees', function(req, res, next) {
   });
 });
 
+//rename: GET /chunks/:chunkId (Note the extra slash, too)
 treeRoutes.get('/getChunk:chunkid', function(req, res, next) {
   Chunk.findById(req.params.chunkid, function(err, chunk){
     if(err){
@@ -72,6 +79,7 @@ treeRoutes.get('/getChunk:chunkid', function(req, res, next) {
 });
 
 
+//rename: PATCH /chunks/:chunkId (note the route parameter) (Leave PUT if PATCH doesn't work)
 treeRoutes.put('/adjustChunk', function(req, res, next) {
   Chunk.update({_id: req.body.chunkId}, { $inc: { popularity: req.body.adjustment }},
     function(err, chunk) {
@@ -83,19 +91,17 @@ treeRoutes.put('/adjustChunk', function(req, res, next) {
     });
 });
 
+//rename: PATCH /trees/:treeId (note the route parameter) (Leave PUT if PATCH doesn't work)
 treeRoutes.put('/adjustTree', function(req, res, next) {
-  console.log(req.body.chunkId);
-  Tree.update({_id: req.body.chunkId}, { $inc: { popularity: req.body.adjustment }},
-    function(err, chunk) {
+  // console.log(req.body.adjustment);
+  Tree.update({_id: req.body.treeId}, { $inc: { popularity: req.body.adjustment }},
+    function(err, tree) {
       if(err) {
         return next(err);
       } else {
-        res.json(chunk);
+        res.json(tree);
       }
     });
 });
-
-
-
 
 export default treeRoutes;
