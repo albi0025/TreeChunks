@@ -102,9 +102,10 @@ class Story extends React.Component {
       let chunks = this.state.chunks;
       chunks.push(res);
       this.setState({
-        chunks: chunks
+        chunks: chunks,
+        content: ""
       });
-      // hashHistory.push('/Story/' + this.state.tree._id + "/" + res._id);
+      hashHistory.push('/Story/' + this.state.tree._id + "/" + res._id);
     });
   }
 
