@@ -109,16 +109,20 @@ class Story extends React.Component {
     });
   }
 
+  checkUrl(url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+  }
+
   render() {
     if(this.state.tree.chunk){
       return (
       <div>
         <Panel key={this.state.tree._id}>
-          {this.state.tree.title}
+          <h2>{this.state.tree.title}</h2>
           <br/>
-          {this.state.tree.cover}
-          <br/>
-          {this.state.tree.chunk.content}
+          {
+            (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
+          }
           <br/>
           {this.state.tree.popularity}
         </Panel>

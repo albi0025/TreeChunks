@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Button} from 'react-bootstrap';
+import { hashHistory } from 'react-router';
 
 class Tree extends React.Component {
 
@@ -42,6 +43,10 @@ class Tree extends React.Component {
         title: this.state.title,
         cover: this.state.cover
       })
+    })
+    .then(res => res.json())
+    .then(res => {
+      hashHistory.push('/Story/' + res._id + "/" + res.chunk);
     });
   }
 
