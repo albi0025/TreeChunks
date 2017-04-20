@@ -22,12 +22,11 @@ class Story extends React.Component {
   componentWillMount(){
     this.fetchTree();
     this.prepareChunks(this.props.params.chunkId, []);
-    // this.getChunks(this.props.params.chunkId);
   }
 
   componentWillReceiveProps(nextProps){
     this.prepareChunks(nextProps.params.chunkId, []);
-    // this.getChunks(nextProps.params.chunkId);
+    this.getChunks(nextProps.params.chunkId);
   }
 
   fetchTree(){
@@ -43,16 +42,15 @@ class Story extends React.Component {
       this.setState({
         tree: res
       });
-    }).then(()=>{this.getChunks();});
+    }).then(()=>{this.getChunks(this.state.tree.chunk._id);});
   }
 
   handleContentChange(e) {
     this.setState({content: e.target.value});
   }
 
-  getChunks(){
-    console.log(this.state.tree)
-    fetch("/getChunks/" + this.state.tree.chunk._id,{
+  getChunks(chunkId){
+    fetch("/getChunks/" + chunkId,{
       method:"GET",
       headers: {
         "Accept": "application/json",
@@ -117,7 +115,7 @@ class Story extends React.Component {
           {this.state.story}
         </Panel>
         <Panel>
-          <Chunks chunks = {this.state.chunks}/>
+          <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
         </Panel>
         <Form>
           <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>

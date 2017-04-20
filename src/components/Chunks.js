@@ -15,7 +15,7 @@ class Chunks extends React.Component {
   prepareChunks(){
     return this.props.chunks.map(function(chunk){
       return(
-        <Panel key={chunk._id}><Link  to= {{pathname: '/Chunk/' + chunk._id}}>{chunk.content}</Link>
+        <Panel key={chunk._id}><Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + chunk._id}}>{chunk.content}</Link>
         {chunk.popularity}
         <Button onClick = {() => {this.upChunk(chunk._id);}}>Up</Button>
         <Button onClick = {() => {this.downChunk(chunk._id);}}>Down</Button>
@@ -57,7 +57,8 @@ class Chunks extends React.Component {
 }
 
 Chunks.propTypes = {
-  chunks: React.PropTypes.array
+  chunks: React.PropTypes.array,
+  treeId: React.PropTypes.string
 };
 
 export default Chunks;
