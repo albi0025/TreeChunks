@@ -7,11 +7,13 @@ import UserStore from './stores/UserStore';
 import App from './components/App';
 import Story from './components/Story';
 import Chunk from './components/Chunk';
+import TreeChunkStore from './stores/TreeChunkStore';
 
 const userStore = new UserStore();
+const treeChunkStore = new TreeChunkStore();
 
 render((
-  <Provider userStore={userStore}>
+  <Provider treeChunkStore={treeChunkStore} userStore={userStore}>
     <Router history={hashHistory}>
       <Route path="/" component={App}/>
       <Route path= "/story/:treeId/:chunkId" component={Story}/>

@@ -2,46 +2,21 @@ import React from 'react';
 import { Panel, Form, Button } from 'react-bootstrap';
 import Chunks from './Chunks';
 import { Link } from 'react-router';
+import { observer, inject } from 'mobx-react';
+
 
 class Chunk extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      story: [],
-      content: "",
-      chunks: []
     };
 
-    this.perpareChunks = this.prepareChunks.bind(this);
     this.submitChunkHandler = this.submitChunkHandler.bind(this);
     this.getChunks = this.getChunks.bind(this);
     this.upChunk = this.upChunk.bind(this);
     this.downChunk = this.downChunk.bind(this);
     this.adjustPopularity = this.adjustPopularity.bind(this);
-  }
-
-
-  prepareChunks(chunkId, story){
-    fetch("/getStory/" + chunkId, {
-      method:"GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-    .then(result => result.json())
-    .then(res => {
-      story.push(res.content + " ");
-      if(typeof(res.parentchunk) == "string"){
-        this.prepareChunks(res.parentchunk, story);
-      } else {
-        story.reverse();
-        this.setState({
-          story: story
-        });
-      }
-    });
   }
 
   getChunks(chunkId){
@@ -111,4 +86,4 @@ Chunk.propTypes = {
   treeId: React.PropTypes.string
 };
 
-export default Chunk;
+export default inject("treeChunkStore")(observer(Chunk));

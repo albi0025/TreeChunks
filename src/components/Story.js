@@ -95,6 +95,14 @@ class Story extends React.Component {
         content: this.state.content,
         parentchunk:this.state.tree.chunk._id
       })
+    })
+    .then(res => res.json())
+    .then(res => {
+      let chunks = this.state.chunks;
+      chunks.push(res);
+      this.setState({
+        chunks: chunks
+      });
     });
   }
 
