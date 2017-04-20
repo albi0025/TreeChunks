@@ -14,7 +14,7 @@ render((
   <Provider userStore={userStore}>
     <Router history={hashHistory}>
       <Route path="/" component={App}/>
-      <Route path= "/story/:treeId" component={Story}/>
+      <Route path= "/story/:treeId/:chunkId" component={Story}/>
       <Route path= "/chunk/:chunkId" component={Chunk}/>
     </Router>
   </Provider>

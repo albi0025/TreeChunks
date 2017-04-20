@@ -36,7 +36,7 @@ class Trees extends React.Component {
   prepareTrees(){
     return this.state.trees.map(function(tree){
       return(
-        <Link key={tree._id} to= {{pathname: '/Story/' + tree._id}}><Tree key={tree._id} tree={tree}/></Link>
+        <Link key={tree._id} to= {{pathname: '/Story/' + tree._id + "/" + tree.chunk._id}}><Tree key={tree._id} tree={tree}/></Link>
       );
     },this);
   }

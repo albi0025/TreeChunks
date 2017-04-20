@@ -9,17 +9,25 @@ class Story extends React.Component {
     this.state = {
       tree: {},
       content: "",
-      chunks: []
+      chunks: [],
+      story: []
     };
     this.fetchTree = this.fetchTree.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.submitChunkHandler = this.submitChunkHandler.bind(this);
     this.getChunks = this.getChunks.bind(this);
+    this.prepareChunks = this.prepareChunks.bind(this);
   }
 
   componentWillMount(){
     this.fetchTree();
+    this.prepareChunks(this.props.params.chunkId, []);
+    // this.getChunks(this.props.params.chunkId);
+  }
 
+  componentWillReceiveProps(nextProps){
+    this.prepareChunks(nextProps.params.chunkId, []);
+    // this.getChunks(nextProps.params.chunkId);
   }
 
   fetchTree(){
@@ -43,6 +51,7 @@ class Story extends React.Component {
   }
 
   getChunks(){
+    console.log(this.state.tree)
     fetch("/getChunks/" + this.state.tree.chunk._id,{
       method:"GET",
       headers: {
@@ -52,6 +61,28 @@ class Story extends React.Component {
     })
     .then(result => result.json())
     .then(data => this.setState({chunks: data}));
+  }
+
+  prepareChunks(chunkId, story){
+    fetch("/getStory/" + chunkId, {
+      method:"GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(result => result.json())
+    .then(res => {
+      story.push(res.content + " ");
+      if(typeof(res.parentchunk) == "string"){
+        this.prepareChunks(res.parentchunk, story);
+      } else {
+        story.reverse();
+        this.setState({
+          story: story
+        });
+      }
+    });
   }
 
   submitChunkHandler(e){
@@ -81,6 +112,9 @@ class Story extends React.Component {
           {this.state.tree.chunk.content}
           <br/>
           {this.state.tree.popularity}
+        </Panel>
+        <Panel>
+          {this.state.story}
         </Panel>
         <Panel>
           <Chunks chunks = {this.state.chunks}/>
