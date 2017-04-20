@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, Form, Button } from 'react-bootstrap';
 import Chunks from './Chunks';
+import { Link } from 'react-router';
 
 class Chunk extends React.Component {
 
@@ -14,23 +15,12 @@ class Chunk extends React.Component {
 
     this.perpareChunks = this.prepareChunks.bind(this);
     this.submitChunkHandler = this.submitChunkHandler.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
     this.getChunks = this.getChunks.bind(this);
+    this.upChunk = this.upChunk.bind(this);
+    this.downChunk = this.downChunk.bind(this);
+    this.adjustPopularity = this.adjustPopularity.bind(this);
   }
 
-  componentWillMount(){
-    this.prepareChunks(this.props.params.chunkId, []);
-    this.getChunks(this.props.params.chunkId);
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.prepareChunks(nextProps.params.chunkId, []);
-    this.getChunks(nextProps.params.chunkId);
-  }
-
-  handleContentChange(e) {
-    this.setState({content: e.target.value});
-  }
 
   prepareChunks(chunkId, story){
     fetch("/getStory/" + chunkId, {
@@ -76,33 +66,49 @@ class Chunk extends React.Component {
       },
       body: JSON.stringify({
         content: this.state.content,
-        parentchunk: this.props.params.chunkId
+        parentchunk: this.props.chunk._id
       })
     });
+  }
+
+  adjustPopularity(chunkId, adjust){
+    fetch("/adjustChunk",{
+      method:"PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chunkId: chunkId,
+        adjustment: adjust
+      })
+    });
+  }
+
+  upChunk(){
+    this.adjustPopularity(this.props.chunk._id, 1);
+  }
+
+  downChunk(id){
+    this.adjustPopularity(this.props.chunk._id, -1);
   }
 
   render() {
 
     return (
-      <div>
-        <Panel>
-          {this.state.story}
-        </Panel>
-        <Panel>
-          <Chunks chunks = {this.state.chunks}/>
-        </Panel>
-        <Form>
-          <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30"  placeholder="Content"/>
-          <br/>
-          <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
-        </Form>
-      </div>
+      <Panel key={this.props.chunk._id}><Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + this.props.chunk._id}}>
+             {this.props.chunk.content}</Link>
+      {this.props.chunk.popularity}
+      <Button onClick={this.upChunk}>Up</Button>
+      <Button onClick={this.downChunk}>Down</Button>
+      </Panel>
     );
   }
 }
 
 Chunk.propTypes = {
-  params: React.PropTypes.object
+  chunk: React.PropTypes.object,
+  treeId: React.PropTypes.string
 };
 
 export default Chunk;
