@@ -2,6 +2,20 @@ body {
   background-color: #dbdbdb;
   background-size: 100%;
 }
+
+.chunk{
+  min-width: 200px;
+}
+
+.chunks{
+  display: flex;
+  overflow-x: scroll;
+}
+
+.chunk:first-child{
+  min-width: 400px;
+  background-color: darkseagreen;
+}
 /*----------------------navbar CSS---------------*/
 .navbar {
   border-radius: 0px;

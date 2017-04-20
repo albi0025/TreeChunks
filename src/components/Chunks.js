@@ -22,7 +22,7 @@ class Chunks extends React.Component {
   render() {
     let chunks = this.prepareChunks();
     return (
-      <div>
+      <div className="chunks">
         {chunks}
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, Button, Form } from 'react-bootstrap';
 import Chunks from './Chunks';
+import { hashHistory } from 'react-router';
 
 class Story extends React.Component {
 
@@ -93,7 +94,7 @@ class Story extends React.Component {
       },
       body: JSON.stringify({
         content: this.state.content,
-        parentchunk:this.state.tree.chunk._id
+        parentchunk: this.props.params.chunkId
       })
     })
     .then(res => res.json())
@@ -103,6 +104,7 @@ class Story extends React.Component {
       this.setState({
         chunks: chunks
       });
+      // hashHistory.push('/Story/' + this.state.tree._id + "/" + res._id);
     });
   }
 

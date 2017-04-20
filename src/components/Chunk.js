@@ -10,6 +10,8 @@ class Chunk extends React.Component {
   constructor() {
     super();
     this.state = {
+      chunk: {},
+      popularity: null
     };
 
     this.submitChunkHandler = this.submitChunkHandler.bind(this);
@@ -17,6 +19,13 @@ class Chunk extends React.Component {
     this.upChunk = this.upChunk.bind(this);
     this.downChunk = this.downChunk.bind(this);
     this.adjustPopularity = this.adjustPopularity.bind(this);
+  }
+
+  componentWillMount(){
+    this.setState({
+      chunk: this.props.chunk,
+      popularity: this.props.chunk.popularity
+    });
   }
 
   getChunks(chunkId){
@@ -57,7 +66,8 @@ class Chunk extends React.Component {
         chunkId: chunkId,
         adjustment: adjust
       })
-    });
+    })
+    .then(this.setState({popularity: this.state.popularity + adjust}));
   }
 
   upChunk(){
@@ -69,15 +79,21 @@ class Chunk extends React.Component {
   }
 
   render() {
+    if(this.state.chunk){
+      return (
+        <Panel className="chunk" key={this.state.chunk._id}><Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
+               {this.state.chunk.content}</Link>
+        <br/>
+        {this.state.popularity}
+        <br/>
+        <Button onClick={this.upChunk}>Up</Button>
+        <Button onClick={this.downChunk}>Down</Button>
+        </Panel>
+      );
+    }else{
+      return (<div/>);
+    }
 
-    return (
-      <Panel key={this.props.chunk._id}><Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + this.props.chunk._id}}>
-             {this.props.chunk.content}</Link>
-      {this.props.chunk.popularity}
-      <Button onClick={this.upChunk}>Up</Button>
-      <Button onClick={this.downChunk}>Down</Button>
-      </Panel>
-    );
   }
 }
 
