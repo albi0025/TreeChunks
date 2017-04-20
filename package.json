@@ -1,7 +1,7 @@
 {
-  "name": "PetProject",
+  "name": "TreeChunks",
   "version": "1.0.0",
-  "description": "Pet Project - 1st Project MTCS",
+  "description": "Tree Chunks - 2nd Project MTCS",
   "scripts": {
     "clean": "rimraf dist distServer",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -15,7 +15,7 @@
     "testonly:watch": "npm run testonly -- --watch",
     "build": "npm run clean && npm run build:webpack && npm run build:server",
     "build:webpack": "NODE_ENV='production' webpack --config webpack.config.babel.js",
-    "build:server": "babel tools -d distserver/tools --presets es2015 && babel helpers -d distserver/helpers --presets es2015 && babel models -d distserver/models && babel routes -d distserver/routes --presets es2015 && babel webpack.config.babel.js webpack.config.dev.js -d distserver"
+    "build:server": "babel tools -d distserver/tools --presets es2015 && babel models -d distserver/models && babel routes -d distserver/routes --presets es2015 && babel webpack.config.babel.js webpack.config.dev.js -d distserver"
   },
   "author": "Montana Code School",
   "license": "MIT",
@@ -82,6 +82,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Montana-Code-School/PetProject"
+    "url": "https://github.com/Montana-Code-School/TreeChunks"
   }
 }

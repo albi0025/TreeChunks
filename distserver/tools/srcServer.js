@@ -44,25 +44,17 @@ var _user = require('../models/user');
 
 var _user2 = _interopRequireDefault(_user);
 
-var _pet = require('../models/pet');
-
-var _pet2 = _interopRequireDefault(_pet);
-
-var _petRoutes = require('../routes/petRoutes');
-
-var _petRoutes2 = _interopRequireDefault(_petRoutes);
-
 var _userRoutes = require('../routes/userRoutes');
 
 var _userRoutes2 = _interopRequireDefault(_userRoutes);
 
-var _scrape = require('../helpers/scrape');
+var _treeRoutes = require('../routes/treeRoutes');
 
-var _scrape2 = _interopRequireDefault(_scrape);
+var _treeRoutes2 = _interopRequireDefault(_treeRoutes);
 
-var _sync = require('../helpers/sync');
+var _chunkRoutes = require('../routes/chunkRoutes');
 
-var _sync2 = _interopRequireDefault(_sync);
+var _chunkRoutes2 = _interopRequireDefault(_chunkRoutes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,7 +74,7 @@ app.use((0, _morgan2.default)('dev'));
 //MongoDB -- Mongoose Import - Start
 _mongoose2.default.Promise = global.Promise;
 
-var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/petsdata';
+var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/treeChunks';
 var mongooseUri = _mongodbUri2.default.formatMongoose(mongodbUri);
 var options = {
   server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -93,20 +85,6 @@ _mongoose2.default.connect(mongooseUri, options);
 //End
 
 var PROD = process.env.NODE_ENV === 'production';
-
-//Timed scrape and sync
-
-var url = "http://ws.petango.com/Webservices/adoptablesearch/" + "wsAdoptableAnimals.aspx?sex=All&agegroup=All&colnum=" + "1&authkey=1t4v495156y98t2wd78317102f933h83or1340ptjm31spd04d";
-//Call it when you npm start
-scrapeAndSync();
-//Call again every hour
-setInterval(scrapeAndSync, 3600000);
-
-function scrapeAndSync() {
-  _scrape2.default.scrapePetango(url, function (arr) {
-    _sync2.default.syncPets(arr);
-  });
-}
 
 app.use(_express2.default.static('src/public'));
 
@@ -125,9 +103,10 @@ if (PROD) {
   }));
 }
 
-app.use('/', _petRoutes2.default);
+app.use('/', _treeRoutes2.default);
+app.use('/', _chunkRoutes2.default);
 
-app.use('/user', _userRoutes2.default);
+// app.use('/user', userRoutes);
 
 app.get('*', function (req, res) {
   res.sendFile(_path2.default.join(__dirname, '../src/public/index.html'));
