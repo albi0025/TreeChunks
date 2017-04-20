@@ -11,10 +11,6 @@ class App extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    this.props.userStore.getUserFromDb();
-  }
-
   render() {
     return (
       <div>

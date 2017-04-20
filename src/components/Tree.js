@@ -42,7 +42,7 @@ class Tree extends React.Component {
         <br/>
         {this.props.tree.cover}
         <br/>
-        {this.props.tree.chunk[0].content}
+        {this.props.tree.chunk.content}
         <br/>
         {this.props.tree.popularity}
         <br/>
