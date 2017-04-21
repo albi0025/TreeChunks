@@ -46,9 +46,9 @@ class Trees extends React.Component {
     let trees = this.prepareTrees();
 
     return (
-      <Panel>
+      <div>
         {trees}
-      </Panel>
+      </div>
     );
   }
 }

@@ -48,7 +48,9 @@ class Tree extends React.Component {
             <h2>{this.props.tree.title}</h2>
             <br/>
             {
-              (this.checkUrl(this.props.tree.cover)) ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/> : ""
+              (this.checkUrl(this.props.tree.cover))
+              ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/>
+              : <img src="/images/coverlogo.png" height="200" width="150"/>
             }
             <br/>
             {this.props.tree.chunk.content}

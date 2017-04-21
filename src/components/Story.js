@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, Button, Form } from 'react-bootstrap';
+import { Panel, Button, Form, Badge } from 'react-bootstrap';
 import Chunks from './Chunks';
 import { hashHistory, Link } from 'react-router';
 import NewChunkForm from './NewChunkForm';
@@ -86,16 +86,14 @@ class Story extends React.Component {
   render() {
     if(this.state.tree.chunk){
       return (
-      <div>
-        <Panel key={this.state.tree._id}>
+      <div key={this.state.tree._id}>
           <h2>{this.state.tree.title}</h2>
-          <br/>
           {
             (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
           }
-          <br/>
-          {this.state.tree.popularity}
-        </Panel>
+          <div className="popularity">
+            <Badge>{this.state.tree.popularity}</Badge>
+          </div>
         <Panel>
           {this.state.story}
         </Panel>

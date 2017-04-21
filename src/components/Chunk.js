@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, Form, Button } from 'react-bootstrap';
+import { Panel, Form, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 
@@ -55,10 +55,13 @@ class Chunk extends React.Component {
           <Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
           {this.state.chunk.content}</Link>
         <br/>
-        {this.state.popularity}
-        <br/>
-        <Button onClick={this.upChunk}>Up</Button>
-        <Button onClick={this.downChunk}>Down</Button>
+        <div className="popularity">
+          <Glyphicon glyph="thumbs-up" onClick={this.upChunk}/>
+          <Badge>
+            {this.state.popularity}
+          </Badge>
+          <Glyphicon glyph="thumbs-down" onClick={this.downChunk}/>
+        </div>
         </Panel>
       );
     }else{

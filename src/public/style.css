@@ -22,12 +22,18 @@ body {
   display: flex;
 }
 
+.title-popularity {
+  width: 25px;
+  height: 25px;
+}
+
 .popularity {
   display: flex;
   font-size: 20px;
 }
 
 .badge {
+  line-height: normal !important;
   margin: 0px 10px 0px 10px;
   background-color: darkgreen !important;
 }
@@ -36,4 +42,18 @@ body {
   -webkit-box-shadow: 3px 5px 5px 0px rgba(0,0,0,0.29) !important;
   -moz-box-shadow: 3px 5px 5px 2px rgba(0,0,0,0.29) !important;
   box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.27) !important;
+}
+
+.logo .container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar {
+  margin-bottom: 80px !important;
+  background-color: #90b204 !important;
+}
+
+.navbar-brand {
+  padding: 7px !important;
 }

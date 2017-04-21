@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Button} from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import { hashHistory } from 'react-router';
 
-class Tree extends React.Component {
+class NewTreeForm extends React.Component {
 
   constructor() {
     super();
@@ -46,28 +46,40 @@ class Tree extends React.Component {
     })
     .then(res => res.json())
     .then(res => {
+      this.props.onHide;
       hashHistory.push('/Story/' + res._id + "/" + res.chunk);
     });
   }
 
   render() {
     return (
-      <Form>
-        <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
-        <br/>
-        <input onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover"/>
-        <br/>
-        <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
-        <br/>
-        <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
-      </Form>
+      <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg card-text">Start A New Tree</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
+            <br/>
+            <input onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover"/>
+            <br/>
+            <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
+            <br/>
+            <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
 
-Tree.propTypes = {
+NewTreeForm.propTypes = {
+  onHide: React.PropTypes.func,
   content: React.PropTypes.string,
   popularity: React.PropTypes.number
 };
 
-export default Tree;
+export default NewTreeForm;
