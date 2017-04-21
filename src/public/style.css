@@ -51,7 +51,7 @@ body {
 
 .navbar {
   margin-bottom: 80px !important;
-  background-color: #90b204 !important;
+  background-color: rgba(144,178,4,0.9)!important;
 }
 
 .navbar-brand {

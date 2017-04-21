@@ -46,9 +46,9 @@ class NewTreeForm extends React.Component {
     })
     .then(res => res.json())
     .then(res => {
-      this.props.onHide;
       hashHistory.push('/Story/' + res._id + "/" + res.chunk);
-    });
+    })
+    .then(this.props.onHide);
   }
 
   render() {
