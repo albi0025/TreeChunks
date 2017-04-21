@@ -1,7 +1,9 @@
 import React from 'react';
 import { Panel, Button, Form } from 'react-bootstrap';
 import Chunks from './Chunks';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
+import NewChunkForm from './NewChunkForm';
+
 
 class Story extends React.Component {
 
@@ -9,24 +11,21 @@ class Story extends React.Component {
     super(props);
     this.state = {
       tree: {},
-      content: "",
       chunks: [],
       story: []
     };
     this.fetchTree = this.fetchTree.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.submitChunkHandler = this.submitChunkHandler.bind(this);
     this.getChunks = this.getChunks.bind(this);
-    this.prepareChunks = this.prepareChunks.bind(this);
+    this.prepareStory = this.prepareStory.bind(this);
   }
 
   componentWillMount(){
     this.fetchTree();
-    this.prepareChunks(this.props.params.chunkId, []);
+    this.prepareStory(this.props.params.chunkId, []);
   }
 
   componentWillReceiveProps(nextProps){
-    this.prepareChunks(nextProps.params.chunkId, []);
+    this.prepareStory(nextProps.params.chunkId, []);
     this.getChunks(nextProps.params.chunkId);
   }
 
@@ -46,10 +45,6 @@ class Story extends React.Component {
     }).then(()=>{this.getChunks(this.state.tree.chunk._id);});
   }
 
-  handleContentChange(e) {
-    this.setState({content: e.target.value});
-  }
-
   getChunks(chunkId){
     fetch("/getChunks/" + chunkId,{
       method:"GET",
@@ -62,7 +57,7 @@ class Story extends React.Component {
     .then(data => this.setState({chunks: data}));
   }
 
-  prepareChunks(chunkId, story){
+  prepareStory(chunkId, story){
     fetch("/getStory/" + chunkId, {
       method:"GET",
       headers: {
@@ -72,40 +67,15 @@ class Story extends React.Component {
     })
     .then(result => result.json())
     .then(res => {
-      story.push(res.content + " ");
+      story.push(<Link key={res._id} className="storyChunk" to= {{pathname: '/Story/' + this.state.treeId + '/' + res._id}}>{res.content+ " "}</Link>);
       if(typeof(res.parentchunk) == "string"){
-        this.prepareChunks(res.parentchunk, story);
+        this.prepareStory(res.parentchunk, story);
       } else {
         story.reverse();
         this.setState({
           story: story
         });
       }
-    });
-  }
-
-  submitChunkHandler(e){
-    e.preventDefault();
-    fetch("/newChunk",{
-      method:"POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        content: this.state.content,
-        parentchunk: this.props.params.chunkId
-      })
-    })
-    .then(res => res.json())
-    .then(res => {
-      let chunks = this.state.chunks;
-      chunks.push(res);
-      this.setState({
-        chunks: chunks,
-        content: ""
-      });
-      hashHistory.push('/Story/' + this.state.tree._id + "/" + res._id);
     });
   }
 
@@ -129,14 +99,10 @@ class Story extends React.Component {
         <Panel>
           {this.state.story}
         </Panel>
-        <Panel>
+        <div className="chunkDisplay">
+          <NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
           <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
-        </Panel>
-        <Form>
-          <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
-          <br/>
-          <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
-        </Form>
+        </div>
       </div>
       );}else{
       return (<div/>);

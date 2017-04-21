@@ -10,6 +10,22 @@ export default class TreeChunkStore {
     });
   }
 
+  fetchTree(){
+    fetch("/getTree/" + this.props.params.treeId, {
+      method:"GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(result => result.json())
+    .then(res => {
+      this.setState({
+        tree: res
+      });
+    }).then(()=>{this.getChunks(this.state.tree.chunk._id);});
+  }
+
   adjustPopularity(chunkId, adjust){
     fetch("/adjustChunk",{
       method:"PUT",

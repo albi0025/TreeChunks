@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 class Tree extends React.Component {
@@ -42,10 +42,10 @@ class Tree extends React.Component {
 
   render() {
     return (
-      <Panel key={this.props.tree._id}>
+      <Panel className="tree-panel" key={this.props.tree._id}>
         <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
           <div>
-            {this.props.tree.title}
+            <h2>{this.props.tree.title}</h2>
             <br/>
             {
               (this.checkUrl(this.props.tree.cover)) ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/> : ""
@@ -53,12 +53,17 @@ class Tree extends React.Component {
             <br/>
             {this.props.tree.chunk.content}
             <br/>
-            {this.props.tree.popularity}
+
           </div>
         </Link>
         <br/>
-        <Button onClick={this.upChunk}>Up</Button>
-        <Button onClick={this.downChunk}>Down</Button>
+        <div className="popularity">
+          <Glyphicon glyph="thumbs-up" onClick={this.upChunk}/>
+          <Badge>
+            {this.props.tree.popularity}
+          </Badge>
+          <Glyphicon glyph="thumbs-down" onClick={this.downChunk}/>
+        </div>
       </Panel>
     );
   }
