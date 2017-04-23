@@ -3,16 +3,22 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon, ButtonToolbar, 
 import NewTreeForm from './NewTreeForm';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router';
-
-
+import GoogleLogin from 'react-google-login';
+import { observer, inject } from 'mobx-react';
 
 class Navigation extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      lgShow: false
+      lgShow: false,
     };
+    this.googleLoginHandler = this.googleLoginHandler.bind(this);
+  }
+
+  googleLoginHandler(response) {
+    console.log(response.tokenId);
+    this.props.userStore.saveToken(response);
   }
 
   render(){
@@ -35,6 +41,18 @@ class Navigation extends React.Component {
               <ButtonToolbar>
                 <NewTreeForm show={this.state.lgShow} onHide={lgClose} />
               </ButtonToolbar>
+              {
+                this.props.userStore.loggedIn ?
+                <Button onClick={this.props.userStore.logout} className="navButton" bsStyle="primary">Logout</Button> :
+                <GoogleLogin
+                  clientId="99230059510-aspm1fbqomkv6k2qsa83oncoel5ibbv5.apps.googleusercontent.com"
+                  className="googlebtn"
+                  redirect_uri="https://mysterious-stream-55753.herokuapp.com/Dashboard"
+                  onSuccess={this.googleLoginHandler}
+                  onFailure={this.googleLoginHandler}>
+                  <span> Login with Google</span>
+                </GoogleLogin>
+             }
             </NavItem>
           </Nav>
         </Navbar>
@@ -44,7 +62,8 @@ class Navigation extends React.Component {
 }
 
 Navigation.propTypes = {
-  children: React.PropTypes.object
+  children: React.PropTypes.object,
+  userStore: React.PropTypes.object
 };
 
-export default Navigation;
+export default inject("userStore")(observer(Navigation));
