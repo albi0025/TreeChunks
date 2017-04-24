@@ -59,6 +59,7 @@ if (PROD) {
 
 app.use('/', treeRoutes);
 app.use('/', chunkRoutes);
+app.use('/', userRoutes);
 
 // app.use('/user', userRoutes);
 
