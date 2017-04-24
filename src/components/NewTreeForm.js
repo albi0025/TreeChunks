@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { hashHistory } from 'react-router';
+import { observer, inject } from 'mobx-react';
 
 class NewTreeForm extends React.Component {
 
@@ -41,7 +42,9 @@ class NewTreeForm extends React.Component {
       body: JSON.stringify({
         content: this.state.content,
         title: this.state.title,
-        cover: this.state.cover
+        cover: this.state.cover,
+        owner: this.props.userStore.user._id,
+        date: new Date()
       })
     })
     .then(res => res.json())
@@ -79,7 +82,8 @@ class NewTreeForm extends React.Component {
 NewTreeForm.propTypes = {
   onHide: React.PropTypes.func,
   content: React.PropTypes.string,
-  popularity: React.PropTypes.number
+  popularity: React.PropTypes.number,
+  userStore: React.PropTypes.object
 };
 
-export default NewTreeForm;
+export default inject("userStore")(observer(NewTreeForm));

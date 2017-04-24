@@ -10,12 +10,20 @@ body {
 
 .chunks{
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .chunk:first-child{
   min-width: 400px;
   background-color: darkseagreen;
+}
+
+.upchunked{
+  color: green;
+}
+
+.downchunked{
+  color: red;
 }
 
 .chunkDisplay {
@@ -72,6 +80,7 @@ body {
 .navbar {
   margin-bottom: 0px !important;
   background-color: rgba(144,178,4,0.9)!important;
+  border-radius: 0px !important;
 }
 
 .navbar-brand {

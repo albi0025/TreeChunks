@@ -16,6 +16,8 @@ chunkRoutes.post('/newChunk', function(req, res) {
   chunk.parentchunk = req.body.parentchunk;
   chunk.content = req.body.content;
   chunk.popularity = 0;
+  chunk.owner = req.body.owner;
+  chunk.date = req.body.date;
 
   chunk.save(function(err, chunk){
     if(err){
@@ -45,6 +47,5 @@ chunkRoutes.get('/getChunks/:parentId', function(req, res) {
     }
   });
 });
-
 
 export default chunkRoutes;

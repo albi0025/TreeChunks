@@ -1,8 +1,10 @@
 import React from 'react';
 import { Form, Button} from 'react-bootstrap';
 import { hashHistory } from 'react-router';
+import { observer, inject } from 'mobx-react';
 
-class Tree extends React.Component {
+
+class NewChunkForm extends React.Component {
 
   constructor() {
     super();
@@ -28,7 +30,9 @@ class Tree extends React.Component {
       },
       body: JSON.stringify({
         content: this.state.content,
-        parentchunk: this.props.chunkId
+        parentchunk: this.props.chunkId,
+        owner: this.props.userStore.user._id,
+        date: new Date()
       })
     })
     .then(res => res.json())
@@ -51,9 +55,10 @@ class Tree extends React.Component {
   }
 }
 
-Tree.propTypes = {
+NewChunkForm.propTypes = {
   chunkId: React.PropTypes.string,
-  treeId: React.PropTypes.string
+  treeId: React.PropTypes.string,
+  userStore: React.PropTypes.object
 };
 
-export default Tree;
+export default inject("userStore")(observer(NewChunkForm));

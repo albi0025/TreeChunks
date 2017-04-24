@@ -17,7 +17,6 @@ class Navigation extends React.Component {
   }
 
   googleLoginHandler(response) {
-    console.log(response);
     this.props.userStore.saveToken(response);
   }
 
@@ -42,9 +41,9 @@ class Navigation extends React.Component {
                 <NewTreeForm show={this.state.lgShow} onHide={lgClose} />
               </ButtonToolbar>
               {
-                this.props.userStore.loggedIn ?
-                <Button onClick={this.props.userStore.logout} className="navButton" bsStyle="primary">Logout</Button> :
-                <GoogleLogin
+                this.props.userStore.loggedIn
+                ? <Button onClick={this.props.userStore.logout} className="navButton" bsStyle="primary">Logout</Button>
+                : <GoogleLogin
                   clientId="99230059510-aspm1fbqomkv6k2qsa83oncoel5ibbv5.apps.googleusercontent.com"
                   className="googlebtn"
                   redirect_uri="https://mysterious-stream-55753.herokuapp.com/Dashboard"

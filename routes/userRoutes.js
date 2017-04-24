@@ -43,6 +43,45 @@ userRoutes.post('/newUser', function(req, res) {
   });
 });
 
+userRoutes.put('/flagUpChunk', function(req, res) {
+  User.update({ _id: req.body.userId }, { $push: { upchunks: req.body.chunkId }}, function(err, raw) {
+    if(err){
+      console.log("error up chunking " + err);
+    } else {
+      res.json(req.body.chunkId);
+    }
+  });
+});
+
+userRoutes.put('/unFlagUpChunk', function(req, res) {
+  User.update({ _id: req.body.userId }, { $pull: { upchunks: req.body.chunkId }}, function(err, raw) {
+    if(err){
+      console.log("error un chunking " + err);
+    } else {
+      res.json(req.body.chunkId);
+    }
+  });
+});
+
+userRoutes.put('/flagDownChunk', function(req, res) {
+  User.update({ _id: req.body.userId }, { $push: { downchunks: req.body.chunkId }}, function(err, raw) {
+    if(err){
+      console.log("error downchunking " + err);
+    } else {
+      res.json(req.body.chunkId);
+    }
+  });
+});
+
+userRoutes.put('/unFlagDownChunk', function(req, res) {
+  User.update({ _id: req.body.userId }, { $pull: { downchunks: req.body.chunkId }}, function(err, raw) {
+    if(err){
+      console.log("error undownchunking " + err);
+    } else {
+      res.json(req.body.chunkId);
+    }
+  });
+});
 //---------Start middleware--------------------
 
 // route middleware to verify a token
@@ -98,14 +137,14 @@ userRoutes.post('/newUser', function(req, res) {
 //   });
 // });
 //
-// userRoutes.get('/userData', function(req, res, next) {
-//   User.findOne({ _id: req.currentUser._id }).populate('pets').exec(function (err, user) {
-//     if(err) {
-//       return next(err);
-//     } else {
-//       res.json(user);
-//     }
-//   });
-// });
+userRoutes.get('/getUser/:email', function(req, res, next) {
+  User.findOne({ email: req.params.email }, function (err, user) {
+    if(err) {
+      return next(err);
+    } else {
+      res.json(user);
+    }
+  });
+});
 
 export default userRoutes;
