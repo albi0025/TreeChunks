@@ -85,21 +85,30 @@ class Story extends React.Component {
 
   render() {
     if(this.state.tree.chunk){
+      let coverImage = (this.checkUrl(this.state.tree.cover))
+      ? this.state.tree.cover
+      : "/images/coverlogo.png";
+
       return (
-      <div key={this.state.tree._id}>
-          <h2>{this.state.tree.title}</h2>
-          {
-            (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
-          }
-          <div className="popularity">
-            <Badge>{this.state.tree.popularity}</Badge>
+      <div key={this.state.tree._id} className= "container-fluid story-background-image"
+      style={{backgroundImage: "url("+coverImage+")"}} >
+        <div className="container-fluid story-background-gradient">
+          <div className="story-content">
+            <h2>{this.state.tree.title}</h2>
+            {
+              (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
+            }
+            <div className="popularity">
+              <Badge>{this.state.tree.popularity}</Badge>
+            </div>
+            <Panel>
+              {this.state.story}
+            </Panel>
+            <div className="chunkDisplay">
+              <NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
+              <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
+            </div>
           </div>
-        <Panel>
-          {this.state.story}
-        </Panel>
-        <div className="chunkDisplay">
-          <NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
-          <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
         </div>
       </div>
       );}else{
