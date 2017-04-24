@@ -13,6 +13,7 @@ export default class UserStore {
     this.checkCookie = this.checkCookie.bind(this);
     this.logout = this.logout.bind(this);
     this.saveToken = this.saveToken.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   // getUserFromDb() {
@@ -53,10 +54,22 @@ export default class UserStore {
     }
   }
 
+  createUser() {
+    fetch('/newUser', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getCookie('token')
+      }
+    });
+  }
+
   saveToken(response) {
     if(response.tokenId) {
       document.cookie = "token=" + response.tokenId;
       this.loggedIn = true;
+      this.createUser();
     } else{
       this.loggedIn = false;
     }
@@ -65,7 +78,7 @@ export default class UserStore {
   logout(e) {
     document.cookie = "token=";
     this.loggedIn = false;
-    hashHistory.replace('/#');
+    // hashHistory.replace('/#');
   }
 
 }

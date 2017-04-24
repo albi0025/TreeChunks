@@ -17,7 +17,7 @@ class Navigation extends React.Component {
   }
 
   googleLoginHandler(response) {
-    console.log(response.tokenId);
+    console.log(response);
     this.props.userStore.saveToken(response);
   }
 
