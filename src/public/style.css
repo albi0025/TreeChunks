@@ -3,6 +3,20 @@ body {
   background-size: 100%;
 }
 
+.storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
+  font-size: 24px;
+  font-weight: 800;
+  color: black;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.storyChunk:hover{/*changes the deco and color of hover.. lets change this to story-chunk*/
+  font-size: 32px;
+  text-decoration: none;
+  text-shadow: 0px 0px 1px green;
+}
+
 .chunk{
   min-width: 200px;
   margin-left: 15px;
@@ -10,7 +24,7 @@ body {
 
 .chunks{
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .chunk:first-child{
@@ -18,8 +32,20 @@ body {
   background-color: darkseagreen;
 }
 
+.upchunked{
+  color: green;
+}
+
+.downchunked{
+  color: red;
+}
+
 .chunkDisplay {
   display: flex;
+}
+
+.tree-info{
+  display: flex; /*need this for top part of story page*/
 }
 
 .title-popularity {
@@ -30,12 +56,15 @@ body {
 .popularity {
   display: flex;
   font-size: 20px;
+  height: 25px;
 }
 
 .badge {
   line-height: normal !important;
   margin: 0px 10px 0px 10px;
   background-color: darkgreen !important;
+  height: 25px; /*badge looks weird with current style*/
+  width: 25px;
 }
 
 .tree-panel {
@@ -49,11 +78,41 @@ body {
   padding: 0 !important;
 }
 
+.story-background-image {
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  height: 100vh;
+  background-position: 40px center;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.story-background-gradient{
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,.9), rgba(255,255,255,.5),rgba(255,255,255,.9), rgba(255,255,255,1));
+  margin: 0px !important;
+  padding: 0px !important;
+  height: 100vh;
+}
+
+.story-content, .tree-list-content {
+  margin-top: 80px;
+}
+
+.story-content-top {
+  display: flex;
+}
+
 .navbar {
-  margin-bottom: 80px !important;
+  margin-bottom: 0px !important;
   background-color: rgba(144,178,4,0.9)!important;
+  border-radius: 0px !important;
 }
 
 .navbar-brand {
   padding: 7px !important;
+}
+
+.navbar-collapse.collapse.in{
+  border: none;
+  text-align: right;
 }

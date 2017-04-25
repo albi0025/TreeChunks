@@ -41,11 +41,9 @@ class Trees extends React.Component {
 
 
   render() {
-    let trees = this.prepareTrees();
-
     return (
       <div>
-        {trees}
+        {this.prepareTrees()}
       </div>
     );
   }
