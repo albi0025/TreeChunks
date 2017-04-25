@@ -86,3 +86,12 @@ body {
 .navbar-brand {
   padding: 7px !important;
 }
+
+.navbar-collapse.collapse.in{ /* this is for the styling in the collapsed view of the navbar*/
+  border: none;
+  text-align: right;
+}
+.navbar-collapse.collapsing{
+  border: none;
+  text-align: right;
+}

@@ -19,11 +19,9 @@ app.set('superSecret', configAuth.secret);
 userRoutes.post('/newUser', function(req, res) {
   let token = req.headers.authorization.replace("Bearer", "").trim();
   let decoded = jwt.decode(token);
-  User.findOne({ email: decoded.email }, function (err, user) {
+  User.findOne({ email: decoded.email }, function (err, user, next) {
     if(err) {
-      let user = new User();
-      user.name = decoded.given_name;
-      user.email = decoded.email;
+      return next(err);
     } else {
       if(user == null) {
         let user = new User();

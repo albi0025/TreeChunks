@@ -6,11 +6,11 @@ import { observer, inject } from 'mobx-react';
 
 class Chunk extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      chunk: {},
-      popularity: null
+      chunk: this.props.chunk,
+      popularity: this.props.chunk.popularity
     };
 
     this.upChunk = this.upChunk.bind(this);
@@ -19,13 +19,7 @@ class Chunk extends React.Component {
     this.downChunk = this.downChunk.bind(this);
     this.adjustPopularity = this.adjustPopularity.bind(this);
     this.checkForUpChunk = this.checkForUpChunk.bind(this);
-  }
-
-  componentWillMount(){
-    this.setState({
-      chunk: this.props.chunk,
-      popularity: this.props.chunk.popularity
-    });
+    this.checkForDownChunk = this.checkForDownChunk.bind(this);
   }
 
   adjustPopularity(chunkId, adjust){
@@ -87,15 +81,18 @@ class Chunk extends React.Component {
   }
 
   render() {
-    let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked" onClick={this.upChunk}/>;
-    if(this.checkForUpChunk()){
-      thumbUpButton = <Glyphicon glyph="thumbs-up" className="upchunked" onClick={this.unUpChunk}/>;
+    let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
+    let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
+    if(this.props.userStore.loggedIn){  // We cannot run these chuckforchunk functions if there is no user. need to check}
+      thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked" onClick={this.upChunk}/>;
+      if(this.checkForUpChunk()){
+        thumbUpButton = <Glyphicon glyph="thumbs-up" className="upchunked" onClick={this.unUpChunk}/>;
+      }
+      thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked" onClick={this.downChunk}/>;
+      if(this.checkForDownChunk()){
+        thumbDownButton = <Glyphicon glyph="thumbs-down" className="downchunked" onClick={this.unDownChunk}/>;
+      }
     }
-    let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked" onClick={this.downChunk}/>;
-    if(this.checkForDownChunk()){
-      thumbDownButton = <Glyphicon glyph="thumbs-down" className="downchunked" onClick={this.unDownChunk}/>;
-    }
-
     if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
@@ -103,19 +100,17 @@ class Chunk extends React.Component {
           {this.state.chunk.content}</Link>
         <br/>
         <div className="popularity">
-        {this.props.userStore.loggedIn ? thumbUpButton : <Glyphicon glyph="thumbs-up" className="unchunked"/>}
-          <Badge>
-            {this.state.popularity}
-          </Badge>
-        {this.props.userStore.loggedIn ? thumbDownButton : <Glyphicon glyph="thumbs-down" className="unchunked"/>}
-
+          {thumbUpButton} {/*All we need here is a call to the button. logic above*/}
+            <Badge>
+              {this.state.popularity}
+            </Badge>
+          {thumbDownButton}
         </div>
         </Panel>
       );
     }else{
       return (<div/>);
     }
-
   }
 }
 

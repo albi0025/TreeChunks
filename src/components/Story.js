@@ -88,19 +88,18 @@ class Story extends React.Component {
       let coverImage = (this.checkUrl(this.state.tree.cover))
       ? this.state.tree.cover
       : "/images/coverlogo.png";
-
       return (
       <div key={this.state.tree._id} className= "container-fluid story-background-image"
       style={{backgroundImage: "url("+coverImage+")"}} >
         <div className="container-fluid story-background-gradient">
-          <div className="story-content">
-            <h2>{this.state.tree.title}</h2>
-            {
-              (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
-            }
-            <div className="popularity">
-              <Badge>{this.state.tree.popularity}</Badge>
+          <div className="story-content container-fluid"> {/*}add container-fluid here*/}
+            <div className="tree-info">
+              <h2>{this.state.tree.title}</h2>
+              <div className="popularity">
+                <Badge>{this.state.tree.popularity}</Badge>
+              </div>
             </div>
+            {/* Cackie had an idea to remove this.  <img src={coverImage} alt="Cover" height="200" width="150"/> /*}We can turn this into one line now that the logic is above.*/}
             <Panel>
               {this.state.story}
             </Panel>
