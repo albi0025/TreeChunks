@@ -69,13 +69,15 @@ class Chunk extends React.Component {
   }
 
   checkForUpChunk(){
-    return this.props.userStore.user.upchunks.find((chunk) => {
+    let upchunks = this.props.userStore.user.upchunks || [];
+    return upchunks.find((chunk) => {
       return (this.props.chunk._id == chunk);
     });
   }
 
   checkForDownChunk(){
-    return this.props.userStore.user.downchunks.find((chunk) => {
+    let downchunks = this.props.userStore.user.downchunks || [];
+    return downchunks.find((chunk) => {
       return (this.props.chunk._id == chunk);
     });
   }
