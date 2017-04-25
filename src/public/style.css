@@ -1,6 +1,10 @@
 body {
-  background-color: #dbdbdb;
   background-size: 100%;
+  background-color: rgb(229, 229, 229);
+}
+
+#app {
+  background-color: rgb(229, 229, 229);
 }
 
 .storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
@@ -80,10 +84,22 @@ body {
 }
 
 .tree-panel {
+  width: 80vw;
+  margin: auto;
   -webkit-box-shadow: 3px 5px 5px 0px rgba(0,0,0,0.29) !important;
   -moz-box-shadow: 3px 5px 5px 2px rgba(0,0,0,0.29) !important;
   box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.27) !important;
 }
+
+.trees-display {
+  display: flex;
+}
+.tree-columns {
+  width: 30%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 
 .logo .container {
   margin: 0 !important;
@@ -116,11 +132,8 @@ body {
 
 .navbar {
   margin-bottom: 0px !important;
+  background-color: rgba(144,178,4,0.8)!important;
   border-radius: 0px !important;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-  background-color: rgba(255,255,255,0.3) !important;
-  border-color: #9bba1d !important;
-  border-style: dashed !important;
 }
 
 .navbar-brand {
@@ -128,6 +141,11 @@ body {
 }
 
 .navbar-collapse.collapse.in{
+  border: none;
+  text-align: right;
+}
+
+.navbar-collapse.collapsing{
   border: none;
   text-align: right;
 }

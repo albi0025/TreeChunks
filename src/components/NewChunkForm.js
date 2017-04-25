@@ -37,9 +37,22 @@ class NewChunkForm extends React.Component {
     })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       this.setState({
         content: ""
       });
+      fetch("/newChildChunk",{
+        method:"PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          parentId: this.props.chunkId,
+          childId: res._id
+        })
+      });
+
       hashHistory.push('/Story/' + this.props.treeId + "/" + res._id);
     });
   }

@@ -28,6 +28,16 @@ chunkRoutes.post('/newChunk', function(req, res) {
   });
 });
 
+chunkRoutes.put('/newChildChunk', function(req, res) {
+  Chunk.update({ _id: req.body.parentId }, { $push: { children: req.body.childId }}, function(err, raw) {
+    if(err){
+      console.log("error adding child " + err);
+    } else {
+      res.json(req.body.childId);
+    }
+  });
+});
+
 chunkRoutes.get('/getStory/:chunkid', function(req, res, next) {
   Chunk.findById(req.params.chunkid, function(err, chunk){
     if(err){

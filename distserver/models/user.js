@@ -3,14 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var mongoose = require("mongoose");
 
-var UserSchema = new mongoose.Schema({
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserSchema = new _mongoose2.default.Schema({
   name: String,
-  password: String,
   email: String,
-  subscribed: { type: Boolean, default: false },
-  pets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pet' }]
+  upchunks: [{ type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Chunk' }],
+  downchunks: [{ type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Chunk' }],
+  trees: [{ type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Tree' }]
 });
 
-exports.default = mongoose.model('User', UserSchema);
+exports.default = _mongoose2.default.model('User', UserSchema);

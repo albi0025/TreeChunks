@@ -34,6 +34,8 @@ treeRoutes.post('/newTree', function (req, res) {
   var chunk = new _chunk2.default();
   chunk.content = req.body.content;
   chunk.popularity = 0;
+  chunk.owner = req.body.owner;
+  chunk.date = req.body.date;
 
   chunk.save(function (err, chunk) {
     if (err) {
@@ -44,6 +46,8 @@ treeRoutes.post('/newTree', function (req, res) {
       tree.chunk = chunk._id;
       tree.cover = req.body.cover;
       tree.popularity = 0;
+      tree.owner = req.body.owner;
+      tree.date = req.body.date;
       tree.save(function (err, tree) {
         if (err) {
           res.send(err);

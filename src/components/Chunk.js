@@ -85,7 +85,7 @@ class Chunk extends React.Component {
   render() {
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
     let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
-    if(this.props.userStore.loggedIn){  // We cannot run these chuckforchunk functions if there is no user. need to check}
+    if(this.props.userStore.loggedIn){
       thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked" onClick={this.upChunk}/>;
       if(this.checkForUpChunk()){
         thumbUpButton = <Glyphicon glyph="thumbs-up" className="upchunked" onClick={this.unUpChunk}/>;

@@ -105,6 +105,7 @@ if (PROD) {
 
 app.use('/', _treeRoutes2.default);
 app.use('/', _chunkRoutes2.default);
+app.use('/', _userRoutes2.default);
 
 // app.use('/user', userRoutes);
 

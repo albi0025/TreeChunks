@@ -20,6 +20,8 @@ export default class UserStore {
     this.flagUserDownChunk = this.flagUserDownChunk.bind(this);
     this.unFlagUserDownChunk = this.unFlagUserDownChunk.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.followTree = this.followTree.bind(this);
+    this.unFollowTree = this.unFollowTree.bind(this);
   }
 
   flagUserUpChunk(chunkId){
@@ -89,6 +91,41 @@ export default class UserStore {
     .then(res => {
       let chunkPosition = this.user.downchunks.indexOf(chunkId);
       this.user.downchunks.splice(chunkPosition, 1);
+    });
+  }
+
+  followTree(treeId){
+    fetch("/followTree",{
+      method:"PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        // 'Authorization': 'Bearer ' + this.getCookie('token')
+      },
+      body: JSON.stringify({
+        treeId: treeId,
+        userId: this.user._id
+      })
+    })
+    .then(res => { this.user.trees.push(treeId);});
+  }
+
+  unFollowTree(treeId){
+    fetch("/unFollowTree",{
+      method:"PUT",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        // 'Authorization': 'Bearer ' + this.getCookie('token')
+      },
+      body: JSON.stringify({
+        treeId: treeId,
+        userId: this.user._id
+      })
+    })
+    .then(res => {
+      let treePosition = this.user.trees.indexOf(treeId);
+      this.user.trees.splice(treePosition, 1);
     });
   }
   // getUserFromDb() {
