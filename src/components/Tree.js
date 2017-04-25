@@ -62,37 +62,42 @@ class Tree extends React.Component {
   render() {
     let followButton = "";
     if(this.props.userStore.loggedIn){
-      followButton = (<Button onClick={this.handleTreeFollow}>Follow Tree</Button>);
+      followButton = (<Button onClick={this.handleTreeFollow}>Follow <Glyphicon style={{color: "gold", fontSize: "18px"}} glyph="star"/></Button>);
       if(this.checkForFollowing()){
         followButton = (<Button onClick={this.handleTreeUnFollow}>Un Follow Tree</Button>);
       }
     }
     return (
       <Panel className="tree-panel" key={this.props.tree._id}>
-        <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-          <div>
-            <h2>{this.props.tree.title}</h2>
-            <br/>
+        <div className="trees-display">
+          <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
+          <div className="tree-columns">
             {
               (this.checkUrl(this.props.tree.cover))
               ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/>
               : <img src="/images/coverlogo.png" height="200" width="150"/>
             }
-            <br/>
-            {this.props.tree.chunk.content}
-            <br/>
-
           </div>
-        </Link>
-        <br/>
-        <div className="popularity">
-          <Glyphicon glyph="thumbs-up" onClick={this.upChunk}/>
-          <Badge>
-            {this.props.tree.popularity}
-          </Badge>
-          <Glyphicon glyph="thumbs-down" onClick={this.downChunk}/>
+          </Link>
+          <div className="tree-columns">
+          <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
+            <h3>{this.props.tree.title}</h3></Link>
+            <p>most popular thread </p>
+            <p>overall rating 1 million</p>
+            <p><Glyphicon glyph="pencil" /> {this.props.userStore.user.name}</p>
+            {followButton}
+          </div>
+          <div className="tree-columns">
+            {this.props.tree.chunk.content}
+          </div>
+          <div className="popularity">
+            <Glyphicon glyph="thumbs-up" onClick={this.upChunk}/>
+            <Badge>
+              {this.props.tree.popularity}
+            </Badge>
+            <Glyphicon glyph="thumbs-down" onClick={this.downChunk}/>
+          </div>
         </div>
-        {followButton}
       </Panel>
     );
   }
