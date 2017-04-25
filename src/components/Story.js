@@ -3,6 +3,7 @@ import { Panel, Button, Form, Badge } from 'react-bootstrap';
 import Chunks from './Chunks';
 import { hashHistory, Link } from 'react-router';
 import NewChunkForm from './NewChunkForm';
+import { observer, inject } from 'mobx-react';
 
 
 class Story extends React.Component {
@@ -92,21 +93,20 @@ class Story extends React.Component {
       <div key={this.state.tree._id} className= "container-fluid story-background-image"
       style={{backgroundImage: "url("+coverImage+")"}} >
         <div className="container-fluid story-background-gradient">
-          <div className="story-content container-fluid"> {/*}add container-fluid here*/}
+          <div className="story-content container-fluid">
             <div className="tree-info">
               <h2>{this.state.tree.title}</h2>
               <div className="popularity">
                 <Badge>{this.state.tree.popularity}</Badge>
               </div>
-              <Button>
-                Follow Tree
-              </Button>
             </div>
             <Panel>
               {this.state.story}
             </Panel>
             <div className="chunkDisplay">
-              <NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
+              {(this.props.userStore.loggedIn)
+              ?<NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
+              : ""}
               <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
             </div>
           </div>
@@ -119,7 +119,8 @@ class Story extends React.Component {
 }
 
 Story.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  userStore: React.PropTypes.object
 };
 
-export default Story;
+export default inject("userStore")(observer(Story));
