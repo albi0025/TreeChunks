@@ -47,6 +47,11 @@ class Navigation extends React.Component {
               </Button>
             </NavItem>
             <NavItem>
+              <Button className="user-dashboard-link" href="/UserDashboard">
+                <Link to={{ pathname: '/UserDashboard' }}>Dashboard</Link>
+              </Button>
+            </NavItem>
+            <NavItem>
               <ButtonToolbar>
                 <NewTreeForm show={this.state.lgShow} onHide={lgClose} />
               </ButtonToolbar>

@@ -1,8 +1,8 @@
 import React from 'react';
 import Tree from './Tree';
 
-class Trees extends React.Component {
 
+class UserDashboard extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -41,17 +41,19 @@ class Trees extends React.Component {
 
 
   render() {
+    let trees = this.prepareTrees();
+
     return (
       <div>
-        {this.prepareTrees()}
+        {trees}
       </div>
     );
   }
 }
 
-Trees.propTypes = {
+UserDashboard.propTypes = {
   content: React.PropTypes.string,
   popularity: React.PropTypes.number
 };
 
-export default Trees;
+export default UserDashboard;
