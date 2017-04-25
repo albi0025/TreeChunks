@@ -112,12 +112,7 @@ body {
   padding: 7px !important;
 }
 
-.navbar-collapse.collapse.in{ /* this is for the styling in the collapsed view of the navbar*/
-  border: none;
-  text-align: right;
-}
-
-.navbar-collapse.collapsing{
+.navbar-collapse.collapse.in{
   border: none;
   text-align: right;
 }

@@ -20,7 +20,6 @@ class Chunks extends React.Component {
 
 
   render() {
-    // let chunks = this.prepareChunks(); //We dont need this line.  Can just call the prepareChunks from below
     return (
       <div className="chunks">
         {this.prepareChunks()}

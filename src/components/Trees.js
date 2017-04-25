@@ -43,8 +43,6 @@ class Trees extends React.Component {
 
 
   render() {
-    // let trees = this.prepareTrees();  Same thing as in Chunks we can call the function directly in the return
-
     return (
       <div>
         {this.prepareTrees()}

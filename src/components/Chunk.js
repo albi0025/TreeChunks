@@ -9,7 +9,7 @@ class Chunk extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chunk: this.props.chunk,  //We can set the initial state directly in the constructor, just need to pass props to constructor and super
+      chunk: this.props.chunk,
       popularity: this.props.chunk.popularity
     };
 
@@ -19,14 +19,7 @@ class Chunk extends React.Component {
     this.downChunk = this.downChunk.bind(this);
     this.adjustPopularity = this.adjustPopularity.bind(this);
     this.checkForUpChunk = this.checkForUpChunk.bind(this);
-    this.checkForDownChunk = this.checkForDownChunk.bind(this);  //We missed this bind
-  }
-
-  componentWillMount(){
-    // this.setState({
-    //   chunk: this.props.chunk,
-    //   popularity: this.props.chunk.popularity
-    // });
+    this.checkForDownChunk = this.checkForDownChunk.bind(this);
   }
 
   adjustPopularity(chunkId, adjust){
@@ -76,13 +69,15 @@ class Chunk extends React.Component {
   }
 
   checkForUpChunk(){
-    return this.props.userStore.user.upchunks.find((chunk) => {
+    let upchunks = this.props.userStore.user.upchunks || [];
+    return upchunks.find((chunk) => {
       return (this.props.chunk._id == chunk);
     });
   }
 
   checkForDownChunk(){
-    return this.props.userStore.user.downchunks.find((chunk) => {
+    let downchunks = this.props.userStore.user.downchunks || [];
+    return downchunks.find((chunk) => {
       return (this.props.chunk._id == chunk);
     });
   }
@@ -100,7 +95,6 @@ class Chunk extends React.Component {
         thumbDownButton = <Glyphicon glyph="thumbs-down" className="downchunked" onClick={this.unDownChunk}/>;
       }
     }
-
     if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
