@@ -16,6 +16,12 @@ class Navigation extends React.Component {
     this.googleLoginHandler = this.googleLoginHandler.bind(this);
   }
 
+  componentDidMount() {
+    if(this.props.userStore.loggedIn){
+      this.props.userStore.getUser();
+    }
+  }
+
   googleLoginHandler(response) {
     this.props.userStore.saveToken(response);
   }
@@ -25,9 +31,13 @@ class Navigation extends React.Component {
     return(
       <div>
         <Navbar className="logo" fluid>
-          <Navbar .Brand>
-            <Link  to= {{pathname: '/trees'}}><img src="/images/treechunklogo2.png" width="150"/></Link>
-          </Navbar .Brand>
+          <Navbar .Header>
+            <Navbar .Brand>
+              <Link  to= {{pathname: '/trees'}}><img src="/images/treechunklogo2.png" width="150"/></Link>
+            </Navbar .Brand>
+          <Navbar .Toggle />
+          </Navbar .Header>
+          <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
           <Nav pullRight>
             <NavItem>
               <Button onClick={()=> {
@@ -54,6 +64,7 @@ class Navigation extends React.Component {
              }
             </NavItem>
           </Nav>
+          </Navbar .Collapse>
         </Navbar>
         {this.props.children}
       </div>

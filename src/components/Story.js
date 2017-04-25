@@ -19,18 +19,18 @@ class Story extends React.Component {
     this.prepareStory = this.prepareStory.bind(this);
   }
 
-  componentWillMount(){
-    this.fetchTree();
+  componentWillMount(){ //need to change this as well
+    this.fetchTree(this.props.params.treeId, this.props.params.chunkId);
     this.prepareStory(this.props.params.chunkId, []);
   }
 
   componentWillReceiveProps(nextProps){
+    this.fetchTree(nextProps.params.treeId, nextProps.params.chunkId);
     this.prepareStory(nextProps.params.chunkId, []);
-    this.getChunks(nextProps.params.chunkId);
   }
 
-  fetchTree(){
-    fetch("/getTree/" + this.props.params.treeId, {
+  fetchTree(treeId, chunkId){  //Need to change this so refresh works correct
+    fetch("/getTree/" + treeId, {
       method:"GET",
       headers: {
         "Accept": "application/json",
@@ -42,7 +42,7 @@ class Story extends React.Component {
       this.setState({
         tree: res
       });
-    }).then(()=>{this.getChunks(this.state.tree.chunk._id);});
+    }).then(()=>{this.getChunks(chunkId);});
   }
 
   getChunks(chunkId){
@@ -66,8 +66,8 @@ class Story extends React.Component {
       }
     })
     .then(result => result.json())
-    .then(res => {
-      story.push(<Link key={res._id} className="storyChunk" to= {{pathname: '/Story/' + this.state.treeId + '/' + res._id}}>{res.content+ " "}</Link>);
+    .then(res => {                                                                        //tree._id here no state
+      story.push(<Link key={res._id} className="storyChunk" to= {{pathname: '/Story/' + this.state.tree._id+ '/' + res._id}}>{res.content+ " "}</Link>);
       if(typeof(res.parentchunk) == "string"){
         this.prepareStory(res.parentchunk, story);
       } else {
@@ -93,13 +93,12 @@ class Story extends React.Component {
       <div key={this.state.tree._id} className= "container-fluid story-background-image"
       style={{backgroundImage: "url("+coverImage+")"}} >
         <div className="container-fluid story-background-gradient">
-          <div className="story-content">
-            <h2>{this.state.tree.title}</h2>
-            {
-              (this.checkUrl(this.state.tree.cover)) ? <img src={this.state.tree.cover} alt="Cover" height="200" width="150"/> : ""
-            }
-            <div className="popularity">
-              <Badge>{this.state.tree.popularity}</Badge>
+          <div className="story-content container-fluid"> {/*}add container-fluid here*/}
+            <div className="tree-info">
+              <h2>{this.state.tree.title}</h2>
+              <div className="popularity">
+                <Badge>{this.state.tree.popularity}</Badge>
+              </div>
             </div>
             <Panel>
               {this.state.story}

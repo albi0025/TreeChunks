@@ -125,6 +125,7 @@ export default class UserStore {
     if (token === "") {
       return false;
     } else {
+      // this.getUser(token)
       return true;
     }
   }
@@ -140,12 +141,13 @@ export default class UserStore {
     });
   }
 
-  getUser(email){
-    fetch('/getUser/'+ email,{
+  getUser(){
+    fetch('/getUser',{
       method: 'GET',
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + this.getCookie('token')
       }
     })
     .then(result => result.json())
@@ -157,7 +159,7 @@ export default class UserStore {
       document.cookie = "token=" + response.tokenId;
       this.loggedIn = true;
       this.createUser();
-      this.getUser(response.profileObj.email);
+      this.getUser();
     } else{
       this.loggedIn = false;
     }

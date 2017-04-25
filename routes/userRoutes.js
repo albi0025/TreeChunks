@@ -137,8 +137,10 @@ userRoutes.put('/unFlagDownChunk', function(req, res) {
 //   });
 // });
 //
-userRoutes.get('/getUser/:email', function(req, res, next) {
-  User.findOne({ email: req.params.email }, function (err, user) {
+userRoutes.get('/getUser', function(req, res, next) {
+  let token = req.headers.authorization.replace("Bearer", "").trim();
+  let decoded = jwt.decode(token);
+  User.findOne({ email: decoded.email }, function (err, user) {
     if(err) {
       return next(err);
     } else {
