@@ -12,8 +12,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ChunkSchema = new _mongoose2.default.Schema({
   parentchunk: _mongoose2.default.Schema.Types.ObjectId,
+  children: [{ type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Chunk' }],
   content: String,
-  popularity: Number
+  popularity: Number,
+  owner: { type: _mongoose2.default.Schema.Types.ObjectId, ref: 'User' },
+  date: Date,
+  tags: String
 });
 
 exports.default = _mongoose2.default.model('Chunk', ChunkSchema);

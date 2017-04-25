@@ -14,7 +14,9 @@ var TreeSchema = new _mongoose2.default.Schema({
   title: String,
   chunk: { type: _mongoose2.default.Schema.Types.ObjectId, ref: 'Chunk' },
   cover: String,
-  popularity: Number
+  popularity: Number,
+  owner: { type: _mongoose2.default.Schema.Types.ObjectId, ref: 'User' },
+  date: Date
 });
 
 exports.default = _mongoose2.default.model('Tree', TreeSchema);

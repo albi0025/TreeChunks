@@ -35,12 +35,24 @@ chunkRoutes.post('/newChunk', function (req, res) {
   chunk.parentchunk = req.body.parentchunk;
   chunk.content = req.body.content;
   chunk.popularity = 0;
+  chunk.owner = req.body.owner;
+  chunk.date = req.body.date;
 
   chunk.save(function (err, chunk) {
     if (err) {
       res.send(err);
     } else {
       res.json(chunk);
+    }
+  });
+});
+
+chunkRoutes.put('/newChildChunk', function (req, res) {
+  _chunk2.default.update({ _id: req.body.parentId }, { $push: { children: req.body.childId } }, function (err, raw) {
+    if (err) {
+      console.log("error adding child " + err);
+    } else {
+      res.json(req.body.childId);
     }
   });
 });
