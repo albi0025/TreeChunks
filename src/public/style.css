@@ -20,16 +20,16 @@ body {
 .chunk{
   min-width: 200px;
   margin-left: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255,255,255,0.5) !important;
+  border-color: #9bba1d !important;
+  border-style: dashed !important;
 }
 
 .chunks{
   display: flex;
   overflow-x: auto;
-}
-
-.chunk:first-child{
-  min-width: 400px;
-  background-color: darkseagreen;
 }
 
 .upchunked{
@@ -57,6 +57,18 @@ body {
   display: flex;
   font-size: 20px;
   height: 25px;
+  justify-content: center;
+}
+
+.panel-body a{
+  font-size: large;
+  color: black;
+}
+
+.panel-body a:hover{
+  font-size: large;
+  color: black;
+  font-style: none;
 }
 
 .badge {
@@ -104,8 +116,11 @@ body {
 
 .navbar {
   margin-bottom: 0px !important;
-  background-color: rgba(144,178,4,0.9)!important;
   border-radius: 0px !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  background-color: rgba(255,255,255,0.3) !important;
+  border-color: #9bba1d !important;
+  border-style: dashed !important;
 }
 
 .navbar-brand {
