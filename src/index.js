@@ -8,6 +8,7 @@ import App from './components/App';
 import Navigation from './components/Navigation';
 import Story from './components/Story';
 import TreeChunkStore from './stores/TreeChunkStore';
+import UserDashboard from './components/UserDashboard';
 
 const userStore = new UserStore();
 const treeChunkStore = new TreeChunkStore();
@@ -17,6 +18,7 @@ render((
     <Router history={hashHistory}>
       <Route path="/" component={Navigation}>
         <IndexRoute component={App}/>
+        <Route path= "/UserDashboard" component={UserDashboard}/>
         <Route path= "/story/:treeId/:chunkId" component={Story}/>
         <Route path= "/trees" component={App}/>
       </Route>
