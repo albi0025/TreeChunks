@@ -98,8 +98,10 @@ class Story extends React.Component {
               <div className="popularity">
                 <Badge>{this.state.tree.popularity}</Badge>
               </div>
+              <Button>
+                Follow Tree
+              </Button>
             </div>
-            {/* Cackie had an idea to remove this.  <img src={coverImage} alt="Cover" height="200" width="150"/> /*}We can turn this into one line now that the logic is above.*/}
             <Panel>
               {this.state.story}
             </Panel>

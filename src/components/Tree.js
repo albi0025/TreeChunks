@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
+import { observer, inject } from 'mobx-react';
 
 class Tree extends React.Component {
 
@@ -12,6 +13,17 @@ class Tree extends React.Component {
     this.upChunk = this.upChunk.bind(this);
     this.downChunk = this.downChunk.bind(this);
     this.checkUrl = this.checkUrl.bind(this);
+    this.handleTreeFollow = this.handleTreeFollow.bind(this);
+    this.handleTreeUnFollow = this.handleTreeUnFollow.bind(this);
+    this.checkForFollowing = this.checkForFollowing.bind(this);
+  }
+
+  handleTreeFollow(){
+    this.props.userStore.followTree(this.props.tree._id);
+  }
+
+  handleTreeUnFollow(){
+    this.props.userStore.unFollowTree(this.props.tree._id);
   }
 
   adjustPopularity(treeId, adjust){
@@ -40,7 +52,21 @@ class Tree extends React.Component {
     return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
 
+  checkForFollowing(){
+    let trees = this.props.userStore.user.trees || [];
+    return trees.find((tree) => {
+      return (this.props.tree._id == tree);
+    });
+  }
+
   render() {
+    let followButton = "";
+    if(this.props.userStore.loggedIn){
+      followButton = (<Button onClick={this.handleTreeFollow}>Follow Tree</Button>);
+      if(this.checkForFollowing()){
+        followButton = (<Button onClick={this.handleTreeUnFollow}>Un Follow Tree</Button>);
+      }
+    }
     return (
       <Panel className="tree-panel" key={this.props.tree._id}>
         <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
@@ -66,13 +92,15 @@ class Tree extends React.Component {
           </Badge>
           <Glyphicon glyph="thumbs-down" onClick={this.downChunk}/>
         </div>
+        {followButton}
       </Panel>
     );
   }
 }
 
 Tree.propTypes = {
-  tree: React.PropTypes.object
+  tree: React.PropTypes.object,
+  userStore: React.PropTypes.object
 };
 
-export default Tree;
+export default inject("userStore")(observer(Tree));

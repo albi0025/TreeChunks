@@ -80,6 +80,26 @@ userRoutes.put('/unFlagDownChunk', function(req, res) {
     }
   });
 });
+
+userRoutes.put('/followTree', function(req, res) {
+  User.update({ _id: req.body.userId }, { $push: { trees: req.body.treeId }}, function(err, raw) {
+    if(err){
+      console.log("error following tree " + err);
+    } else {
+      res.json(req.body.treeId);
+    }
+  });
+});
+
+userRoutes.put('/unFollowTree', function(req, res) {
+  User.update({ _id: req.body.userId }, { $pull: { trees: req.body.treeId }}, function(err, raw) {
+    if(err){
+      console.log("error unfollowing tree " + err);
+    } else {
+      res.json(req.body.treeId);
+    }
+  });
+});
 //---------Start middleware--------------------
 
 // route middleware to verify a token
