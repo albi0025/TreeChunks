@@ -1,6 +1,7 @@
 import React from 'react';
 import Tree from '../models/tree';
 import Chunk from '../models/chunk';
+import User from '../models/user';
 import express from 'express';
 
 let treeRoutes = express.Router();
@@ -99,6 +100,16 @@ treeRoutes.get('/getAuthor/:treeId', function(req, res, next) {
       return next(err);
     }else{
       res.json(tree.owner.name);
+    }
+  });
+});
+
+treeRoutes.get('/fetchFollowedTrees/:userId', function(req, res, next) {
+  User.findById(req.params.userId).populate('trees').exec(function(err, user){
+    if(err){
+      return next(err);
+    }else{
+      res.json(user.trees);
     }
   });
 });

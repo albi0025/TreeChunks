@@ -1,5 +1,7 @@
 import React from 'react';
 import Tree from './Tree';
+import { observer, inject } from 'mobx-react';
+
 
 
 class UserDashboard extends React.Component {
@@ -8,15 +10,23 @@ class UserDashboard extends React.Component {
     this.state = {
       trees: []
     };
-    this.fetchTrees = this.fetchTrees.bind(this);
+    this.fetchFollowedTrees = this.fetchFollowedTrees.bind(this);
   }
 
   componentWillMount(){
-    this.fetchTrees();
+    this.fetchFollowedTrees();
   }
 
-  fetchTrees(){
-    fetch("/getTrees",{
+  prepareTrees(){
+    return this.state.trees.map(function(tree){
+      return(
+        <Tree key={tree._id} tree={tree}/>
+      );
+    },this);
+  }
+
+  fetchFollowedTrees(){
+    fetch("/fetchFollowedTrees/"+ this.props.userStore.user._id,{
       method:"GET",
       headers: {
         "Accept": "application/json",
@@ -31,15 +41,6 @@ class UserDashboard extends React.Component {
     });
   }
 
-  prepareTrees(){
-    return this.state.trees.map(function(tree){
-      return(
-        <Tree key={tree._id} tree={tree}/>
-      );
-    },this);
-  }
-
-
   render() {
     let trees = this.prepareTrees();
 
@@ -53,7 +54,8 @@ class UserDashboard extends React.Component {
 
 UserDashboard.propTypes = {
   content: React.PropTypes.string,
-  popularity: React.PropTypes.number
+  popularity: React.PropTypes.number,
+  userStore: React.PropTypes.object
 };
 
-export default UserDashboard;
+export default inject("userStore")(observer(UserDashboard));
