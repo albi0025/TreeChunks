@@ -174,9 +174,9 @@ class Tree extends React.Component {
   render() {
     let followButton = "";
     if(this.props.userStore.loggedIn){
-      followButton = (<Button onClick={this.handleTreeFollow}>Follow <Glyphicon style={{color: "gold", fontSize: "18px"}} glyph="star"/></Button>);
+      followButton = (<Button className="follow-button" onClick={this.handleTreeFollow}>Follow</Button>);
       if(this.checkForFollowing()){
-        followButton = (<Button onClick={this.handleTreeUnFollow}>Un Follow Tree</Button>);
+        followButton = (<Button className="following-button" onClick={this.handleTreeUnFollow}/>);
       }
     }
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;

@@ -9,6 +9,19 @@ body {
   min-height: 100vh;
 }
 
+.following-button, .follow-button{
+  width: 93px;
+  height: 37px;
+}
+
+.following-button:before{
+  content: "Following";
+}
+
+.following-button:hover:before{
+  content: "Unfollow";
+}
+
 .storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
   font-size: 24px;
   font-weight: 800;
