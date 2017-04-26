@@ -51,9 +51,13 @@ class Navigation extends React.Component {
             }
             </NavItem>
             <NavItem>
-              <Button className="user-dashboard-link" href="/UserDashboard">
+            {
+              this.props.userStore.loggedIn
+              ?<Button className="user-dashboard-link" href="/UserDashboard">
                 <Link to={{ pathname: '/UserDashboard' }}>Dashboard</Link>
               </Button>
+              :""
+            }
             </NavItem>
             <NavItem>
               <ButtonToolbar>

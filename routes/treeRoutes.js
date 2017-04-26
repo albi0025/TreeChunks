@@ -105,7 +105,7 @@ treeRoutes.get('/getAuthor/:treeId', function(req, res, next) {
 });
 
 treeRoutes.get('/fetchFollowedTrees/:userId', function(req, res, next) {
-  User.findById(req.params.userId).populate('trees').exec(function(err, user){
+  User.findById(req.params.userId).populate({path: 'trees', populate: {path: 'chunk', model: 'Chunk'}}).exec(function(err, user){
     if(err){
       return next(err);
     }else{

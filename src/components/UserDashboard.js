@@ -42,10 +42,11 @@ class UserDashboard extends React.Component {
   }
 
   render() {
-    let trees = this.prepareTrees();
-
+    let trees = (this.props.userStore.loggedIn)
+    ? trees = this.prepareTrees()
+    : "";
     return (
-      <div>
+      <div className="dashboard-content container-fluid">
         {trees}
       </div>
     );
@@ -53,8 +54,6 @@ class UserDashboard extends React.Component {
 }
 
 UserDashboard.propTypes = {
-  content: React.PropTypes.string,
-  popularity: React.PropTypes.number,
   userStore: React.PropTypes.object
 };
 

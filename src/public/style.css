@@ -128,7 +128,7 @@ body {
   height: 100vh;
 }
 
-.story-content, .tree-list-content {
+.story-content, .tree-list-content, .dashboard-content {
   margin-top: 80px;
 }
 

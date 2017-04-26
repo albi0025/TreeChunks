@@ -205,7 +205,7 @@ export default class UserStore {
   logout(e) {
     document.cookie = "token=";
     this.loggedIn = false;
-    // hashHistory.replace('/#');
+    hashHistory.push('/');
   }
 
 }
