@@ -67,7 +67,6 @@ chunkRoutes.get('/getMostPopularChild/:chunkid', function(req, res, next) {
       children.sort(function(childA, childB){
         return childB.popularity-childA.popularity;
       });
-      console.log(children);
       res.json(children[0]);
     }
   });
