@@ -8,7 +8,8 @@ class Tree extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      popularity: this.props.tree.popularity
+      popularity: this.props.tree.popularity,
+      mostPopularStory: ""
     };
     this.upChunk = this.upChunk.bind(this);
     this.unUpChunk = this.unUpChunk.bind(this);
@@ -24,6 +25,10 @@ class Tree extends React.Component {
     this.preparePreview = this.preparePreview.bind(this);
     this.mostPopularChild = this.mostPopularChild.bind(this);
     // this.totalPopularity = this.totalPopularity.bind(this);
+  }
+
+  componentWillMount(){
+    this.preparePreview(this.props.tree.chunk._id, "", 0);
   }
 
   handleTreeFollow(){
@@ -117,7 +122,7 @@ class Tree extends React.Component {
     .then(result => result.json());
   }
 
-  preparePreview(chunkId, story){
+  preparePreview(chunkId, story, charcount){
     fetch("/getChunk/" + chunkId, {
       method:"GET",
       headers: {
@@ -127,14 +132,23 @@ class Tree extends React.Component {
     })
     .then(result => result.json())
     .then(res => {
-      story.push(res.content+ " ");
-      this.mostPopularChild(res.children);
-      if(typeof(res.parentchunk) == "string"){
-        this.prepareStory(res.parentchunk, story);
+      charcount += res.content.length;
+      story += res.content+ " ";
+      if(res.children.length > 0 && charcount < 400){
+        fetch("/getMostPopularChild/" + chunkId, {
+          method:"GET",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(result => result.json())
+        .then(res => {
+          this.preparePreview(res._id, story, charcount);
+        });
       } else {
-        story.reverse();
         this.setState({
-          story: story
+          mostPopularStory: story.substr(0, 400) + " ..."
         });
       }
     });
@@ -152,7 +166,6 @@ class Tree extends React.Component {
   }
 
   render() {
-    console.log(this.mostPopularChild(this.props.tree.chunk._id));
     let followButton = "";
     if(this.props.userStore.loggedIn){
       followButton = (<Button onClick={this.handleTreeFollow}>Follow <Glyphicon style={{color: "gold", fontSize: "18px"}} glyph="star"/></Button>);
@@ -193,7 +206,7 @@ class Tree extends React.Component {
             {followButton}
           </div>
           <div className="tree-columns">
-            {this.props.tree.chunk.content}
+            {this.state.mostPopularStory}
           </div>
           <div className="popularity">
           {thumbUpButton}

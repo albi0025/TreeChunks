@@ -58,6 +58,22 @@ chunkRoutes.get('/getChunk/:chunkid', function(req, res, next) {
   });
 });
 
+chunkRoutes.get('/getMostPopularChild/:chunkid', function(req, res, next) {
+  Chunk.findById(req.params.chunkid).populate('children').exec(function(err, chunk){
+    if(err){
+      return next(err);
+    }else{
+      let children = chunk.children;
+      children.sort(function(childA, childB){
+        return childB.popularity-childA.popularity;
+      });
+      console.log(children);
+      res.json(children[0]);
+    }
+  });
+});
+
+
 chunkRoutes.get('/getChunks/:parentId', function(req, res) {
   Chunk.find({"parentchunk": req.params.parentId}).sort({popularity: "descending"}).exec( function(err, chunks){
     if(err){

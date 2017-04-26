@@ -37,7 +37,6 @@ class NewChunkForm extends React.Component {
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       this.setState({
         content: ""
       });
