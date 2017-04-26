@@ -16,6 +16,10 @@ var _chunk = require('../models/chunk');
 
 var _chunk2 = _interopRequireDefault(_chunk);
 
+var _user = require('../models/user');
+
+var _user2 = _interopRequireDefault(_user);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -90,8 +94,7 @@ treeRoutes.put('/adjustChunk', function (req, res, next) {
 });
 
 treeRoutes.put('/adjustTree', function (req, res, next) {
-  console.log(req.body.chunkId);
-  _tree2.default.update({ _id: req.body.chunkId }, { $inc: { popularity: req.body.adjustment } }, function (err, chunk) {
+  _tree2.default.update({ _id: req.body.treeId }, { $inc: { popularity: req.body.adjustment } }, function (err, chunk) {
     if (err) {
       return next(err);
     } else {
@@ -106,6 +109,26 @@ treeRoutes.get('/getTree/:treeId', function (req, res, next) {
       return next(err);
     } else {
       res.json(tree);
+    }
+  });
+});
+
+treeRoutes.get('/getAuthor/:treeId', function (req, res, next) {
+  _tree2.default.findById(req.params.treeId).populate('owner').exec(function (err, tree) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(tree.owner.name);
+    }
+  });
+});
+
+treeRoutes.get('/fetchFollowedTrees/:userId', function (req, res, next) {
+  _user2.default.findById(req.params.userId).populate({ path: 'trees', populate: { path: 'chunk', model: 'Chunk' } }).exec(function (err, user) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(user.trees);
     }
   });
 });

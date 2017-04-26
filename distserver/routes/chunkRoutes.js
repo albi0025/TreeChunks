@@ -67,6 +67,30 @@ chunkRoutes.get('/getStory/:chunkid', function (req, res, next) {
   });
 });
 
+chunkRoutes.get('/getChunk/:chunkid', function (req, res, next) {
+  _chunk2.default.findById(req.params.chunkid, function (err, chunk) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(chunk);
+    }
+  });
+});
+
+chunkRoutes.get('/getMostPopularChild/:chunkid', function (req, res, next) {
+  _chunk2.default.findById(req.params.chunkid).populate('children').exec(function (err, chunk) {
+    if (err) {
+      return next(err);
+    } else {
+      var children = chunk.children;
+      children.sort(function (childA, childB) {
+        return childB.popularity - childA.popularity;
+      });
+      res.json(children[0]);
+    }
+  });
+});
+
 chunkRoutes.get('/getChunks/:parentId', function (req, res) {
   _chunk2.default.find({ "parentchunk": req.params.parentId }).sort({ popularity: "descending" }).exec(function (err, chunks) {
     if (err) {

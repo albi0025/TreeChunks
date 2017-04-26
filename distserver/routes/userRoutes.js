@@ -24,13 +24,13 @@ var _jsonwebtoken = require('jsonwebtoken');
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _configAuth = require('../tools/configAuth');
-
-var _configAuth2 = _interopRequireDefault(_configAuth);
-
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
+
+var _request = require('request');
+
+var _request2 = _interopRequireDefault(_request);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,8 +41,6 @@ userRoutes.use(function (req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   next();
 });
-
-app.set('superSecret', _configAuth2.default.secret);
 
 userRoutes.post('/newUser', function (req, res) {
   var token = req.headers.authorization.replace("Bearer", "").trim();
@@ -130,59 +128,32 @@ userRoutes.put('/unFollowTree', function (req, res) {
 });
 //---------Start middleware--------------------
 
-// route middleware to verify a token
-// userRoutes.use(function(req, res, next) {
-//   // check header or url parameters or post parameters for token
-//   let token = req.headers.authorization.replace("Bearer", "").trim();
-//   // decode token
-//   if (token) {
-//     // verifies secret and checks exp
-//     jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-//       if (err) {
-//         return res.json({ success: false, message: 'Failed to authenticate token.' });
-//       } else {
-//         // if everything is good, save to request for use in other routes
-//         // req.decoded = decoded;
-//         req.currentUser = decoded._doc;
-//         next();
-//       }
-//     });
-//   } else {
-//     // if there is no token
-//     // return an error
-//     return res.status(403).send({
-//       success: false,
-//       message: 'No token provided.'
-//     });
-//
-//   }
-// });
-
+//route middleware to verify a token
+userRoutes.use(function (req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.headers.authorization.replace("Bearer", "").trim();
+  if (token) {
+    var url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
+    (0, _request2.default)(url, function (err, tokenResponse, body) {
+      // if (body.error_description == "Invalid Value") {
+      if (JSON.parse(body).error_description) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        console.log(body);
+        next();
+      }
+    });
+  } else {
+    //if there is no token
+    //return an error
+    return res.status(403).send({
+      success: false,
+      message: 'no token provided'
+    });
+  }
+});
 //---------End middleware--------------------
 
-// userRoutes.post('/pets', function(req, res) {
-//   let id = req.body.id;
-//   User.update({ _id: req.currentUser._id }, { $push: { pets: id }}, function(err, raw) {
-//     if(err){
-//       console.log("error saving favorite pet " + err);
-//     } else {
-//       res.json({});
-//     }
-//   });
-// });
-//
-// userRoutes.delete('/pets/:id', function(req, res, next) {
-//   let id = req.params.id;
-//   console.log(id);
-//   User.update({_id: req.currentUser._id}, { $pull: { pets: id}}, function(err, gif) {
-//     if(err){
-//       return next(err);
-//     } else {
-//       res.json({title: 'Pet was deleted'});
-//     }
-//   });
-// });
-//
 userRoutes.get('/getUser', function (req, res, next) {
   var token = req.headers.authorization.replace("Bearer", "").trim();
   var decoded = _jsonwebtoken2.default.decode(token);
