@@ -73,8 +73,7 @@ treeRoutes.put('/adjustChunk', function(req, res, next) {
 });
 
 treeRoutes.put('/adjustTree', function(req, res, next) {
-  console.log(req.body.chunkId);
-  Tree.update({_id: req.body.chunkId}, { $inc: { popularity: req.body.adjustment }},
+  Tree.update({_id: req.body.treeId}, { $inc: { popularity: req.body.adjustment }},
     function(err, chunk) {
       if(err) {
         return next(err);

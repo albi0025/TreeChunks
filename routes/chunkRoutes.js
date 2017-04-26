@@ -48,6 +48,16 @@ chunkRoutes.get('/getStory/:chunkid', function(req, res, next) {
   });
 });
 
+chunkRoutes.get('/getChunk/:chunkid', function(req, res, next) {
+  Chunk.findById(req.params.chunkid, function(err, chunk){
+    if(err){
+      return next(err);
+    }else{
+      res.json(chunk);
+    }
+  });
+});
+
 chunkRoutes.get('/getChunks/:parentId', function(req, res) {
   Chunk.find({"parentchunk": req.params.parentId}).sort({popularity: "descending"}).exec( function(err, chunks){
     if(err){
@@ -57,5 +67,7 @@ chunkRoutes.get('/getChunks/:parentId', function(req, res) {
     }
   });
 });
+
+
 
 export default chunkRoutes;

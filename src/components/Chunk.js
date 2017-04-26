@@ -35,6 +35,19 @@ class Chunk extends React.Component {
         adjustment: adjust
       })
     })
+    .then(() => {
+      fetch("/adjustTree",{
+        method:"PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          treeId: this.props.treeId,
+          adjustment: adjust
+        })
+      });
+    })
     .then(this.setState({popularity: this.state.popularity + adjust}));
   }
 

@@ -67,7 +67,7 @@ class Story extends React.Component {
       }
     })
     .then(result => result.json())
-    .then(res => {                                                                        //tree._id here no state
+    .then(res => {
       story.push(<Link key={res._id} className="storyChunk" to= {{pathname: '/Story/' + this.state.tree._id+ '/' + res._id}}>{res.content+ " "}</Link>);
       if(typeof(res.parentchunk) == "string"){
         this.prepareStory(res.parentchunk, story);

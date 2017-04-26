@@ -40,11 +40,15 @@ class Navigation extends React.Component {
           <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
           <Nav pullRight>
             <NavItem>
-              <Button onClick={()=> {
+            {
+              this.props.userStore.loggedIn
+              ? <Button onClick={()=> {
                 this.setState({ lgShow: true });
               }}>
                 Create A New Tree
-              </Button>
+                </Button>
+              : ""
+            }
             </NavItem>
             <NavItem>
               <Button className="user-dashboard-link" href="/UserDashboard">
