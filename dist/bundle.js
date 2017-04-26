@@ -58525,9 +58525,8 @@ var Navigation = function (_React$Component) {
                 ) : _react2.default.createElement(
                   _reactGoogleLogin2.default,
                   {
-                    clientId: '99230059510-aspm1fbqomkv6k2qsa83oncoel5ibbv5.apps.googleusercontent.com',
+                    clientId: '982750667675-79rf5cojorslnijhsb7e701ltq61k74n.apps.googleusercontent.com',
                     className: 'googlebtn',
-                    redirect_uri: 'https://mysterious-stream-55753.herokuapp.com/Dashboard',
                     onSuccess: this.googleLoginHandler,
                     onFailure: this.googleLoginHandler },
                   _react2.default.createElement(
