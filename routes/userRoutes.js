@@ -114,12 +114,7 @@ userRoutes.use(function(req, res, next) {
       if (JSON.parse(body).error_description) {
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        // console.log('-------')
-        // console.log(body);
-        // console.log(JSON.parse(body));
-        // console.log(body.error_description)
-        // console.log(JSON.parse(body).error_description)
-
+        console.log(body);
         next();
       }
     });
