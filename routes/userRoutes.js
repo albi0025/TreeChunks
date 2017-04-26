@@ -5,6 +5,7 @@ import User from '../models/user';
 import jwt from 'jsonwebtoken';
 import configAuth from '../tools/configAuth';
 import express from 'express';
+import request from 'request';
 
 let userRoutes = express.Router();
 let app = express();
@@ -102,59 +103,32 @@ userRoutes.put('/unFollowTree', function(req, res) {
 });
 //---------Start middleware--------------------
 
-// route middleware to verify a token
-// userRoutes.use(function(req, res, next) {
-//   // check header or url parameters or post parameters for token
-//   let token = req.headers.authorization.replace("Bearer", "").trim();
-//   // decode token
-//   if (token) {
-//     // verifies secret and checks exp
-//     jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-//       if (err) {
-//         return res.json({ success: false, message: 'Failed to authenticate token.' });
-//       } else {
-//         // if everything is good, save to request for use in other routes
-//         // req.decoded = decoded;
-//         req.currentUser = decoded._doc;
-//         next();
-//       }
-//     });
-//   } else {
-//     // if there is no token
-//     // return an error
-//     return res.status(403).send({
-//       success: false,
-//       message: 'No token provided.'
-//     });
-//
-//   }
-// });
-
+//route middleware to verify a token
+userRoutes.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  let token = req.headers.authorization.replace("Bearer", "").trim();
+  if (token) {
+    let url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
+    request(url, function (err, tokenResponse, body) {
+      // if (body.error_description == "Invalid Value") {
+      if (JSON.parse(body).error_description) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        console.log(body);
+        next();
+      }
+    });
+  } else {
+    //if there is no token
+    //return an error
+    return res.status(403).send({
+      success: false,
+      message: 'no token provided'
+    });
+  }
+});
 //---------End middleware--------------------
 
-// userRoutes.post('/pets', function(req, res) {
-//   let id = req.body.id;
-//   User.update({ _id: req.currentUser._id }, { $push: { pets: id }}, function(err, raw) {
-//     if(err){
-//       console.log("error saving favorite pet " + err);
-//     } else {
-//       res.json({});
-//     }
-//   });
-// });
-//
-// userRoutes.delete('/pets/:id', function(req, res, next) {
-//   let id = req.params.id;
-//   console.log(id);
-//   User.update({_id: req.currentUser._id}, { $pull: { pets: id}}, function(err, gif) {
-//     if(err){
-//       return next(err);
-//     } else {
-//       res.json({title: 'Pet was deleted'});
-//     }
-//   });
-// });
-//
 userRoutes.get('/getUser', function(req, res, next) {
   let token = req.headers.authorization.replace("Bearer", "").trim();
   let decoded = jwt.decode(token);
