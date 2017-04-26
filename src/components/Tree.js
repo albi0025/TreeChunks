@@ -9,7 +9,8 @@ class Tree extends React.Component {
     super(props);
     this.state = {
       popularity: this.props.tree.popularity,
-      mostPopularStory: ""
+      mostPopularStory: "",
+      author: ""
     };
     this.upChunk = this.upChunk.bind(this);
     this.unUpChunk = this.unUpChunk.bind(this);
@@ -23,12 +24,12 @@ class Tree extends React.Component {
     this.handleTreeUnFollow = this.handleTreeUnFollow.bind(this);
     this.checkForFollowing = this.checkForFollowing.bind(this);
     this.preparePreview = this.preparePreview.bind(this);
-    this.mostPopularChild = this.mostPopularChild.bind(this);
-    // this.totalPopularity = this.totalPopularity.bind(this);
+    this.fetchAuthor = this.fetchAuthor.bind(this);
   }
 
   componentWillMount(){
     this.preparePreview(this.props.tree.chunk._id, "", 0);
+    this.fetchAuthor();
   }
 
   handleTreeFollow(){
@@ -111,17 +112,6 @@ class Tree extends React.Component {
     });
   }
 
-  mostPopularChild(chunkId){
-    return (fetch("/getChunks/" + chunkId,{
-      method:"GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    }))
-    .then(result => result.json());
-  }
-
   preparePreview(chunkId, story, charcount){
     fetch("/getChunk/" + chunkId, {
       method:"GET",
@@ -165,6 +155,22 @@ class Tree extends React.Component {
     });
   }
 
+  fetchAuthor(){
+    fetch("/getAuthor/" + this.props.tree._id, {
+      method:"GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(result => result.json())
+    .then(res => {
+      this.setState({
+        author: res
+      });
+    });
+  }
+
   render() {
     let followButton = "";
     if(this.props.userStore.loggedIn){
@@ -202,8 +208,8 @@ class Tree extends React.Component {
             <h3>{this.props.tree.title}</h3></Link>
             <p>most popular thread </p>
             <p>overall rating 1 million</p>
-            <p><Glyphicon glyph="pencil" /> {this.props.userStore.user.name}</p>
-            {followButton}
+            <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
+          {followButton}
           </div>
           <div className="tree-columns">
             {this.state.mostPopularStory}

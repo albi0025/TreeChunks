@@ -3,7 +3,6 @@ import webpack from 'webpack';
 import hash from 'password-hash';
 import User from '../models/user';
 import jwt from 'jsonwebtoken';
-import configAuth from '../tools/configAuth';
 import express from 'express';
 import request from 'request';
 
@@ -14,8 +13,6 @@ userRoutes.use(function(req, res, next){
   res.setHeader('Content-Type', 'application/json');
   next();
 });
-
-app.set('superSecret', configAuth.secret);
 
 userRoutes.post('/newUser', function(req, res) {
   let token = req.headers.authorization.replace("Bearer", "").trim();
