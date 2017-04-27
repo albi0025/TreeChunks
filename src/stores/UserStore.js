@@ -162,7 +162,6 @@ export default class UserStore {
     if (token === "") {
       return false;
     } else {
-      this.getUser();
       return true;
     }
   }

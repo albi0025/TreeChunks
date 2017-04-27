@@ -26833,7 +26833,7 @@ var Tree = function (_React$Component) {
       }
       var thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'unchunked' });
       var thumbDownButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-down', className: 'unchunked' });
-      if (this.props.userStore.loggedIn && this.props.userStore.user.name) {
+      if (this.props.userStore.loggedIn) {
         thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'unchunked', onClick: this.upChunk });
         if (this.checkForUpChunk()) {
           thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'upchunked', onClick: this.unUpChunk });
@@ -58408,7 +58408,7 @@ var Chunk = function (_React$Component) {
     value: function render() {
       var thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'unchunked' });
       var thumbDownButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-down', className: 'unchunked' });
-      if (this.props.userStore.loggedIn && this.props.userStore.user.name) {
+      if (this.props.userStore.loggedIn) {
         thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'unchunked', onClick: this.upChunk });
         if (this.checkForUpChunk()) {
           thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'upchunked', onClick: this.unUpChunk });
@@ -58642,7 +58642,7 @@ var Navigation = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Navbar.Collapse,
             null,
-            this.props.userStore.loggedIn && this.props.userStore.user.name // we make sure they are actually all the way logged in
+            this.props.userStore.loggedIn // we make sure they are actually all the way logged in
             ? _react2.default.createElement(
               _reactBootstrap.Nav,
               { pullRight: true },
@@ -59666,7 +59666,6 @@ var UserStore = function () {
       if (token === "") {
         return false;
       } else {
-        this.getUser();
         return true;
       }
     }

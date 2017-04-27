@@ -53,7 +53,7 @@ class Navigation extends React.Component {
           </Navbar .Header>
           <Navbar .Collapse>
             {
-              this.props.userStore.loggedIn && this.props.userStore.user.name // we make sure they are actually all the way logged in
+              this.props.userStore.loggedIn // we make sure they are actually all the way logged in
               ? <Nav pullRight>
                   <NavItem onClick={this.showCreateTreeModal}>
                     Create A New Tree

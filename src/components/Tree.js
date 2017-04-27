@@ -181,7 +181,7 @@ class Tree extends React.Component {
     }
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
     let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
-    if(this.props.userStore.loggedIn && this.props.userStore.user.name){
+    if(this.props.userStore.loggedIn){
       thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked" onClick={this.upChunk}/>;
       if(this.checkForUpChunk()){
         thumbUpButton = <Glyphicon glyph="thumbs-up" className="upchunked" onClick={this.unUpChunk}/>;
