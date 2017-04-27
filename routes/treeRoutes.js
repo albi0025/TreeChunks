@@ -114,6 +114,16 @@ treeRoutes.get('/fetchFollowedTrees/:userId', function(req, res, next) {
   });
 });
 
+treeRoutes.get('/fetchCreatedTrees/:userId', function(req, res, next) {
+  Tree.find({"owner": req.params.userId}).populate({path: 'chunk'}).exec(function(err, trees){
+    if(err){
+      return next(err);
+    }else{
+      res.json(trees);
+    }
+  });
+});
+
 
 
 

@@ -23,7 +23,6 @@ class Chunk extends React.Component {
   }
 
   adjustPopularity(chunkId, adjust){
-    console.log(adjust);
     fetch("/adjustChunk",{
       method:"PUT",
       headers: {
@@ -98,7 +97,7 @@ class Chunk extends React.Component {
   render() {
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
     let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
-    if(this.props.userStore.loggedIn){
+    if(this.props.userStore.loggedIn && this.props.userStore.user.name){
       thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked" onClick={this.upChunk}/>;
       if(this.checkForUpChunk()){
         thumbUpButton = <Glyphicon glyph="thumbs-up" className="upchunked" onClick={this.unUpChunk}/>;
@@ -115,7 +114,7 @@ class Chunk extends React.Component {
           {this.state.chunk.content}</Link>
         <br/>
         <div className="popularity">
-          {thumbUpButton} {/*All we need here is a call to the button. logic above*/}
+          {thumbUpButton}
             <Badge>
               {this.state.popularity}
             </Badge>

@@ -57,11 +57,13 @@ if (PROD) {
   }));
 }
 
+app.get('/public/images/treechunk.ico', function(req, res) {
+  res.sendFile(path.join( __dirname, '../src/public/images/treechunk.ico'));
+});
+
 app.use('/', treeRoutes);
 app.use('/', chunkRoutes);
 app.use('/', userRoutes);
-
-// app.use('/user', userRoutes);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/public/index.html'));
