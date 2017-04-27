@@ -98,25 +98,34 @@ userRoutes.put('/unFollowTree', function(req, res) {
     }
   });
 });
+
+userRoutes.get('/decode', function(req, res, next) {
+  let token = req.headers.authorization.replace("Bearer", "").trim();
+  let decoded = jwt.decode(token);
+  res.json({decoded: decoded, date: new Date().getTime()});
+});
+
+
 //---------Start middleware--------------------
 
 //route middleware to verify a token
 userRoutes.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
- //We can use this check to avoid getting errors in console about req.headers.authorization not being set to anything
-  let token = 
-  (req.headers.authorization)
-  ? token = req.headers.authorization.replace("Bearer", "").trim()
-  : false;
+  let token = false;
 
+  if(req.headers.authorization){
+    token = req.headers.authorization.replace("Bearer", "").trim();
+  }
   if (token) {
     let url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
     request(url, function (err, tokenResponse, body) {
       // if (body.error_description == "Invalid Value") {
       if (JSON.parse(body).error_description) {
+        if(document){
+          document.cookie = "token=";
+        }
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        // console.log(body);
         next();
       }
     });

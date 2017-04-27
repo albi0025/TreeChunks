@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router';
 export default class UserStore {
   constructor() {
     extendObservable(this, {
-      loggedIn: this.checkCookie(),
+      loggedIn: false,
       user: {}
     });
 
@@ -22,6 +22,8 @@ export default class UserStore {
     this.getUser = this.getUser.bind(this);
     this.followTree = this.followTree.bind(this);
     this.unFollowTree = this.unFollowTree.bind(this);
+
+    this.checkCookie();
   }
 
   flagUserUpChunk(chunkId){
@@ -160,9 +162,10 @@ export default class UserStore {
   checkCookie() {
     let token = this.getCookie("token");
     if (token === "") {
-      return false;
+      this.logout();
     } else {
-      return true;
+      // console.log(new Date().getTime());
+      this.getUser();
     }
   }
 
@@ -178,7 +181,7 @@ export default class UserStore {
   }
 
   getUser(){
-    fetch('/getUser',{
+    fetch('/decode',{
       method: 'GET',
       headers: {
         "Accept": "application/json",
@@ -187,8 +190,27 @@ export default class UserStore {
       }
     })
     .then(result => result.json())
-    .then(response => {
-      this.user = response;}); //Unsure if this is best way?  Can we extract login info from token (cookie??)?
+    .then(res => {
+      let expiration = res.decoded.exp * 1000;
+      console.log(expiration);
+      console.log(res.date);
+      if(expiration < res.date){
+        console.log("logout");
+        this.logout();
+      } else{
+        console.log("login");
+        fetch('/getUser',{
+          method: 'GET',
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + this.getCookie('token')
+          }
+        })
+        .then(result => result.json())
+        .then(response => {this.user = response; this.loggedIn = true;}); //Unsure if this is best way?  Can we extract login info from token (cookie??)?
+      }
+    });
   }
 
   saveToken(response) {
@@ -207,5 +229,4 @@ export default class UserStore {
     this.loggedIn = false;
     hashHistory.push('/');
   }
-
 }

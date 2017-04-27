@@ -14,14 +14,15 @@ class Navigation extends React.Component {
       lgShow: false,
     };
     this.googleLoginHandler = this.googleLoginHandler.bind(this);
-    this.showCreateTreeModal = this.showCreateTreeModal.bind(this);
     this.lgClose = this.lgClose.bind(this);
-    this.goToDashBoard = this.goToDashBoard.bind(this);
+    this.lgOpen = this.lgOpen.bind(this);
   }
 
   componentDidMount() {
     if(this.props.userStore.loggedIn){
       this.props.userStore.getUser();
+    } else{
+      hashHistory.push('/');
     }
   }
 
@@ -29,16 +30,16 @@ class Navigation extends React.Component {
     this.props.userStore.saveToken(response);
   }
 
-  showCreateTreeModal(){
-    this.setState({ lgShow: true });
-  }
-
   lgClose(){
     this.setState({ lgShow: false });
   }
 
+  lgOpen(){
+    this.setState({ lgShow: true });
+  }
+
   goToDashBoard(){
-    hashHistory.push('/UserDashboard');
+    hashHistory.push("/UserDashboard");
   }
 
   render(){
@@ -51,19 +52,17 @@ class Navigation extends React.Component {
             </Navbar .Brand>
           <Navbar .Toggle />
           </Navbar .Header>
-          <Navbar .Collapse>
+          <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
             {
-              this.props.userStore.loggedIn // we make sure they are actually all the way logged in
+              this.props.userStore.loggedIn
               ? <Nav pullRight>
-                  <NavItem onClick={this.showCreateTreeModal}>
-                    Create A New Tree
-                  </NavItem>
-                  <NavItem onClick={this.goToDashBoard}>
-                    <Glyphicon glyph="user"/> {this.props.userStore.user.name}
-                  </NavItem>
-                  <NavItem onClick={this.props.userStore.logout}>
-                    Logout
-                  </NavItem>
+                <NavItem onClick={this.lgOpen}>
+                Create A New Tree
+                </NavItem>
+                <NavItem onClick={this.goToDashBoard}>
+                  <Glyphicon glyph="user"/> {this.props.userStore.user.name}
+                </NavItem>
+                <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
                 </Nav>
               : <Nav pullRight>
                   <GoogleLogin
@@ -77,6 +76,7 @@ class Navigation extends React.Component {
             }
           </Navbar .Collapse>
         </Navbar>
+        <NewTreeForm show={this.state.lgShow} onHide={this.lgClose} />
         {this.props.children}
         <NewTreeForm show={this.state.lgShow} onHide={this.lgClose} />
       </div>
