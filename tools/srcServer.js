@@ -63,6 +63,10 @@ app.use('/', userRoutes);
 
 // app.use('/user', userRoutes);
 
+app.get('/public/images/treechunk.ico', function(req, res) {
+  res.sendFile(path.join( __dirname, '../src/public/imges/treechunk.ico'));
+});
+
 app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/public/index.html'));
 });
