@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Glyphicon, ButtonToolbar, Button } from 'react-bootstrap';
 import NewTreeForm from './NewTreeForm';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import GoogleLogin from 'react-google-login';
 import { observer, inject } from 'mobx-react';
 
@@ -14,6 +14,8 @@ class Navigation extends React.Component {
       lgShow: false,
     };
     this.googleLoginHandler = this.googleLoginHandler.bind(this);
+    this.lgClose = this.lgClose.bind(this);
+    this.lgOpen = this.lgOpen.bind(this);
   }
 
   componentDidMount() {
@@ -26,8 +28,19 @@ class Navigation extends React.Component {
     this.props.userStore.saveToken(response);
   }
 
+  lgClose(){
+    this.setState({ lgShow: false });
+  }
+
+  lgOpen(){
+    this.setState({ lgShow: true });
+  }
+
+  goToDashBoard(){
+    hashHistory.push("/UserDashboard");
+  }
+
   render(){
-    let lgClose = () => this.setState({ lgShow: false });
     return(
       <div>
         <Navbar className="logo" fluid>
@@ -38,46 +51,30 @@ class Navigation extends React.Component {
           <Navbar .Toggle />
           </Navbar .Header>
           <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
-          <Nav pullRight>
-            <NavItem>
             {
               this.props.userStore.loggedIn
-              ? <Button onClick={()=> {
-                this.setState({ lgShow: true });
-              }}>
+              ? <Nav pullRight>
+                <NavItem onClick={this.lgOpen}>
                 Create A New Tree
-                </Button>
-              : ""
+                </NavItem>
+                <NavItem onClick={this.goToDashBoard}>
+                  <Glyphicon glyph="user"/> {this.props.userStore.user.name}
+                </NavItem>
+                <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
+                </Nav>
+              : <Nav pullRight>
+                  <GoogleLogin
+                    clientId="982750667675-79rf5cojorslnijhsb7e701ltq61k74n.apps.googleusercontent.com"
+                    className="googlebtn"
+                    onSuccess={this.googleLoginHandler}
+                    onFailure={this.googleLoginHandler}>
+                    <span> Login with Google</span>
+                  </GoogleLogin>
+                </Nav>
             }
-            </NavItem>
-            <NavItem>
-            {
-              this.props.userStore.loggedIn
-              ?<Button className="user-dashboard-link">
-                <Link to={{ pathname: '/UserDashboard' }}><Glyphicon glyph="user"/> {this.props.userStore.user.name}</Link>
-              </Button>
-              :""
-            }
-            </NavItem>
-            <NavItem>
-              <ButtonToolbar>
-                <NewTreeForm show={this.state.lgShow} onHide={lgClose} />
-              </ButtonToolbar>
-              {
-                this.props.userStore.loggedIn
-                ? <Button onClick={this.props.userStore.logout} className="navButton" bsStyle="primary">Logout</Button>
-                : <GoogleLogin
-                  clientId="982750667675-79rf5cojorslnijhsb7e701ltq61k74n.apps.googleusercontent.com"
-                  className="googlebtn"
-                  onSuccess={this.googleLoginHandler}
-                  onFailure={this.googleLoginHandler}>
-                  <span> Login with Google</span>
-                </GoogleLogin>
-             }
-            </NavItem>
-          </Nav>
           </Navbar .Collapse>
         </Navbar>
+        <NewTreeForm show={this.state.lgShow} onHide={this.lgClose} />
         {this.props.children}
       </div>
     );}
