@@ -162,7 +162,6 @@ export default class UserStore {
     if (token === "") {
       return false;
     } else {
-      // this.getUser(token)
       return true;
     }
   }
@@ -188,7 +187,8 @@ export default class UserStore {
       }
     })
     .then(result => result.json())
-    .then(response => this.user = response); //Unsure if this is best way?  Can we extract login info from token (cookie??)?
+    .then(response => {
+      this.user = response;}); //Unsure if this is best way?  Can we extract login info from token (cookie??)?
   }
 
   saveToken(response) {

@@ -8,17 +8,20 @@ class UserDashboard extends React.Component {
   constructor() {
     super();
     this.state = {
-      trees: []
+      followedtrees: [],
+      createdtrees: []
     };
     this.fetchFollowedTrees = this.fetchFollowedTrees.bind(this);
+    this.fetchCreatedTrees = this.fetchCreatedTrees.bind(this);
   }
 
   componentWillMount(){
     this.fetchFollowedTrees();
+    this.fetchCreatedTrees();
   }
 
-  prepareTrees(){
-    return this.state.trees.map(function(tree){
+  prepareTrees(treelist){
+    return this.state[treelist].map(function(tree){
       return(
         <Tree key={tree._id} tree={tree}/>
       );
@@ -36,18 +39,40 @@ class UserDashboard extends React.Component {
     .then(result => result.json())
     .then(res => {
       this.setState({
-        trees: res
+        followedtrees: res
+      });
+    });
+  }
+
+  fetchCreatedTrees(){
+    fetch("/fetchCreatedTrees/"+ this.props.userStore.user._id,{
+      method:"GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(result => result.json())
+    .then(res => {
+      this.setState({
+        createdtrees: res
       });
     });
   }
 
   render() {
-    let trees = (this.props.userStore.loggedIn)
-    ? trees = this.prepareTrees()
-    : "";
     return (
       <div className="dashboard-content container-fluid">
-        {trees}
+        <div>
+        {(this.state.followedtrees)
+        ? this.prepareTrees("followedtrees")
+        : ""}
+        </div>
+        <div>
+        {(this.state.createdtrees)
+        ? this.prepareTrees("createdtrees")
+        : ""}
+        </div>
       </div>
     );
   }
