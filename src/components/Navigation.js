@@ -21,6 +21,8 @@ class Navigation extends React.Component {
   componentDidMount() {
     if(this.props.userStore.loggedIn){
       this.props.userStore.getUser();
+    } else{
+      hashHistory.push('/');
     }
   }
 

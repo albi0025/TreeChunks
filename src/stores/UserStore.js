@@ -159,9 +159,29 @@ export default class UserStore {
 
   checkCookie() {
     let token = this.getCookie("token");
+    // fetch('/decode',{
+    //   method: 'GET',
+    //   headers: {
+    //     "Accept": "application/json",
+    //     "Content-Type": "application/json",
+    //     'Authorization': 'Bearer ' + this.getCookie('token')
+    //   }
+    // })
+    // .then(result => result.json())
+    // .then(res => {
+    //   let expiration = res.decoded.exp * 10000;
+    //   if(expiration < res.decoded.date){
+    //     console.log("logout");
+    //     this.logout();
+    //   } else{
+    //     console.log("login");
+    //     return true;
+    //   }
+    // });
     if (token === "") {
       return false;
     } else {
+      // console.log(new Date().getTime());
       // this.getUser(token)
       return true;
     }

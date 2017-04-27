@@ -64,7 +64,7 @@ app.use('/', userRoutes);
 // app.use('/user', userRoutes);
 
 app.get('/public/images/treechunk.ico', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/public/imges/treechunk.ico'));
+  res.sendFile(path.join( __dirname, '../src/public/images/treechunk.ico'));
 });
 
 app.get('*', function(req, res) {
