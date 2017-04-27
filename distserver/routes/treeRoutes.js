@@ -133,4 +133,14 @@ treeRoutes.get('/fetchFollowedTrees/:userId', function (req, res, next) {
   });
 });
 
+treeRoutes.get('/fetchCreatedTrees/:userId', function (req, res, next) {
+  _tree2.default.find({ "owner": req.params.userId }).populate({ path: 'chunk' }).exec(function (err, trees) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(trees);
+    }
+  });
+});
+
 exports.default = treeRoutes;

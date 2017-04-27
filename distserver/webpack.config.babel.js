@@ -39,6 +39,13 @@ exports.default = {
         limit: '10000',
         mimetype: 'image/svg+xml'
       }
+    }, {
+      test: /\.ico$/,
+      loader: 'url',
+      query: {
+        limit: 1,
+        name: '[name].[ext]'
+      }
     }]
   }
 };

@@ -131,7 +131,9 @@ userRoutes.put('/unFollowTree', function (req, res) {
 //route middleware to verify a token
 userRoutes.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
-  var token = req.headers.authorization.replace("Bearer", "").trim();
+  //We can use this check to avoid getting errors in console about req.headers.authorization not being set to anything
+  var token = req.headers.authorization ? token = req.headers.authorization.replace("Bearer", "").trim() : false;
+
   if (token) {
     var url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
     (0, _request2.default)(url, function (err, tokenResponse, body) {
@@ -139,7 +141,7 @@ userRoutes.use(function (req, res, next) {
       if (JSON.parse(body).error_description) {
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        console.log(body);
+        // console.log(body);
         next();
       }
     });
