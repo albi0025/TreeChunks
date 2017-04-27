@@ -127,7 +127,6 @@ userRoutes.use(function(req, res, next) {
         }
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        console.log(body);
         next();
       }
     });
