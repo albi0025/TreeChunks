@@ -64,9 +64,9 @@ class NewTreeForm extends React.Component {
           <Form>
             <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
             <br/>
-            <input onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover"/>
+            <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
             <br/>
-            <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Content"/>
+            <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Begining of story"/>
             <br/>
             <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
           </Form>

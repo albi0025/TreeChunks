@@ -59,7 +59,8 @@ class NewChunkForm extends React.Component {
   render() {
     return (
       <Form>
-        <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Write an alternative chunk ..."/>
+        <textarea style={{width:"500px", fontSize:"22px"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} 
+        placeholder="Add on to the story above or click through the the options one the right."/>
         <br/>
         <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
       </Form>
