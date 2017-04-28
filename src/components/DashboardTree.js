@@ -201,13 +201,12 @@ class DashboardTree extends React.Component {
 
 
     return (
-      <Thumbnail src={cover} className="tree-dashboard-panel" key={this.props.tree._id}>
+      <Thumbnail src={cover} className="tree-dashboard-panel text-center" key={this.props.tree._id}>
         <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
           <h3>{this.props.tree.title}</h3>
         </Link>
           <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
         <div>
-          {followButton}
           <div className="popularity">
             {thumbUpButton}
               <Badge>
