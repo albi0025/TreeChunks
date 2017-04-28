@@ -116,7 +116,6 @@ userRoutes.use(function(req, res, next) {
   if(req.headers.authorization){
     token = req.headers.authorization.replace("Bearer", "").trim();
   }
-
   if (token) {
     let url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
     request(url, function (err, tokenResponse, body) {

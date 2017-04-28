@@ -126,20 +126,33 @@ userRoutes.put('/unFollowTree', function (req, res) {
     }
   });
 });
+
+userRoutes.get('/decode', function (req, res, next) {
+  var token = req.headers.authorization.replace("Bearer", "").trim();
+  var decoded = _jsonwebtoken2.default.decode(token);
+  res.json({ decoded: decoded, date: new Date().getTime() });
+});
+
 //---------Start middleware--------------------
 
 //route middleware to verify a token
 userRoutes.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
-  var token = req.headers.authorization.replace("Bearer", "").trim();
+  var token = false;
+
+  if (req.headers.authorization) {
+    token = req.headers.authorization.replace("Bearer", "").trim();
+  }
   if (token) {
     var url = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token;
     (0, _request2.default)(url, function (err, tokenResponse, body) {
       // if (body.error_description == "Invalid Value") {
       if (JSON.parse(body).error_description) {
+        if (document) {
+          document.cookie = "token=";
+        }
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        console.log(body);
         next();
       }
     });

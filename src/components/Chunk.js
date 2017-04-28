@@ -23,7 +23,6 @@ class Chunk extends React.Component {
   }
 
   adjustPopularity(chunkId, adjust){
-    console.log(adjust);
     fetch("/adjustChunk",{
       method:"PUT",
       headers: {
@@ -115,7 +114,7 @@ class Chunk extends React.Component {
           {this.state.chunk.content}</Link>
         <br/>
         <div className="popularity">
-          {thumbUpButton} {/*All we need here is a call to the button. logic above*/}
+          {thumbUpButton}
             <Badge>
               {this.state.popularity}
             </Badge>

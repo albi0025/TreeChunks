@@ -2,9 +2,7 @@ import React from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { hashHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
-
 class NewTreeForm extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -12,25 +10,20 @@ class NewTreeForm extends React.Component {
       cover: "",
       content: ""
     };
-
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCoverChange = this.handleCoverChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.submitTreeHandler = this.submitTreeHandler.bind(this);
   }
-
   handleTitleChange(e) {
     this.setState({title: e.target.value});
   }
-
   handleCoverChange(e) {
     this.setState({cover: e.target.value});
   }
-
   handleContentChange(e) {
     this.setState({content: e.target.value});
   }
-
   submitTreeHandler(e){
     e.preventDefault();
     fetch("/newTree",{
@@ -53,7 +46,6 @@ class NewTreeForm extends React.Component {
     })
     .then(this.props.onHide);
   }
-
   render() {
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-sm">
@@ -78,12 +70,10 @@ class NewTreeForm extends React.Component {
     );
   }
 }
-
 NewTreeForm.propTypes = {
   onHide: React.PropTypes.func,
   content: React.PropTypes.string,
   popularity: React.PropTypes.number,
   userStore: React.PropTypes.object
 };
-
 export default inject("userStore")(observer(NewTreeForm));
