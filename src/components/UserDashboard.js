@@ -83,16 +83,16 @@ class UserDashboard extends React.Component {
 
     return (
       <div className="dashboard-content container-fluid">
-        <Col xs={12} md={5}>
+        <Col xs={12} md={6}>
 
-        <h3 style={{textAlign: "center"}}>Trees you started</h3>
+        <div className="text-center"><img src="/images/yourtrees.png" width="224"/></div>
         <div className="flexy">
         {createdTrees}
         </div>
         </Col>
         <Col xs={0} md={2}/>
-        <Col xs={12} md={5}>
-        <h3 style={{textAlign: "center"}}>Your followed trees</h3>
+        <Col xs={12} md={6}>
+        <div className="text-center"><img src="/images/followtext.png" width="300"/></div>
         <div className="flexy">
         {followedTrees}
         </div>

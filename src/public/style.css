@@ -63,6 +63,10 @@ body {
   display: flex;
 }
 
+.flexy {
+  background-color: #bbb;
+}
+
 .tree-info{
   display: flex; /*need this for top part of story page*/
 }
@@ -155,6 +159,10 @@ body {
   margin-top: 60px;
 }
 
+.dashboard-content {
+  margin-top: 90px !important;
+}
+
 .story-content-top {
   display: flex;
 }
@@ -181,4 +189,15 @@ body {
 
 .header-text {
   margin-top: 80px;
+}
+
+.thumbnail img {
+  height: 250px !important;
+  width: 100% !important;
+}
+
+.thumbnail {
+  height: 425px !important;
+  margin: 10px !important;
+  min-width: 200px;
 }
