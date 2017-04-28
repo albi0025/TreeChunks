@@ -17,7 +17,9 @@ class NewChunkForm extends React.Component {
   }
 
   handleContentChange(e) {
-    this.setState({content: e.target.value});
+    if(e.target.value.split(/ /).length <= this.props.maxWords) {
+      this.setState({content: e.target.value});
+    }
   }
 
   submitChunkHandler(e){
@@ -59,7 +61,7 @@ class NewChunkForm extends React.Component {
   render() {
     return (
       <Form>
-        <textarea style={{width:"500px", fontSize:"22px"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} 
+        <textarea style={{width:"500px", fontSize:"22px"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content}
         placeholder="Add on to the story above or click through the the options one the right."/>
         <br/>
         <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
@@ -71,7 +73,8 @@ class NewChunkForm extends React.Component {
 NewChunkForm.propTypes = {
   chunkId: React.PropTypes.string,
   treeId: React.PropTypes.string,
-  userStore: React.PropTypes.object
+  userStore: React.PropTypes.object,
+  maxWords: React.PropTypes.number
 };
 
 export default inject("userStore")(observer(NewChunkForm));

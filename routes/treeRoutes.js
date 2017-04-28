@@ -30,6 +30,7 @@ treeRoutes.post('/newTree', function(req, res) {
       tree.popularity = 0;
       tree.owner = req.body.owner;
       tree.date = req.body.date;
+      tree.maxWords = req.body.maxWords;
       tree.save(function(err, tree){
         if(err){
           res.send(err);

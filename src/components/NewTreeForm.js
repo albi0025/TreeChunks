@@ -8,12 +8,14 @@ class NewTreeForm extends React.Component {
     this.state = {
       title: "",
       cover: "",
-      content: ""
+      content: "",
+      maxWords: 100
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleCoverChange = this.handleCoverChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
     this.submitTreeHandler = this.submitTreeHandler.bind(this);
+    this.handleWordCountChange = this.handleWordCountChange.bind(this);
   }
   handleTitleChange(e) {
     this.setState({title: e.target.value});
@@ -24,6 +26,13 @@ class NewTreeForm extends React.Component {
   handleContentChange(e) {
     this.setState({content: e.target.value});
   }
+
+  handleWordCountChange(e) {
+    if(e.target.value >= 0){
+      this.setState({maxWords: e.target.value});
+    }
+  }
+
   submitTreeHandler(e){
     e.preventDefault();
     fetch("/newTree",{
@@ -37,14 +46,23 @@ class NewTreeForm extends React.Component {
         title: this.state.title,
         cover: this.state.cover,
         owner: this.props.userStore.user._id,
-        date: new Date()
+        date: new Date(),
+        maxWords: this.state.maxWords
       })
     })
     .then(res => res.json())
     .then(res => {
       hashHistory.push('/Story/' + res._id + "/" + res.chunk);
     })
-    .then(this.props.onHide);
+    .then(this.props.onHide)
+    .then(res => {
+      this.setState({
+        title: "",
+        cover: "",
+        content: "",
+        maxWords: ""
+      });
+    });
   }
   render() {
     return (
@@ -53,14 +71,20 @@ class NewTreeForm extends React.Component {
           <Modal.Title id="contained-modal-title-lg card-text">Start A New Tree</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
-            <br/>
-            <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
-            <br/>
-            <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Begining of story"/>
-            <br/>
-            <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
+          <Form style={{display:"flex", flexWrap:"wrap"}}>
+            <div>
+              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
+              <br/>
+              <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
+              <br/>
+              <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Begining of story"/>
+              <br/>
+              <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
+            </div>
+            <div style={{marginLeft:"200px"}}>
+              <label>max words </label>
+              <input onChange={this.handleWordCountChange} type="number" min="0" name="chunk length" value={this.state.maxWords} placeholder="word limit"/>
+            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>

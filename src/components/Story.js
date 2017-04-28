@@ -105,7 +105,7 @@ class Story extends React.Component {
             </Panel>
             <div className="chunkDisplay">
               {(this.props.userStore.loggedIn)
-              ?<NewChunkForm chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
+              ?<NewChunkForm maxWords={this.state.tree.maxWords} chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
               : ""}
               <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
             </div>

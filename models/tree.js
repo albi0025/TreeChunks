@@ -6,7 +6,8 @@ let TreeSchema = new mongoose.Schema({
   cover: String,
   popularity: Number,
   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  date: Date
+  date: Date,
+  maxWords: Number
 });
 
 export default mongoose.model('Tree', TreeSchema);
