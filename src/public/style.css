@@ -152,7 +152,7 @@ body {
 }
 
 .story-content, .tree-list-content, .dashboard-content {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 .story-content-top {
@@ -177,4 +177,8 @@ body {
 .navbar-collapse.collapsing{
   border: none;
   text-align: right;
+}
+
+.header-text {
+  margin-top: 80px;
 }

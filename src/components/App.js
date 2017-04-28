@@ -11,8 +11,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="tree-list-content container-fluid">
-        <Trees />
+      <div>
+        <div className="header-text container-fluid text-center">
+          <img src="/images/headertext.png" width="800"/>
+        </div>
+        <div className="tree-list-content container-fluid">
+          <Trees />
+        </div>
       </div>
     );
   }
