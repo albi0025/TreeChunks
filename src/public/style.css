@@ -64,7 +64,9 @@ body {
 }
 
 .flexy {
-  background-color: #bbb;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100%;
 }
 
 .tree-info{
@@ -165,7 +167,7 @@ body {
 
 .story-content-top {
   display: flex;
-  
+
 }
 
 .navbar {
@@ -200,5 +202,5 @@ body {
 .thumbnail {
   height: 425px !important;
   margin: 10px !important;
-  min-width: 200px;
+  width: 190px !important;
 }
