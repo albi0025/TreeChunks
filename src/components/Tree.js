@@ -2,6 +2,8 @@ import React from 'react';
 import { Panel, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import ReactTooltip from 'react-tooltip';
+
 
 class Tree extends React.Component {
 
@@ -205,7 +207,8 @@ class Tree extends React.Component {
           </Link>
           <div className="tree-columns">
           <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-            <h3>{this.props.tree.title}</h3></Link>
+
+            <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
             <p>most popular thread </p>
             <p>overall rating 1 million</p>
             <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
@@ -217,7 +220,7 @@ class Tree extends React.Component {
           <div className="popularity">
           {thumbUpButton}
             <Badge>
-              {this.state.popularity}
+              <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
             </Badge>
             {thumbDownButton}
           </div>

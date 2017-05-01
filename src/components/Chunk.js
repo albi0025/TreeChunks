@@ -2,6 +2,7 @@ import React from 'react';
 import { Panel, Form, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import ReactTooltip from 'react-tooltip';
 
 
 class Chunk extends React.Component {
@@ -111,12 +112,11 @@ class Chunk extends React.Component {
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
           <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
-          {this.state.chunk.content}</Link>
-        <br/>
+          <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
         <div className="popularity">
           {thumbUpButton}
             <Badge>
-              {this.state.popularity}
+              <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
             </Badge>
           {thumbDownButton}
         </div>
