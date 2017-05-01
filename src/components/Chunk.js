@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel, Form, Button, Glyphicon, Badge } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import ReactTooltip from 'react-tooltip';
 
@@ -21,6 +21,7 @@ class Chunk extends React.Component {
     this.adjustPopularity = this.adjustPopularity.bind(this);
     this.checkForUpChunk = this.checkForUpChunk.bind(this);
     this.checkForDownChunk = this.checkForDownChunk.bind(this);
+    this.gotoChunk = this.gotoChunk.bind(this);
   }
 
   adjustPopularity(chunkId, adjust){
@@ -95,6 +96,10 @@ class Chunk extends React.Component {
     });
   }
 
+  gotoChunk(){
+    hashHistory.push('/Story/' + this.props.treeId + "/" + this.state.chunk._id);
+  }
+
   render() {
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
     let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
@@ -110,7 +115,7 @@ class Chunk extends React.Component {
     }
     if(this.state.chunk){
       return (
-        <Panel className="chunk" key={this.state.chunk._id}>
+        <Panel className="chunk" key={this.state.chunk._id} onClick={this.gotoChunk}>
           <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
           <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
         <div className="popularity">
