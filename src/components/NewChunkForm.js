@@ -17,7 +17,7 @@ class NewChunkForm extends React.Component {
   }
 
   handleContentChange(e) {
-    if(e.target.value.split(/ /).length <= this.props.maxWords) {
+    if(e.target.value.split(/ /).length + (e.target.value.split("\n").length - 1) <= this.props.maxWords) {
       this.setState({content: e.target.value});
     }
   }
