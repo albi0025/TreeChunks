@@ -78,7 +78,6 @@ class Navigation extends React.Component {
         </Navbar>
         <NewTreeForm show={this.state.lgShow} onHide={this.lgClose} />
         {this.props.children}
-        <NewTreeForm show={this.state.lgShow} onHide={this.lgClose} />
       </div>
     );}
 }
