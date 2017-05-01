@@ -3,6 +3,7 @@ import { Panel, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import FullStoryModal from './FullStoryModal';
+import ReactTooltip from 'react-tooltip';
 
 class Tree extends React.Component {
 
@@ -218,8 +219,9 @@ class Tree extends React.Component {
             </Link>
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-              <h3>{this.props.tree.title}</h3></Link>
-              <p onClick={this.lgOpen}>Read The Most Popular Story</p>
+
+              <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
+              <p onClick={this.lgOpen}>Read The Story</p>
               <p>overall rating 1 million</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
             {followButton}
@@ -229,10 +231,10 @@ class Tree extends React.Component {
             </div>
             <div className="popularity">
             {thumbUpButton}
-              <Badge>
-                {this.state.popularity}
-              </Badge>
-              {thumbDownButton}
+            <Badge>
+              <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+            </Badge>
+            {thumbDownButton}
             </div>
           </div>
         </Panel>
