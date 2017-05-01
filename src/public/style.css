@@ -207,6 +207,12 @@ body {
 
 .modal {
   font-family: 'Walter Turncoat', cursive;
+  font-size: 20px;
+}
+
+.modal input {
+  margin-bottom: 10px;
+  width: 100px;
 }
 
 .modal-header {

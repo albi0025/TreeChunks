@@ -73,14 +73,14 @@ class NewTreeForm extends React.Component {
         <Modal.Body style={{margin: "50px"}}>
           <Form style={{display:"flex", flexWrap:"wrap"}}>
             <div>
-              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
+              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} style={{width:"100%"}} placeholder="Title"/>
               <br/>
-              <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
+              <input style={{width:"100%"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
               <br/>
-              <label> max words: </label>
+              <label> max words : &nbsp; </label>
               <input onChange={this.handleWordCountChange} type="number" min="0" name="chunk length" value={this.state.maxWords} placeholder="word limit"/>
               <br/>
-              <textarea onChange={this.handleContentChange} type="text" name="content" rows="9" cols="50" value={this.state.content} placeholder="Begining of story"/>
+              <textarea onChange={this.handleContentChange} type="text" name="content" rows="9" cols="55" value={this.state.content} placeholder="Begining of story"/>
               <br/>
               <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
             </div>
