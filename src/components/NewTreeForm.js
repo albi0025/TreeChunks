@@ -73,7 +73,7 @@ class NewTreeForm extends React.Component {
         <Modal.Body>
           <Form style={{display:"flex", flexWrap:"wrap"}}>
             <div>
-              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
+              <input maxLength="30" onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
               <br/>
               <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
               <br/>
