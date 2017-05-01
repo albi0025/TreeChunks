@@ -57920,8 +57920,17 @@ var App = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'tree-list-content container-fluid' },
-        _react2.default.createElement(_Trees2.default, null)
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'header-text container-fluid text-center' },
+          _react2.default.createElement('img', { src: '/images/headertext.png', width: '800' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'tree-list-content container-fluid' },
+          _react2.default.createElement(_Trees2.default, null)
+        )
       );
     }
   }]);
@@ -58460,7 +58469,7 @@ var DashboardTree = function (_React$Component) {
 
       return _react2.default.createElement(
         _reactBootstrap.Thumbnail,
-        { src: cover, className: 'tree-dashboard-panel', key: this.props.tree._id },
+        { src: cover, className: 'tree-dashboard-panel text-center', key: this.props.tree._id },
         _react2.default.createElement(
           _reactRouter.Link,
           { to: { pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id } },
@@ -58480,7 +58489,6 @@ var DashboardTree = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          followButton,
           _react2.default.createElement(
             'div',
             { className: 'popularity' },
@@ -58728,7 +58736,9 @@ var NewChunkForm = function (_React$Component) {
   _createClass(NewChunkForm, [{
     key: 'handleContentChange',
     value: function handleContentChange(e) {
-      this.setState({ content: e.target.value });
+      if (e.target.value.split(/ /).length <= this.props.maxWords) {
+        this.setState({ content: e.target.value });
+      }
     }
   }, {
     key: 'submitChunkHandler',
@@ -58775,7 +58785,8 @@ var NewChunkForm = function (_React$Component) {
       return _react2.default.createElement(
         _reactBootstrap.Form,
         null,
-        _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content, placeholder: 'Write an alternative chunk ...' }),
+        _react2.default.createElement('textarea', { style: { width: "500px", fontSize: "22px" }, onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content,
+          placeholder: 'Add on to the story above or click through the the options one the right.' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           _reactBootstrap.Button,
@@ -58792,7 +58803,8 @@ var NewChunkForm = function (_React$Component) {
 NewChunkForm.propTypes = {
   chunkId: _react2.default.PropTypes.string,
   treeId: _react2.default.PropTypes.string,
-  userStore: _react2.default.PropTypes.object
+  userStore: _react2.default.PropTypes.object,
+  maxWords: _react2.default.PropTypes.number
 };
 
 exports.default = (0, _mobxReact.inject)("userStore")((0, _mobxReact.observer)(NewChunkForm));
@@ -58841,12 +58853,14 @@ var NewTreeForm = function (_React$Component) {
     _this.state = {
       title: "",
       cover: "",
-      content: ""
+      content: "",
+      maxWords: 100
     };
     _this.handleTitleChange = _this.handleTitleChange.bind(_this);
     _this.handleCoverChange = _this.handleCoverChange.bind(_this);
     _this.handleContentChange = _this.handleContentChange.bind(_this);
     _this.submitTreeHandler = _this.submitTreeHandler.bind(_this);
+    _this.handleWordCountChange = _this.handleWordCountChange.bind(_this);
     return _this;
   }
 
@@ -58866,8 +58880,17 @@ var NewTreeForm = function (_React$Component) {
       this.setState({ content: e.target.value });
     }
   }, {
+    key: 'handleWordCountChange',
+    value: function handleWordCountChange(e) {
+      if (e.target.value >= 0) {
+        this.setState({ maxWords: e.target.value });
+      }
+    }
+  }, {
     key: 'submitTreeHandler',
     value: function submitTreeHandler(e) {
+      var _this2 = this;
+
       e.preventDefault();
       fetch("/newTree", {
         method: "POST",
@@ -58880,13 +58903,21 @@ var NewTreeForm = function (_React$Component) {
           title: this.state.title,
           cover: this.state.cover,
           owner: this.props.userStore.user._id,
-          date: new Date()
+          date: new Date(),
+          maxWords: this.state.maxWords
         })
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
         _reactRouter.hashHistory.push('/Story/' + res._id + "/" + res.chunk);
-      }).then(this.props.onHide);
+      }).then(this.props.onHide).then(function (res) {
+        _this2.setState({
+          title: "",
+          cover: "",
+          content: "",
+          maxWords: ""
+        });
+      });
     }
   }, {
     key: 'render',
@@ -58908,17 +58939,31 @@ var NewTreeForm = function (_React$Component) {
           null,
           _react2.default.createElement(
             _reactBootstrap.Form,
-            null,
-            _react2.default.createElement('input', { onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('input', { onChange: this.handleCoverChange, type: 'text', name: 'cover', value: this.state.cover, placeholder: 'Cover' }),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content, placeholder: 'Content' }),
-            _react2.default.createElement('br', null),
+            { style: { display: "flex", flexWrap: "wrap" } },
             _react2.default.createElement(
-              _reactBootstrap.Button,
-              { onClick: this.submitTreeHandler, type: 'submit' },
-              'Submit'
+              'div',
+              null,
+              _react2.default.createElement('input', { onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('input', { style: { width: "200px" }, onChange: this.handleCoverChange, type: 'text', name: 'cover', value: this.state.cover, placeholder: 'Cover (add link to image)' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content, placeholder: 'Begining of story' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.submitTreeHandler, type: 'submit' },
+                'Submit'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { style: { marginLeft: "200px" } },
+              _react2.default.createElement(
+                'label',
+                null,
+                'max words '
+              ),
+              _react2.default.createElement('input', { onChange: this.handleWordCountChange, type: 'number', min: '0', name: 'chunk length', value: this.state.maxWords, placeholder: 'word limit' })
             )
           )
         ),
@@ -59131,7 +59176,7 @@ var Story = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'chunkDisplay' },
-                this.props.userStore.loggedIn ? _react2.default.createElement(_NewChunkForm2.default, { chunkId: this.props.params.chunkId, treeId: this.state.tree._id }) : "",
+                this.props.userStore.loggedIn ? _react2.default.createElement(_NewChunkForm2.default, { maxWords: this.state.tree.maxWords, chunkId: this.props.params.chunkId, treeId: this.state.tree._id }) : "",
                 _react2.default.createElement(_Chunks2.default, { chunks: this.state.chunks, treeId: this.state.tree._id })
               )
             )
@@ -59703,11 +59748,11 @@ var UserDashboard = function (_React$Component) {
         { className: 'dashboard-content container-fluid' },
         _react2.default.createElement(
           _reactBootstrap.Col,
-          { xs: 12, md: 5 },
+          { xs: 12, md: 6 },
           _react2.default.createElement(
-            'h3',
-            { style: { textAlign: "center" } },
-            'Trees you started'
+            'div',
+            { className: 'text-center' },
+            _react2.default.createElement('img', { src: '/images/yourtrees.png', width: '224' })
           ),
           _react2.default.createElement(
             'div',
@@ -59718,11 +59763,11 @@ var UserDashboard = function (_React$Component) {
         _react2.default.createElement(_reactBootstrap.Col, { xs: 0, md: 2 }),
         _react2.default.createElement(
           _reactBootstrap.Col,
-          { xs: 12, md: 5 },
+          { xs: 12, md: 6 },
           _react2.default.createElement(
-            'h3',
-            { style: { textAlign: "center" } },
-            'Your followed trees'
+            'div',
+            { className: 'text-center' },
+            _react2.default.createElement('img', { src: '/images/followtext.png', width: '300' })
           ),
           _react2.default.createElement(
             'div',

@@ -66,24 +66,23 @@ class NewTreeForm extends React.Component {
   }
   render() {
     return (
-      <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-sm">
+      <Modal {...this.props} bsSize="medium" aria-labelledby="contained-modal-title-sm">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg card-text">Start A New Tree</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{margin: "50px"}}>
           <Form style={{display:"flex", flexWrap:"wrap"}}>
             <div>
-              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} placeholder="Title"/>
+              <input onChange={this.handleTitleChange} type="text" name="title" value={this.state.title} style={{width:"100%"}} placeholder="Title"/>
               <br/>
-              <input style={{width:"200px"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
+              <input style={{width:"100%"}} onChange={this.handleCoverChange} type="text" name="cover" value={this.state.cover} placeholder="Cover (add link to image)"/>
               <br/>
-              <textarea onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content} placeholder="Begining of story"/>
+              <label> max words : &nbsp; </label>
+              <input onChange={this.handleWordCountChange} type="number" min="0" name="chunk length" value={this.state.maxWords} placeholder="word limit"/>
+              <br/>
+              <textarea onChange={this.handleContentChange} type="text" name="content" rows="9" cols="55" value={this.state.content} placeholder="Begining of story"/>
               <br/>
               <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
-            </div>
-            <div style={{marginLeft:"200px"}}>
-              <label>max words </label>
-              <input onChange={this.handleWordCountChange} type="number" min="0" name="chunk length" value={this.state.maxWords} placeholder="word limit"/>
             </div>
           </Form>
         </Modal.Body>

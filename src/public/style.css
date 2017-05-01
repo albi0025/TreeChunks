@@ -220,3 +220,17 @@ body {
   margin: 10px !important;
   width: 190px !important;
 }
+
+.modal {
+  font-family: 'Walter Turncoat', cursive;
+  font-size: 20px;
+}
+
+.modal input {
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.modal-header {
+  background-color: #59c9ef;
+}
