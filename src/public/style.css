@@ -151,6 +151,9 @@ body {
   margin-top: 0px;
 }
 
+.preview:hover{
+  text-shadow: 0px 0px 1px green;
+}
 
 .logo .container {
   margin: 0 !important;
