@@ -192,13 +192,9 @@ export default class UserStore {
     .then(result => result.json())
     .then(res => {
       let expiration = res.decoded.exp * 1000;
-      console.log(expiration);
-      console.log(res.date);
       if(expiration < res.date){
-        console.log("logout");
         this.logout();
       } else{
-        console.log("login");
         fetch('/getUser',{
           method: 'GET',
           headers: {
