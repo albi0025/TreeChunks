@@ -16,7 +16,8 @@ var TreeSchema = new _mongoose2.default.Schema({
   cover: String,
   popularity: Number,
   owner: { type: _mongoose2.default.Schema.Types.ObjectId, ref: 'User' },
-  date: Date
+  date: Date,
+  maxWords: Number
 });
 
 exports.default = _mongoose2.default.model('Tree', TreeSchema);
