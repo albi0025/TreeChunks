@@ -2,6 +2,7 @@ import React from 'react';
 import { Panel, Button, Glyphicon, Badge } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import FullStoryModal from './FullStoryModal';
 
 class Tree extends React.Component {
 
@@ -10,7 +11,8 @@ class Tree extends React.Component {
     this.state = {
       popularity: this.props.tree.popularity,
       mostPopularStory: "",
-      author: ""
+      author: "",
+      lgShow: false
     };
     this.upChunk = this.upChunk.bind(this);
     this.unUpChunk = this.unUpChunk.bind(this);
@@ -25,6 +27,8 @@ class Tree extends React.Component {
     this.checkForFollowing = this.checkForFollowing.bind(this);
     this.preparePreview = this.preparePreview.bind(this);
     this.fetchAuthor = this.fetchAuthor.bind(this);
+    this.lgOpen = this.lgOpen.bind(this);
+    this.lgClose = this.lgClose.bind(this);
   }
 
   componentWillMount(){
@@ -171,6 +175,14 @@ class Tree extends React.Component {
     });
   }
 
+  lgClose(){
+    this.setState({ lgShow: false });
+  }
+
+  lgOpen(){
+    this.setState({ lgShow: true });
+  }
+
   render() {
     let followButton = "";
     if(this.props.userStore.loggedIn){
@@ -192,37 +204,40 @@ class Tree extends React.Component {
       }
     }
     return (
-      <Panel className="tree-panel" key={this.props.tree._id}>
-        <div className="trees-display">
-          <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-          <div className="tree-columns">
-            {
-              (this.checkUrl(this.props.tree.cover))
-              ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/>
-              : <img src="/images/coverlogo.png" height="200" width="150"/>
-            }
+      <div>
+        <Panel className="tree-panel" key={this.props.tree._id}>
+          <div className="trees-display">
+            <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
+            <div className="tree-columns">
+              {
+                (this.checkUrl(this.props.tree.cover))
+                ? <img src={this.props.tree.cover} alt="Cover" height="200" width="150"/>
+                : <img src="/images/coverlogo.png" height="200" width="150"/>
+              }
+            </div>
+            </Link>
+            <div className="tree-columns">
+            <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
+              <h3>{this.props.tree.title}</h3></Link>
+              <p onClick={this.lgOpen}>Read The Most Popular Story</p>
+              <p>overall rating 1 million</p>
+              <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
+            {followButton}
+            </div>
+            <div className="tree-columns">
+              {this.state.mostPopularStory}
+            </div>
+            <div className="popularity">
+            {thumbUpButton}
+              <Badge>
+                {this.state.popularity}
+              </Badge>
+              {thumbDownButton}
+            </div>
           </div>
-          </Link>
-          <div className="tree-columns">
-          <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-            <h3>{this.props.tree.title}</h3></Link>
-            <p>most popular thread </p>
-            <p>overall rating 1 million</p>
-            <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
-          {followButton}
-          </div>
-          <div className="tree-columns">
-            {this.state.mostPopularStory}
-          </div>
-          <div className="popularity">
-          {thumbUpButton}
-            <Badge>
-              {this.state.popularity}
-            </Badge>
-            {thumbDownButton}
-          </div>
-        </div>
-      </Panel>
+        </Panel>
+        <FullStoryModal chunkId={this.props.tree.chunk._id} show={this.state.lgShow} onHide={this.lgClose}/>
+      </div>
     );
   }
 }
