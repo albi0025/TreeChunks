@@ -116,7 +116,7 @@ class Chunk extends React.Component {
         <div className="popularity">
           {thumbUpButton}
             <Badge>
-              <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+              <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip delayShow={1000} />
             </Badge>
           {thumbDownButton}
         </div>

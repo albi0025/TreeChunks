@@ -100,7 +100,7 @@ class Story extends React.Component {
             </div>
             <Panel className="story">
               Here is the story so far: <br/>
-                <p data-tip="Click to go back in the story...">{this.state.story}</p><ReactTooltip />
+                <p data-tip="Click to go back in the story...">{this.state.story}</p><ReactTooltip delayShow={1000}  />
             </Panel>
             <div className="chunkDisplay">
               {(this.props.userStore.loggedIn)
