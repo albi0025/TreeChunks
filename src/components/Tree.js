@@ -28,7 +28,7 @@ class Tree extends React.Component {
   }
 
   componentWillMount(){
-    this.preparePreview(this.props.tree.chunk._id, "", 0);
+    this.preparePreview(this.props.tree.chunk._id, [], 0);
     this.fetchAuthor();
   }
 
@@ -123,7 +123,8 @@ class Tree extends React.Component {
     .then(result => result.json())
     .then(res => {
       charcount += res.content.length;
-      story += res.content+ " ";
+      story.push(<Link style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+      // story += res.content+ " ";
       if(res.children.length > 0 && charcount < 400){
         fetch("/getMostPopularChild/" + chunkId, {
           method:"GET",
@@ -137,8 +138,13 @@ class Tree extends React.Component {
           this.preparePreview(res._id, story, charcount);
         });
       } else {
+        if(charcount > 400){
+          story.pop();
+          let newContent= res.content.substr(0, (400-(charcount-res.content.length)));
+          story.push(<Link style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
+        }
         this.setState({
-          mostPopularStory: story.substr(0, 400) + " ..."
+          mostPopularStory: story
         });
       }
     });
