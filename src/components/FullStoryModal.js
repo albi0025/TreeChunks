@@ -54,7 +54,7 @@ class FullStoryModal extends React.Component {
 
   render() {
     return (
-      <Modal {...this.props} bsSize="lg" aria-labelledby="contained-modal-title-sm">
+      <Modal {...this.props} aria-labelledby="contained-modal-title-sm">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg card-text">The Most Popular Storyline</Modal.Title>
         </Modal.Header>
