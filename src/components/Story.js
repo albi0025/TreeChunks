@@ -4,6 +4,7 @@ import Chunks from './Chunks';
 import { hashHistory, Link } from 'react-router';
 import NewChunkForm from './NewChunkForm';
 import { observer, inject } from 'mobx-react';
+import ReactTooltip from 'react-tooltip';
 
 
 class Story extends React.Component {
@@ -99,7 +100,7 @@ class Story extends React.Component {
             </div>
             <Panel className="story">
               Here is the story so far: <br/>
-              {this.state.story}
+                <p data-tip="Click to go back in the story...">{this.state.story}</p><ReactTooltip />
             </Panel>
             <div className="chunkDisplay">
               {(this.props.userStore.loggedIn)
