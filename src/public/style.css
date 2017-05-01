@@ -23,16 +23,18 @@ body {
 }
 
 .storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
-  font-size: 24px;
+  font-family: 'Walter Turncoat', cursive;
+  font-family: 'Rokkitt', serif;
+  font-size: 24px !important;
   font-weight: 800;
-  color: black;
+  color: black !important;
   transition: all 0.25s ease;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .storyChunk:hover{/*changes the deco and color of hover.. lets change this to story-chunk*/
-  font-size: 32px;
-  text-decoration: none;
+  font-size: 24px !important;
+  text-decoration: none !important;
   text-shadow: 0px 0px 1px green;
 }
 
@@ -47,8 +49,10 @@ body {
 }
 
 .chunks{
+  font-family: 'Rokkitt', serif;
   display: flex;
   overflow-x: auto;
+  margin-bottom: 20px !important;
 }
 
 .upchunked{
@@ -70,7 +74,19 @@ body {
 }
 
 .tree-info{
-  display: flex; /*need this for top part of story page*/
+  font-size: 64px;
+  font-style: oblique;
+  text-align: center;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+.story{
+  margin-left: 60px !important;
+  margin-right: 60px !important;
+  margin-bottom: 60px !important;
+  background-color: rgba(255,255,255,0.5) !important;
+
 }
 
 .title-popularity {
@@ -144,14 +160,14 @@ body {
 .story-background-image {
   background-repeat: no-repeat;
   background-size: 100vw;
+  background-position: center;
   height: 100vh;
-  background-position: 40px center;
   margin: 0px !important;
   padding: 0px !important;
 }
 
 .story-background-gradient{
-  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,.9), rgba(255,255,255,.5),rgba(255,255,255,.9), rgba(255,255,255,1));
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,.9), rgba(255,255,255,.5),rgba(255,255,255,.6), rgba(255,255,255,.8));
   margin: 0px !important;
   padding: 0px !important;
   height: 100vh;

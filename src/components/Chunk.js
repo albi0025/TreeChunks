@@ -110,7 +110,7 @@ class Chunk extends React.Component {
     if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
-          <Link  to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
+          <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
           {this.state.chunk.content}</Link>
         <br/>
         <div className="popularity">

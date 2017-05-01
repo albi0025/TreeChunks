@@ -95,12 +95,10 @@ class Story extends React.Component {
         <div className="container-fluid story-background-gradient">
           <div className="story-content container-fluid">
             <div className="tree-info">
-              <h2>{this.state.tree.title}</h2>
-              <div className="popularity">
-                <Badge>{this.state.tree.popularity}</Badge>
-              </div>
+              <div style={{ fontFamily: "'Walter Turncoat', cursive"}}>{this.state.tree.title}</div>
             </div>
-            <Panel>
+            <Panel className="story">
+              Here is the story so far: <br/>
               {this.state.story}
             </Panel>
             <div className="chunkDisplay">

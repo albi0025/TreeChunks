@@ -60,7 +60,7 @@ class NewTreeForm extends React.Component {
         title: "",
         cover: "",
         content: "",
-        maxWords: ""
+        maxWords: 100
       });
     });
   }

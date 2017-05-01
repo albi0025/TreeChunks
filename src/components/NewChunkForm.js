@@ -60,7 +60,7 @@ class NewChunkForm extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form style={{marginRight: "50px"}}>
         <textarea style={{width:"500px", fontSize:"22px"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content}
         placeholder="Add on to the story above or click through the the options one the right."/>
         <br/>
