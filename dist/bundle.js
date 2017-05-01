@@ -57924,7 +57924,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'header-text container-fluid text-center' },
-          _react2.default.createElement('img', { src: '/images/headertext.png', width: '800' })
+          _react2.default.createElement('img', { src: '/images/newheader.png', width: '800' })
         ),
         _react2.default.createElement(
           'div',
@@ -58102,7 +58102,7 @@ var Chunk = function (_React$Component) {
           { className: 'chunk', key: this.state.chunk._id },
           _react2.default.createElement(
             _reactRouter.Link,
-            { to: { pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id } },
+            { style: { fontSize: "30px", textDecoration: "none" }, to: { pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id } },
             this.state.chunk.content
           ),
           _react2.default.createElement('br', null),
@@ -58736,7 +58736,7 @@ var NewChunkForm = function (_React$Component) {
   _createClass(NewChunkForm, [{
     key: 'handleContentChange',
     value: function handleContentChange(e) {
-      if (e.target.value.split(/ /).length <= this.props.maxWords) {
+      if (e.target.value.split(/ /).length + (e.target.value.split("\n").length - 1) <= this.props.maxWords) {
         this.setState({ content: e.target.value });
       }
     }
@@ -58784,7 +58784,7 @@ var NewChunkForm = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         _reactBootstrap.Form,
-        null,
+        { style: { marginRight: "50px" } },
         _react2.default.createElement('textarea', { style: { width: "500px", fontSize: "22px" }, onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content,
           placeholder: 'Add on to the story above or click through the the options one the right.' }),
         _react2.default.createElement('br', null),
@@ -58915,7 +58915,7 @@ var NewTreeForm = function (_React$Component) {
           title: "",
           cover: "",
           content: "",
-          maxWords: ""
+          maxWords: 100
         });
       });
     }
@@ -58924,7 +58924,7 @@ var NewTreeForm = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         _reactBootstrap.Modal,
-        _extends({}, this.props, { bsSize: 'large', 'aria-labelledby': 'contained-modal-title-sm' }),
+        _extends({}, this.props, { bsSize: 'medium', 'aria-labelledby': 'contained-modal-title-sm' }),
         _react2.default.createElement(
           _reactBootstrap.Modal.Header,
           { closeButton: true },
@@ -58936,34 +58936,31 @@ var NewTreeForm = function (_React$Component) {
         ),
         _react2.default.createElement(
           _reactBootstrap.Modal.Body,
-          null,
+          { style: { margin: "50px" } },
           _react2.default.createElement(
             _reactBootstrap.Form,
             { style: { display: "flex", flexWrap: "wrap" } },
             _react2.default.createElement(
               'div',
               null,
-              _react2.default.createElement('input', { onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
+              _react2.default.createElement('input', { maxLength: '30', onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
               _react2.default.createElement('br', null),
-              _react2.default.createElement('input', { style: { width: "200px" }, onChange: this.handleCoverChange, type: 'text', name: 'cover', value: this.state.cover, placeholder: 'Cover (add link to image)' }),
+              _react2.default.createElement('input', { style: { width: "100%" }, onChange: this.handleCoverChange, type: 'text', name: 'cover', value: this.state.cover, placeholder: 'Cover (add link to image)' }),
               _react2.default.createElement('br', null),
-              _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content, placeholder: 'Begining of story' }),
+              _react2.default.createElement(
+                'label',
+                null,
+                ' max words : \xA0 '
+              ),
+              _react2.default.createElement('input', { onChange: this.handleWordCountChange, type: 'number', min: '0', name: 'chunk length', value: this.state.maxWords, placeholder: 'word limit' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '9', cols: '55', value: this.state.content, placeholder: 'Begining of story' }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 _reactBootstrap.Button,
                 { onClick: this.submitTreeHandler, type: 'submit' },
                 'Submit'
               )
-            ),
-            _react2.default.createElement(
-              'div',
-              { style: { marginLeft: "200px" } },
-              _react2.default.createElement(
-                'label',
-                null,
-                'max words '
-              ),
-              _react2.default.createElement('input', { onChange: this.handleWordCountChange, type: 'number', min: '0', name: 'chunk length', value: this.state.maxWords, placeholder: 'word limit' })
             )
           )
         ),
@@ -59154,23 +59151,16 @@ var Story = function (_React$Component) {
                 'div',
                 { className: 'tree-info' },
                 _react2.default.createElement(
-                  'h2',
-                  null,
-                  this.state.tree.title
-                ),
-                _react2.default.createElement(
                   'div',
-                  { className: 'popularity' },
-                  _react2.default.createElement(
-                    _reactBootstrap.Badge,
-                    null,
-                    this.state.tree.popularity
-                  )
+                  { style: { fontFamily: "'Walter Turncoat', cursive" } },
+                  this.state.tree.title
                 )
               ),
               _react2.default.createElement(
                 _reactBootstrap.Panel,
-                null,
+                { className: 'story' },
+                'Here is the story so far: ',
+                _react2.default.createElement('br', null),
                 this.state.story
               ),
               _react2.default.createElement(

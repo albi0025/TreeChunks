@@ -13,7 +13,7 @@ class App extends React.Component {
     return (
       <div>
         <div className="header-text container-fluid text-center">
-          <img src="/images/headertext.png" width="800"/>
+          <img src="/images/newheader.png" width="800"/>
         </div>
         <div className="tree-list-content container-fluid">
           <Trees />
