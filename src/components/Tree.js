@@ -234,12 +234,14 @@ class Tree extends React.Component {
             <div className="tree-story hidden-xs">
               {this.state.mostPopularStory}
             </div>
-            <div className="popularity hidden-xs">
-            {thumbUpButton}
-            <Badge>
-              <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
-            </Badge>
-            {thumbDownButton}
+            <div className="tree-popularity">
+              <div className="popularity hidden-xs">
+              {thumbUpButton}
+              <Badge>
+                <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+              </Badge>
+              {thumbDownButton}
+              </div>
             </div>
           </div>
           <br/>

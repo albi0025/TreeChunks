@@ -82,6 +82,11 @@ body {
   height: 100%;
 }
 
+.tree-popularity{
+  display: flex;
+  justify-content: flex-end;
+}
+
 .tree-info{
   font-size: 64px;
   font-style: oblique;
@@ -205,7 +210,6 @@ body {
 
 .story-content-top {
   display: flex;
-
 }
 
 .navbar {
