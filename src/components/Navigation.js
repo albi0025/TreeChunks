@@ -70,7 +70,7 @@ class Navigation extends React.Component {
                     className="googlebtn"
                     onSuccess={this.googleLoginHandler}
                     onFailure={this.googleLoginHandler}>
-                    <span> Login with Google</span>
+                    <img src="/images/btn_google_signin.png"/>
                   </GoogleLogin>
                 </Nav>
             }
