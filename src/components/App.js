@@ -14,8 +14,8 @@ class App extends React.Component {
       <div>
        <div className="header-text container-fluid text-center">
         {this.props.userStore.loggedIn
-        ? <img src="/images/welcomeonly.png" width="800"/>
-        : <img src="/images/headertext.png" width="800"/>
+        ? <img className ="img-fluid" src="/images/welcomeonly.png" style={{maxWidth: "100%", height: "auto"}}/>
+        : <img className ="img-fluid" src="/images/headertext.png" style={{maxWidth: "100%", height: "auto"}} />
         }
         </div>
         <div className="tree-list-content container-fluid">
