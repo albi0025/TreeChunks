@@ -231,7 +231,7 @@ class Tree extends React.Component {
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
             {followButton}
             </div>
-            <div className="tree-columns hidden-xs">
+            <div className="tree-story hidden-xs">
               {this.state.mostPopularStory}
             </div>
             <div className="popularity hidden-xs">

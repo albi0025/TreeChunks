@@ -103,6 +103,10 @@ body {
   height: 25px;
 }
 
+.tree-story{
+  width: 50%;
+}
+
 .popularity {
   display: flex;
   font-size: 20px;
@@ -150,9 +154,11 @@ body {
 .trees-display {
   display: flex;
 }
+
 .tree-columns {
+  width: auto;
   padding-left: 15px;
-  padding-right: 25px;
+  padding-right: 30px;
 }
 
 .tree-columns > a > h3 {
