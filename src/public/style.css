@@ -249,3 +249,7 @@ body {
 .modal-header {
   background-color: #59c9ef;
 }
+
+.about-text {
+  margin: 10px !important;
+}
