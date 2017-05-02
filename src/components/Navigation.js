@@ -68,14 +68,17 @@ class Navigation extends React.Component {
             {
               this.props.userStore.loggedIn
               ? <Nav pullRight>
-                <NavItem onClick={this.lgOpen}>
-                Create A New Tree
-                </NavItem>
-                <NavItem onClick={this.goToDashBoard}>
-                  <Glyphicon glyph="user"/> {this.props.userStore.user.name}
-                </NavItem>
-                <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
-                </Nav>
+                  <NavItem onClick={this.aboutOpen}>
+                  About
+                  </NavItem>
+                  <NavItem onClick={this.lgOpen}>
+                  Create A New Tree
+                  </NavItem>
+                  <NavItem onClick={this.goToDashBoard}>
+                    <Glyphicon glyph="user"/> {this.props.userStore.user.name}
+                  </NavItem>
+                  <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
+                  </Nav>
               : <Nav pullRight>
                   <NavItem onClick={this.aboutOpen}>
                   About
