@@ -83,8 +83,9 @@ body {
 }
 
 .tree-popularity{
-  display: flex;
-  justify-content: flex-end;
+  margin-left: 10px;
+  position: relative;
+  foat: right;
 }
 
 .tree-info{
