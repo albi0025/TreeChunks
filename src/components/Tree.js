@@ -227,7 +227,7 @@ class Tree extends React.Component {
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
 
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
-              <p className="read-story-link" onClick={this.lgOpen}>Read The Story</p>
+              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
             {followButton}
             </div>
@@ -242,6 +242,7 @@ class Tree extends React.Component {
             {thumbDownButton}
             </div>
           </div>
+          <br/>
           <div className="popularity hidden-sm hidden-md hidden-lg hidden-xl">
           {thumbUpButton}
           <Badge>

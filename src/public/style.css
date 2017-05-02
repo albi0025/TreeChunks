@@ -9,7 +9,6 @@ body {
   min-height: 100vh;
 }
 
-
 .googlebtn{
   background-color: #a1bc31;
   border: none;
@@ -152,9 +151,8 @@ body {
   display: flex;
 }
 .tree-columns {
-  width: 30%;
   padding-left: 15px;
-  padding-right: 15px;
+  padding-right: 25px;
 }
 
 .tree-columns > a > h3 {
