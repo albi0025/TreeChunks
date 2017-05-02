@@ -18,7 +18,7 @@ class AboutModal extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg card-text">About</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{margin: "50px"}}>
+        <Modal.Body className="about-text" style={{margin: "50px"}}>
           <img className="image-fluid" src="/images/aboutModal.png" style={{maxWidth: "100%", height: "auto"}}/>
         </Modal.Body>
         <Modal.Footer>
