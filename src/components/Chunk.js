@@ -114,13 +114,6 @@ class Chunk extends React.Component {
           <div>
             <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
             <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
-            <div style={{zIndex: "20"}} className="popularity">
-              {thumbUpButton}
-                <Badge>
-                  <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
-                </Badge>
-              {thumbDownButton}
-            </div>
           </div>
         <div className="popularity">
           {thumbUpButton}

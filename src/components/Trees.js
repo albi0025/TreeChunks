@@ -38,7 +38,7 @@ class Trees extends React.Component {
   prepareTrees(){
     return this.state.trees.map(function(tree){
       return(
-        <Tree key={tree._id} tree={tree}/>
+          <Tree key={tree._id} tree={tree} style={{ fontFamily: "'Walter Turncoat', cursive"}}/>
       );
     },this);
   }
