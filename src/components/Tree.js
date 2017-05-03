@@ -225,7 +225,6 @@ class Tree extends React.Component {
             </Link>
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
               <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>

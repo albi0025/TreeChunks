@@ -116,17 +116,17 @@ class Chunk extends React.Component {
     if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
-          <div style={{}} onClick={this.goToChunk} >
+          <div style={{zIndex: "-3"}} onClick={this.goToChunk} >
             <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
             <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
+            <div style={{zIndex: "20"}} className="popularity">
+              {thumbUpButton}
+                <Badge>
+                  <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+                </Badge>
+              {thumbDownButton}
+            </div>
           </div>
-        <div className="popularity">
-          {thumbUpButton}
-            <Badge>
-              <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
-            </Badge>
-          {thumbDownButton}
-        </div>
         </Panel>
       );
     }else{
