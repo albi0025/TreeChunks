@@ -43,7 +43,7 @@ body {
 }
 
 .storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
-  font-family: 'Walter Turncoat', cursive;
+
   font-family: 'Rokkitt', serif;
   font-size: 24px !important;
   font-weight: 800;
@@ -123,6 +123,8 @@ body {
 
 .tree-story{
   width: 50%;
+  font-family: 'Rokkitt', serif;
+  font-size: 17px;
 }
 
 .popularity {
@@ -188,6 +190,7 @@ body {
 
 .preview:hover{
   text-shadow: 0px 0px 1px green;
+  font-family: 'Rokkitt', serif;
 }
 
 .logo .container {
