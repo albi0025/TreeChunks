@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import FullStoryModal from './FullStoryModal';
 import ReactTooltip from 'react-tooltip';
+import dateFormat from 'dateformat';
+
 
 class Tree extends React.Component {
 
@@ -30,11 +32,24 @@ class Tree extends React.Component {
     this.fetchAuthor = this.fetchAuthor.bind(this);
     this.lgOpen = this.lgOpen.bind(this);
     this.lgClose = this.lgClose.bind(this);
+    this.handleDate = this.handleDate.bind(this);
+
   }
 
   componentWillMount(){
     this.preparePreview(this.props.tree.chunk._id, [], 0);
     this.fetchAuthor();
+  }
+
+  handleDate(){
+
+    let dateLine = (
+    <p> <Glyphicon glyph="calendar"/> &nbsp;
+      {dateFormat(this.props.tree.date,
+         "mm/dd/yy")}
+    </p>
+  );
+    return dateLine;
   }
 
   handleTreeFollow(){
@@ -226,8 +241,10 @@ class Tree extends React.Component {
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
-              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
+              {this.handleDate()}
+              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
+
             {followButton}
             </div>
             <div className="tree-story hidden-xs">
