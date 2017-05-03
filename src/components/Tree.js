@@ -74,28 +74,28 @@ class Tree extends React.Component {
   }
 
   upChunk(){
+    this.props.userStore.flagUserUpChunk(this.props.tree.chunk._id);
     if(this.checkForDownChunk()){
-      this.adjustPopularity(this.props.tree.chunk._id, 2);
       this.props.userStore.unFlagUserDownChunk(this.props.tree.chunk._id);
+      this.adjustPopularity(this.props.tree.chunk._id, 2);
     } else {
       this.adjustPopularity(this.props.tree.chunk._id, 1);
     }
-    this.props.userStore.flagUserUpChunk(this.props.tree.chunk._id);
   }
 
   unUpChunk(){
-    this.adjustPopularity(this.props.tree.chunk._id, -1);
     this.props.userStore.unFlagUserUpChunk(this.props.tree.chunk._id);
+    this.adjustPopularity(this.props.tree.chunk._id, -1);
   }
 
   downChunk(){
+    this.props.userStore.flagUserDownChunk(this.props.tree.chunk._id);
     if(this.checkForUpChunk()){
-      this.adjustPopularity(this.props.tree.chunk._id, -2);
       this.props.userStore.unFlagUserUpChunk(this.props.tree.chunk._id);
+      this.adjustPopularity(this.props.tree.chunk._id, -2);
     } else{
       this.adjustPopularity(this.props.tree.chunk._id, -1);
     }
-    this.props.userStore.flagUserDownChunk(this.props.tree.chunk._id);
   }
 
   checkForDownChunk(){
@@ -106,8 +106,8 @@ class Tree extends React.Component {
   }
 
   unDownChunk(){
-    this.adjustPopularity(this.props.tree.chunk._id, 1);
     this.props.userStore.unFlagUserDownChunk(this.props.tree.chunk._id);
+    this.adjustPopularity(this.props.tree.chunk._id, 1);
   }
 
   checkForUpChunk(){
