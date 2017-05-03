@@ -64,12 +64,10 @@ class Navigation extends React.Component {
             </Navbar .Brand>
           <Navbar .Toggle />
           </Navbar .Header>
-          <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
+          <Navbar .Collapse>
             {
               this.props.userStore.loggedIn
-              ?
-
-                <Nav pullRight className="navStyling">
+              ? <Nav pullRight className="navStyling">
                   <NavItem onClick={this.aboutOpen}>
                   About
                   </NavItem>
@@ -80,7 +78,7 @@ class Navigation extends React.Component {
                     <Glyphicon glyph="user"/> {this.props.userStore.user.name}
                   </NavItem>
                   <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
-                  </Nav>
+                </Nav>
               : <Nav pullRight>
                   <NavItem onClick={this.aboutOpen}>
                   About

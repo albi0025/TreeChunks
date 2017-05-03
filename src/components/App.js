@@ -28,6 +28,14 @@ class App extends React.Component {
     this.fetchTreeCount();
   }
 
+  componentWillUpdate(){
+    if(this.state.offset !== 0){
+      this.setState({
+        offset: 0
+      });
+    }
+  }
+
   pageDownHandler(){
     this.setState({
       offset: this.state.offset-10
