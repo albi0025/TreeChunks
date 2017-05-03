@@ -59999,6 +59999,8 @@ var Chunk = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this5 = this;
+
       var thumbUpButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-up', className: 'unchunked' });
       var thumbDownButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-down', className: 'unchunked' });
       if (this.props.userStore.loggedIn) {
@@ -60011,7 +60013,49 @@ var Chunk = function (_React$Component) {
           thumbDownButton = _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'thumbs-down', className: 'downchunked', onClick: this.unDownChunk });
         }
       }
-      if (this.state.chunk) {
+      if (this.state.chunk && this.props.chunk.owner == this.props.userStore.user._id && this.props.chunk.children.length < 1) {
+        return _react2.default.createElement(
+          _reactBootstrap.Panel,
+          { className: 'chunk', key: this.state.chunk._id },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { style: { fontSize: "30px", textDecoration: "none" }, to: { pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id } },
+              _react2.default.createElement(
+                'p',
+                { 'data-tip': 'Add this next...' },
+                this.state.chunk.content
+              ),
+              _react2.default.createElement(_reactTooltip2.default, null)
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'popularity' },
+            thumbUpButton,
+            _react2.default.createElement(
+              _reactBootstrap.Badge,
+              null,
+              _react2.default.createElement(
+                'p',
+                { 'data-tip': 'How Popular This Addition Is... Go Ahead...Vote!' },
+                this.state.popularity
+              ),
+              _react2.default.createElement(_reactTooltip2.default, { delayShow: 1000 })
+            ),
+            thumbDownButton
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            { onClick: function onClick() {
+                return _this5.props.deleteChunk(_this5.state.chunk._id);
+              } },
+            'delete'
+          )
+        );
+      } else if (this.state.chunk) {
         return _react2.default.createElement(
           _reactBootstrap.Panel,
           { className: 'chunk', key: this.state.chunk._id },
@@ -60046,8 +60090,6 @@ var Chunk = function (_React$Component) {
             thumbDownButton
           )
         );
-      } else {
-        return _react2.default.createElement('div', null);
       }
     }
   }]);
@@ -60056,9 +60098,11 @@ var Chunk = function (_React$Component) {
 }(_react2.default.Component);
 
 Chunk.propTypes = {
+  story: _react2.default.PropTypes.object,
   chunk: _react2.default.PropTypes.object,
   treeId: _react2.default.PropTypes.string,
-  userStore: _react2.default.PropTypes.object
+  userStore: _react2.default.PropTypes.object,
+  deleteChunk: _react2.default.PropTypes.func
 };
 
 exports.default = (0, _mobxReact.inject)("userStore")((0, _mobxReact.observer)(Chunk));
@@ -60112,7 +60156,7 @@ var Chunks = function (_React$Component) {
     key: 'prepareChunks',
     value: function prepareChunks() {
       return this.props.chunks.map(function (chunk) {
-        return _react2.default.createElement(_Chunk2.default, { key: chunk._id, chunk: chunk, treeId: this.props.treeId });
+        return _react2.default.createElement(_Chunk2.default, { key: chunk._id, deleteChunk: this.props.deleteChunk, chunk: chunk, treeId: this.props.treeId });
       }, this);
     }
   }, {
@@ -60131,7 +60175,8 @@ var Chunks = function (_React$Component) {
 
 Chunks.propTypes = {
   chunks: _react2.default.PropTypes.array,
-  treeId: _react2.default.PropTypes.string
+  treeId: _react2.default.PropTypes.string,
+  deleteChunk: _react2.default.PropTypes.func
 };
 
 exports.default = Chunks;
@@ -61152,6 +61197,7 @@ var Story = function (_React$Component) {
     _this.fetchTree = _this.fetchTree.bind(_this);
     _this.getChunks = _this.getChunks.bind(_this);
     _this.prepareStory = _this.prepareStory.bind(_this);
+    _this.deleteChunk = _this.deleteChunk.bind(_this);
     return _this;
   }
 
@@ -61191,9 +61237,28 @@ var Story = function (_React$Component) {
       });
     }
   }, {
+    key: 'deleteChunk',
+    value: function deleteChunk(chunkId) {
+      var _this3 = this;
+
+      fetch("/deleteChunk/" + chunkId, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function () {
+        var newArray = _this3.state.chunks;
+        newArray = newArray.filter(function (x) {
+          return x._id !== chunkId;
+        });
+        _this3.setState({ chunks: newArray });
+      });
+    }
+  }, {
     key: 'getChunks',
     value: function getChunks(chunkId) {
-      var _this3 = this;
+      var _this4 = this;
 
       fetch("/getChunks/" + chunkId, {
         method: "GET",
@@ -61204,13 +61269,13 @@ var Story = function (_React$Component) {
       }).then(function (result) {
         return result.json();
       }).then(function (data) {
-        return _this3.setState({ chunks: data });
+        return _this4.setState({ chunks: data });
       });
     }
   }, {
     key: 'prepareStory',
     value: function prepareStory(chunkId, story) {
-      var _this4 = this;
+      var _this5 = this;
 
       fetch("/getStory/" + chunkId, {
         method: "GET",
@@ -61223,14 +61288,14 @@ var Story = function (_React$Component) {
       }).then(function (res) {
         story.push(_react2.default.createElement(
           _reactRouter.Link,
-          { key: res._id, className: 'storyChunk', to: { pathname: '/Story/' + _this4.state.tree._id + '/' + res._id } },
+          { key: res._id, className: 'storyChunk', to: { pathname: '/Story/' + _this5.state.tree._id + '/' + res._id } },
           res.content + " "
         ));
         if (typeof res.parentchunk == "string") {
-          _this4.prepareStory(res.parentchunk, story);
+          _this5.prepareStory(res.parentchunk, story);
         } else {
           story.reverse();
-          _this4.setState({
+          _this5.setState({
             story: story
           });
         }
@@ -61286,7 +61351,7 @@ var Story = function (_React$Component) {
                 'div',
                 { className: 'chunkDisplay' },
                 this.props.userStore.loggedIn ? _react2.default.createElement(_NewChunkForm2.default, { maxWords: this.state.tree.maxWords, chunkId: this.props.params.chunkId, treeId: this.state.tree._id }) : "",
-                _react2.default.createElement(_Chunks2.default, { chunks: this.state.chunks, treeId: this.state.tree._id })
+                _react2.default.createElement(_Chunks2.default, { deleteChunk: this.deleteChunk, chunks: this.state.chunks, treeId: this.state.tree._id })
               )
             )
           )
