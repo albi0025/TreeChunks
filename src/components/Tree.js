@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import FullStoryModal from './FullStoryModal';
 import ReactTooltip from 'react-tooltip';
+import dateFormat from 'dateformat';
+
 
 class Tree extends React.Component {
 
@@ -30,11 +32,24 @@ class Tree extends React.Component {
     this.fetchAuthor = this.fetchAuthor.bind(this);
     this.lgOpen = this.lgOpen.bind(this);
     this.lgClose = this.lgClose.bind(this);
+    this.handleDate = this.handleDate.bind(this);
+
   }
 
   componentWillMount(){
     this.preparePreview(this.props.tree.chunk._id, [], 0);
     this.fetchAuthor();
+  }
+
+  handleDate(){
+
+    let dateLine = (
+    <p> <Glyphicon glyph="calendar"/> &nbsp;
+      {dateFormat(this.props.tree.date,
+         "mm/dd/yy")}
+    </p>
+  );
+    return dateLine;
   }
 
   handleTreeFollow(){
@@ -128,9 +143,9 @@ class Tree extends React.Component {
     .then(result => result.json())
     .then(res => {
       charcount += res.content.length;
-      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
       // story += res.content+ " ";
-      if(res.children.length > 0 && charcount < 800){
+      if(res.children.length > 0 && charcount < 600){
         fetch("/getMostPopularChild/" + chunkId, {
           method:"GET",
           headers: {
@@ -143,9 +158,9 @@ class Tree extends React.Component {
           this.preparePreview(res._id, story, charcount);
         });
       } else {
-        if(charcount > 800){
+        if(charcount > 600){
           story.pop();
-          let newContent= res.content.substr(0, (800-(charcount-res.content.length)));
+          let newContent= res.content.substr(0, (600-(charcount-res.content.length)));
           story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({
@@ -226,8 +241,9 @@ class Tree extends React.Component {
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
-              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
+              {this.handleDate()}
+              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
             {followButton}
             </div>
             <div className="tree-story hidden-xs">

@@ -22,22 +22,33 @@ class App extends React.Component {
     this.setSortToPopularity = this.setSortToPopularity.bind(this);
     this.setSortToAscending = this.setSortToAscending.bind(this);
     this.setSortToDescending = this.setSortToDescending.bind(this);
+    this.setSortToAuthor = this.setSortToAuthor.bind(this);
   }
 
   componentWillMount(){
     this.fetchTreeCount();
   }
 
+  componentWillUpdate(){
+    if(this.state.offset !== 0){
+      this.setState({
+        offset: 0
+      });
+    }
+  }
+
   pageDownHandler(){
     this.setState({
       offset: this.state.offset-10
     });
+    window.scrollTo(0, 0);
   }
 
   pageUpHandler(){
     this.setState({
       offset: this.state.offset+10
     });
+    window.scrollTo(0, 0);
   }
 
   fetchTreeCount(chunkId, story){
@@ -54,30 +65,42 @@ class App extends React.Component {
 
   setSortToDate(){
     this.setState({
+      offset: 0,
       sortby: "date"
+    });
+  }
+
+  setSortToAuthor(){
+    this.setState({
+      offset: 0,
+      sortby: "author"
     });
   }
 
   setSortToPopularity(){
     this.setState({
+      offset: 0,
       sortby: "popularity"
     });
   }
 
   setSortToTitle(){
     this.setState({
+      offset: 0,
       sortby: "title"
     });
   }
 
   setSortToAscending(){
     this.setState({
+      offset: 0,
       sortdirection: "ascending"
     });
   }
 
   setSortToDescending(){
     this.setState({
+      offset: 0,
       sortdirection: "descending"
     });
   }
@@ -96,6 +119,7 @@ class App extends React.Component {
             <MenuItem onClick={this.setSortToPopularity}>Popularity</MenuItem>
             <MenuItem onClick={this.setSortToDate}>Date Added</MenuItem>
             <MenuItem onClick={this.setSortToTitle}>Title</MenuItem>
+            <MenuItem onClick={this.setSortToAuthor}>Author</MenuItem>
           </DropdownButton>
           <DropdownButton title={"Sort Order: "+ this.state.sortdirection} id="sortdirection">
             <MenuItem onClick={this.setSortToDescending}>Descending</MenuItem>
