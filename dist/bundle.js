@@ -59690,18 +59690,18 @@ var App = function (_React$Component) {
   }, {
     key: 'pageDownHandler',
     value: function pageDownHandler() {
+      window.scrollTo(0, 0);
       this.setState({
         offset: this.state.offset - 10
       });
-      window.scrollTo(0, 0);
     }
   }, {
     key: 'pageUpHandler',
     value: function pageUpHandler() {
+      window.scrollTo(0, 0);
       this.setState({
         offset: this.state.offset + 10
       });
-      window.scrollTo(0, 0);
     }
   }, {
     key: 'fetchTreeCount',
@@ -59733,7 +59733,7 @@ var App = function (_React$Component) {
     value: function setSortToAuthor() {
       this.setState({
         offset: 0,
-        sortby: "author"
+        sortby: "owner"
       });
     }
   }, {
@@ -60554,7 +60554,7 @@ var FullStoryModal = function (_React$Component) {
         ),
         _react2.default.createElement(
           _reactBootstrap.Modal.Body,
-          { style: { margin: "50px" } },
+          { className: 'quick-read', style: { margin: "50px" } },
           _react2.default.createElement(
             'p',
             null,
@@ -60718,13 +60718,23 @@ var Navigation = function (_React$Component) {
               { pullRight: true, className: 'navStyling' },
               _react2.default.createElement(
                 _reactBootstrap.NavItem,
+                { onClick: this.lgOpen },
+                'Create A New Tree'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.NavItem,
+                null,
+                ' | '
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.NavItem,
                 { onClick: this.aboutOpen },
                 'About'
               ),
               _react2.default.createElement(
                 _reactBootstrap.NavItem,
-                { onClick: this.lgOpen },
-                'Create A New Tree'
+                null,
+                ' | '
               ),
               _react2.default.createElement(
                 _reactBootstrap.NavItem,
@@ -60732,6 +60742,11 @@ var Navigation = function (_React$Component) {
                 _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'user' }),
                 ' ',
                 this.props.userStore.user.name
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.NavItem,
+                null,
+                ' | '
               ),
               _react2.default.createElement(
                 _reactBootstrap.NavItem,
@@ -60875,8 +60890,8 @@ var NewChunkForm = function (_React$Component) {
       return _react2.default.createElement(
         _reactBootstrap.Form,
         { style: { marginRight: "50px" } },
-        _react2.default.createElement('textarea', { style: { width: "500px", fontSize: "22px", fontFamily: "Walter Turncoat" }, onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content,
-          placeholder: 'Add on to the story above or click through the the options one the right.' }),
+        _react2.default.createElement('textarea', { style: { width: "500px", fontSize: "22px", fontFamily: "Rokkitt" }, onChange: this.handleContentChange, type: 'text', name: 'content', rows: '10', cols: '30', value: this.state.content,
+          placeholder: 'Add on to the story above or click through the options on the right.' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           _reactBootstrap.Button,
@@ -61033,7 +61048,7 @@ var NewTreeForm = function (_React$Component) {
             _react2.default.createElement(
               'div',
               null,
-              _react2.default.createElement('input', { maxLength: '30', onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
+              _react2.default.createElement('input', { style: { width: "100%" }, maxLength: '30', onChange: this.handleTitleChange, type: 'text', name: 'title', value: this.state.title, placeholder: 'Title' }),
               _react2.default.createElement('br', null),
               _react2.default.createElement('input', { style: { width: "100%" }, onChange: this.handleCoverChange, type: 'text', name: 'cover', value: this.state.cover, placeholder: 'Cover (add link to image)' }),
               _react2.default.createElement('br', null),
@@ -61499,11 +61514,11 @@ var Tree = function (_React$Component) {
         charcount += res.content.length;
         story.push(_react2.default.createElement(
           _reactRouter.Link,
-          { className: 'preview', style: { textDecoration: "none", fontSize: "14px" }, key: res._id, to: { pathname: '/Story/' + _this5.props.tree._id + '/' + res._id } },
+          { className: 'preview', style: { textDecoration: "none", fontSize: "16px" }, key: res._id, to: { pathname: '/Story/' + _this5.props.tree._id + '/' + res._id } },
           res.content + " "
         ));
         // story += res.content+ " ";
-        if (res.children.length > 0 && charcount < 800) {
+        if (res.children.length > 0 && charcount < 600) {
           fetch("/getMostPopularChild/" + chunkId, {
             method: "GET",
             headers: {
@@ -61516,12 +61531,12 @@ var Tree = function (_React$Component) {
             _this5.preparePreview(res._id, story, charcount);
           });
         } else {
-          if (charcount > 800) {
+          if (charcount > 600) {
             story.pop();
-            var newContent = res.content.substr(0, 800 - (charcount - res.content.length));
+            var newContent = res.content.substr(0, 600 - (charcount - res.content.length));
             story.push(_react2.default.createElement(
               _reactRouter.Link,
-              { className: 'preview', style: { textDecoration: "none", fontSize: "14px" }, key: res._id, to: { pathname: '/Story/' + _this5.props.tree._id + '/' + res._id } },
+              { className: 'preview', style: { textDecoration: "none", fontSize: "16px" }, key: res._id, to: { pathname: '/Story/' + _this5.props.tree._id + '/' + res._id } },
               newContent + "..."
             ));
           }
