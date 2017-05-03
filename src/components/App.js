@@ -38,17 +38,17 @@ class App extends React.Component {
   }
 
   pageDownHandler(){
+    window.scrollTo(0, 0);
     this.setState({
       offset: this.state.offset-10
     });
-    window.scrollTo(0, 0);
   }
 
   pageUpHandler(){
+    window.scrollTo(0, 0);
     this.setState({
       offset: this.state.offset+10
     });
-    window.scrollTo(0, 0);
   }
 
   fetchTreeCount(chunkId, story){
@@ -73,7 +73,7 @@ class App extends React.Component {
   setSortToAuthor(){
     this.setState({
       offset: 0,
-      sortby: "author"
+      sortby: "owner"
     });
   }
 
