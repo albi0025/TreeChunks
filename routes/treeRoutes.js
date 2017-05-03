@@ -42,8 +42,8 @@ treeRoutes.post('/newTree', function(req, res) {
   });
 });
 
-treeRoutes.get('/getTrees', function(req, res, next) {
-  Tree.find().sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
+treeRoutes.get('/getTrees/:offset', function(req, res, next) {
+  Tree.find().limit(10).skip(parseInt(req.params.offset)).sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
     if(err){
       return next(err);
     }else{
@@ -121,6 +121,16 @@ treeRoutes.get('/fetchCreatedTrees/:userId', function(req, res, next) {
       return next(err);
     }else{
       res.json(trees);
+    }
+  });
+});
+
+treeRoutes.get('/getTreeCount', function(req, res, next) {
+  Tree.find(function(err, trees){
+    if(err){
+      return next(err);
+    }else{
+      res.json(trees.length);
     }
   });
 });
