@@ -67,16 +67,20 @@ class Navigation extends React.Component {
           <Navbar .Collapse>
             {
               this.props.userStore.loggedIn
-              ? <Nav pullRight className="navStyling">
+              ?
+                <Nav pullRight className="navStyling">
+                  <NavItem onClick={this.lgOpen}>
+                    Create A New Tree
+                  </NavItem>
+                  <NavItem> | </NavItem>
                   <NavItem onClick={this.aboutOpen}>
                   About
                   </NavItem>
-                  <NavItem onClick={this.lgOpen}>
-                  Create A New Tree
-                  </NavItem>
+                  <NavItem> | </NavItem>
                   <NavItem onClick={this.goToDashBoard}>
-                    <Glyphicon glyph="user"/> {this.props.userStore.user.name}
+                    < Glyphicon glyph="user"/> {this.props.userStore.user.name}
                   </NavItem>
+                  <NavItem> | </NavItem>
                   <NavItem onClick={this.props.userStore.logout}>Logout</NavItem>
                 </Nav>
               : <Nav pullRight>

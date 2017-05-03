@@ -143,9 +143,9 @@ class Tree extends React.Component {
     .then(result => result.json())
     .then(res => {
       charcount += res.content.length;
-      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
       // story += res.content+ " ";
-      if(res.children.length > 0 && charcount < 800){
+      if(res.children.length > 0 && charcount < 600){
         fetch("/getMostPopularChild/" + chunkId, {
           method:"GET",
           headers: {
@@ -158,9 +158,9 @@ class Tree extends React.Component {
           this.preparePreview(res._id, story, charcount);
         });
       } else {
-        if(charcount > 800){
+        if(charcount > 600){
           story.pop();
-          let newContent= res.content.substr(0, (800-(charcount-res.content.length)));
+          let newContent= res.content.substr(0, (600-(charcount-res.content.length)));
           story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({
@@ -244,7 +244,6 @@ class Tree extends React.Component {
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
               {this.handleDate()}
               <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
-
             {followButton}
             </div>
             <div className="tree-story hidden-xs">
