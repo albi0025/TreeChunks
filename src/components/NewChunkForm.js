@@ -61,8 +61,8 @@ class NewChunkForm extends React.Component {
   render() {
     return (
       <Form style={{marginRight: "50px"}}>
-        <textarea style={{width:"500px", fontSize:"22px", fontFamily:"Walter Turncoat"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content}
-        placeholder="Add on to the story above or click through the the options one the right."/>
+        <textarea style={{width:"500px", fontSize:"22px", fontFamily:"Rokkitt"}} onChange={this.handleContentChange} type="text" name="content" rows="10" cols="30" value={this.state.content}
+        placeholder="Add on to the story above or click through the options on the right."/>
         <br/>
         <Button onClick={this.submitChunkHandler} type="submit">Submit</Button>
       </Form>
