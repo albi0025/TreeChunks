@@ -108,7 +108,25 @@ class Chunk extends React.Component {
         thumbDownButton = <Glyphicon glyph="thumbs-down" className="downchunked" onClick={this.unDownChunk}/>;
       }
     }
-    if(this.state.chunk){
+    if(this.state.chunk && this.props.chunk.owner == this.props.userStore.user._id && this.props.chunk.children.length < 1){
+      return (
+        <Panel className="chunk" key={this.state.chunk._id}>
+          <div>
+            <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
+            <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
+          </div>
+        <div className="popularity">
+          {thumbUpButton}
+            <Badge>
+              <p data-tip="How Popular This Addition Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip delayShow={1000} />
+            </Badge>
+          {thumbDownButton}
+        </div>
+        <Button onClick={() => this.props.deleteChunk(this.state.chunk._id)} >delete</Button>
+        </Panel>
+      );
+    }
+    else if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
           <div>
@@ -124,16 +142,17 @@ class Chunk extends React.Component {
         </div>
         </Panel>
       );
-    }else{
-      return (<div/>);
     }
+
   }
 }
 
 Chunk.propTypes = {
+  story: React.PropTypes.object,
   chunk: React.PropTypes.object,
   treeId: React.PropTypes.string,
-  userStore: React.PropTypes.object
+  userStore: React.PropTypes.object,
+  deleteChunk: React.PropTypes.func
 };
 
 export default inject("userStore")(observer(Chunk));
