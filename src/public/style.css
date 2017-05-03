@@ -9,6 +9,16 @@ body {
   min-height: 100vh;
 }
 
+.dropdown{
+  margin-right: 15px;
+}
+
+.sort-dropdown{
+  margin-top: 10px;
+  width: 90%;
+  text-align: right;
+}
+
 .googlebtn{
   background-color: #a1bc31;
   border: none;
@@ -204,8 +214,12 @@ body {
   min-height: 100vh;
 }
 
-.story-content, .tree-list-content, .dashboard-content {
+.story-content, .dashboard-content {
   margin-top: 60px;
+}
+
+.tree-list-content{
+  margin-top: 10px;
 }
 
 .dashboard-content {
