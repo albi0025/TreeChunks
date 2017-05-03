@@ -21,7 +21,6 @@ class Chunk extends React.Component {
     this.adjustPopularity = this.adjustPopularity.bind(this);
     this.checkForUpChunk = this.checkForUpChunk.bind(this);
     this.checkForDownChunk = this.checkForDownChunk.bind(this);
-    this.goToChunk = this.goToChunk.bind(this);
   }
 
   adjustPopularity(chunkId, adjust){
@@ -96,10 +95,6 @@ class Chunk extends React.Component {
     });
   }
 
-  goToChunk(){
-    hashHistory.push('/Story/' + this.props.treeId + "/" + this.state.chunk._id);
-  }
-
   render() {
     let thumbUpButton = <Glyphicon glyph="thumbs-up" className="unchunked"/>;
     let thumbDownButton = <Glyphicon glyph="thumbs-down" className="unchunked"/>;
@@ -116,7 +111,7 @@ class Chunk extends React.Component {
     if(this.state.chunk){
       return (
         <Panel className="chunk" key={this.state.chunk._id}>
-          <div style={{zIndex: "-3"}} onClick={this.goToChunk} >
+          <div>
             <Link style={{fontSize: "30px", textDecoration: "none"}} to= {{pathname: '/Story/' + this.props.treeId + "/" + this.state.chunk._id}}>
             <p data-tip="Add this next...">{this.state.chunk.content}</p><ReactTooltip /></Link>
             <div style={{zIndex: "20"}} className="popularity">
