@@ -74,28 +74,28 @@ class Tree extends React.Component {
   }
 
   upChunk(){
+    this.props.userStore.flagUserUpChunk(this.props.tree.chunk._id);
     if(this.checkForDownChunk()){
-      this.adjustPopularity(this.props.tree.chunk._id, 2);
       this.props.userStore.unFlagUserDownChunk(this.props.tree.chunk._id);
+      this.adjustPopularity(this.props.tree.chunk._id, 2);
     } else {
       this.adjustPopularity(this.props.tree.chunk._id, 1);
     }
-    this.props.userStore.flagUserUpChunk(this.props.tree.chunk._id);
   }
 
   unUpChunk(){
-    this.adjustPopularity(this.props.tree.chunk._id, -1);
     this.props.userStore.unFlagUserUpChunk(this.props.tree.chunk._id);
+    this.adjustPopularity(this.props.tree.chunk._id, -1);
   }
 
   downChunk(){
+    this.props.userStore.flagUserDownChunk(this.props.tree.chunk._id);
     if(this.checkForUpChunk()){
-      this.adjustPopularity(this.props.tree.chunk._id, -2);
       this.props.userStore.unFlagUserUpChunk(this.props.tree.chunk._id);
+      this.adjustPopularity(this.props.tree.chunk._id, -2);
     } else{
       this.adjustPopularity(this.props.tree.chunk._id, -1);
     }
-    this.props.userStore.flagUserDownChunk(this.props.tree.chunk._id);
   }
 
   checkForDownChunk(){
@@ -106,8 +106,8 @@ class Tree extends React.Component {
   }
 
   unDownChunk(){
-    this.adjustPopularity(this.props.tree.chunk._id, 1);
     this.props.userStore.unFlagUserDownChunk(this.props.tree.chunk._id);
+    this.adjustPopularity(this.props.tree.chunk._id, 1);
   }
 
   checkForUpChunk(){
@@ -130,7 +130,7 @@ class Tree extends React.Component {
       charcount += res.content.length;
       story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
       // story += res.content+ " ";
-      if(res.children.length > 0 && charcount < 400){
+      if(res.children.length > 0 && charcount < 800){
         fetch("/getMostPopularChild/" + chunkId, {
           method:"GET",
           headers: {
@@ -143,9 +143,9 @@ class Tree extends React.Component {
           this.preparePreview(res._id, story, charcount);
         });
       } else {
-        if(charcount > 400){
+        if(charcount > 800){
           story.pop();
-          let newContent= res.content.substr(0, (400-(charcount-res.content.length)));
+          let newContent= res.content.substr(0, (800-(charcount-res.content.length)));
           story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({
@@ -225,7 +225,6 @@ class Tree extends React.Component {
             </Link>
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
               <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
