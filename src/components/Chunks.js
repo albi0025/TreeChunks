@@ -13,7 +13,7 @@ class Chunks extends React.Component {
   prepareChunks(){
     return this.props.chunks.map(function(chunk){
       return(
-        <Chunk key={chunk._id} chunk={chunk} treeId={this.props.treeId}/>
+        <Chunk key={chunk._id} deleteChunk={this.props.deleteChunk} chunk={chunk} treeId={this.props.treeId}/>
       );
     },this);
   }
@@ -30,7 +30,8 @@ class Chunks extends React.Component {
 
 Chunks.propTypes = {
   chunks: React.PropTypes.array,
-  treeId: React.PropTypes.string
+  treeId: React.PropTypes.string,
+  deleteChunk: React.PropTypes.func
 };
 
 export default Chunks;
