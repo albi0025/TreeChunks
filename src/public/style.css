@@ -9,6 +9,17 @@ body {
   min-height: 100vh;
 }
 
+.dropdown{
+  margin-right: 15px;
+}
+
+.sort-dropdown{
+  margin-top: 10px;
+  width: 90%;
+  text-align: right;
+  font-family: 'Walter Turncoat', cursive;
+}
+
 .googlebtn{
   background-color: #a1bc31;
   border: none;
@@ -32,7 +43,7 @@ body {
 }
 
 .storyChunk{ /*changes the size weight and color of the storyChunk links.. lets change this to story-chunk*/
-  font-family: 'Walter Turncoat', cursive;
+
   font-family: 'Rokkitt', serif;
   font-size: 24px !important;
   font-weight: 800;
@@ -112,6 +123,8 @@ body {
 
 .tree-story{
   width: 50%;
+  font-family: 'Rokkitt', serif;
+  font-size: 17px;
 }
 
 .popularity {
@@ -167,6 +180,8 @@ body {
   width: 170px;
   padding-left: 15px;
   padding-right: 30px;
+  font-family: 'Walter Turncoat', cursive;
+
 }
 
 .tree-columns > a > h3 {
@@ -175,6 +190,7 @@ body {
 
 .preview:hover{
   text-shadow: 0px 0px 1px green;
+  font-family: 'Rokkitt', serif;
 }
 
 .logo .container {
@@ -204,8 +220,12 @@ body {
   min-height: 100vh;
 }
 
-.story-content, .tree-list-content, .dashboard-content {
+.story-content, .dashboard-content {
   margin-top: 60px;
+}
+
+.tree-list-content{
+  margin-top: 10px;
 }
 
 .dashboard-content {

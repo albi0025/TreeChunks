@@ -102,7 +102,7 @@ class Story extends React.Component {
               Here is the story so far: <br/>
                 <p data-tip="Click to go back in the story...">{this.state.story}</p><ReactTooltip delayShow={1000}  />
             </Panel>
-            <h3 style={{textAlign: "center", marginBottom: "25px"}}>Choose Your Own Adventue!</h3>
+            <h3 style={{textAlign: "center", marginBottom: "25px", fontFamily: "Walter Turncoat"}}>Choose Your Own Adventure!</h3>
             <div className="chunkDisplay">
               {(this.props.userStore.loggedIn)
               ?<NewChunkForm maxWords={this.state.tree.maxWords} chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
