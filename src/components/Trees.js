@@ -12,11 +12,15 @@ class Trees extends React.Component {
   }
 
   componentWillMount(){
-    this.fetchTrees();
+    this.fetchTrees(this.props.offset);
   }
 
-  fetchTrees(){
-    fetch("/getTrees",{
+  componentWillReceiveProps(nextProps){
+    this.fetchTrees(nextProps.offset);
+  }
+
+  fetchTrees(offset){
+    fetch("/getTrees/"+offset,{
       method:"GET",
       headers: {
         "Accept": "application/json",
@@ -51,7 +55,8 @@ class Trees extends React.Component {
 
 Trees.propTypes = {
   content: React.PropTypes.string,
-  popularity: React.PropTypes.number
+  popularity: React.PropTypes.number,
+  offset: React.PropTypes.number
 };
 
 export default Trees;
