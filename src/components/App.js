@@ -40,12 +40,14 @@ class App extends React.Component {
     this.setState({
       offset: this.state.offset-10
     });
+    window.scrollTo(0, 0);
   }
 
   pageUpHandler(){
     this.setState({
       offset: this.state.offset+10
     });
+    window.scrollTo(0, 0);
   }
 
   fetchTreeCount(chunkId, story){
