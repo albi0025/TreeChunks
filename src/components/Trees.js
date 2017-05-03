@@ -12,15 +12,15 @@ class Trees extends React.Component {
   }
 
   componentWillMount(){
-    this.fetchTrees(this.props.offset);
+    this.fetchTrees(this.props.offset, this.props.sortby, this.props.sortdirection);
   }
 
   componentWillReceiveProps(nextProps){
-    this.fetchTrees(nextProps.offset);
+    this.fetchTrees(nextProps.offset, nextProps.sortby, nextProps.sortdirection);
   }
 
-  fetchTrees(offset){
-    fetch("/getTrees/"+offset,{
+  fetchTrees(offset, sortby, sortdirection){
+    fetch("/getTrees/"+offset+"/"+sortby+"/"+sortdirection,{
       method:"GET",
       headers: {
         "Accept": "application/json",
@@ -56,7 +56,9 @@ class Trees extends React.Component {
 Trees.propTypes = {
   content: React.PropTypes.string,
   popularity: React.PropTypes.number,
-  offset: React.PropTypes.number
+  offset: React.PropTypes.number,
+  sortby: React.PropTypes.string,
+  sortdirection: React.PropTypes.string
 };
 
 export default Trees;

@@ -42,8 +42,8 @@ treeRoutes.post('/newTree', function(req, res) {
   });
 });
 
-treeRoutes.get('/getTrees/:offset', function(req, res, next) {
-  Tree.find().limit(10).skip(parseInt(req.params.offset)).sort({popularity: "descending"}).populate('chunk').exec(function(err, trees){
+treeRoutes.get('/getTrees/:offset/:sortby/:sortdirection', function(req, res, next) {
+  Tree.find().limit(10).skip(parseInt(req.params.offset)).sort({[req.params.sortby]: [req.params.sortdirection]}).populate('chunk').exec(function(err, trees){
     if(err){
       return next(err);
     }else{
