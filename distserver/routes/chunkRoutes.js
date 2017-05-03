@@ -67,6 +67,52 @@ chunkRoutes.get('/getStory/:chunkid', function (req, res, next) {
   });
 });
 
+// chunkRoutes.get('/fetchPreview/:chunkid', function(req, res, next) {
+//   let charcount = 0;
+//   let story = [];
+//
+//   Chunk.findById(req.params.chunkid, function(err, chunk){
+//     if(err){
+//       return next(err);
+//     }else{
+//       res.json(chunk);
+//     }
+//   });
+//
+//
+//   .then(result => result.json())
+//   .then(res => {
+//     charcount += res.content.length;
+//     story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+//     // story += res.content+ " ";
+//     if(res.children.length > 0 && charcount < 400){
+//       fetch("/getMostPopularChild/" + chunkId, {
+//         method:"GET",
+//         headers: {
+//           "Accept": "application/json",
+//           "Content-Type": "application/json"
+//         }
+//       })
+//       .then(result => result.json())
+//       .then(res => {
+//         this.preparePreview(res._id, story, charcount);
+//       });
+//     } else {
+//       if(charcount > 400){
+//         story.pop();
+//         let newContent= res.content.substr(0, (400-(charcount-res.content.length)));
+//         story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
+//       }
+//       this.setState({
+//         mostPopularStory: story
+//       });
+//     }
+//
+//
+//
+//
+// });
+
 chunkRoutes.get('/getChunk/:chunkid', function (req, res, next) {
   _chunk2.default.findById(req.params.chunkid, function (err, chunk) {
     if (err) {

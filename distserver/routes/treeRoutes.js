@@ -26,6 +26,8 @@ var _express2 = _interopRequireDefault(_express);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var treeRoutes = _express2.default.Router();
 var app = (0, _express2.default)();
 
@@ -64,8 +66,8 @@ treeRoutes.post('/newTree', function (req, res) {
   });
 });
 
-treeRoutes.get('/getTrees', function (req, res, next) {
-  _tree2.default.find().sort({ popularity: "descending" }).populate('chunk').exec(function (err, trees) {
+treeRoutes.get('/getTrees/:offset/:sortby/:sortdirection', function (req, res, next) {
+  _tree2.default.find().limit(10).skip(parseInt(req.params.offset)).sort(_defineProperty({}, req.params.sortby, [req.params.sortdirection])).populate('chunk').exec(function (err, trees) {
     if (err) {
       return next(err);
     } else {
@@ -140,6 +142,16 @@ treeRoutes.get('/fetchCreatedTrees/:userId', function (req, res, next) {
       return next(err);
     } else {
       res.json(trees);
+    }
+  });
+});
+
+treeRoutes.get('/getTreeCount', function (req, res, next) {
+  _tree2.default.find(function (err, trees) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(trees.length);
     }
   });
 });
