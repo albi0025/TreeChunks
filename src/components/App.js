@@ -54,30 +54,35 @@ class App extends React.Component {
 
   setSortToDate(){
     this.setState({
+      offset: 0,
       sortby: "date"
     });
   }
 
   setSortToPopularity(){
     this.setState({
+      offset: 0,
       sortby: "popularity"
     });
   }
 
   setSortToTitle(){
     this.setState({
+      offset: 0,
       sortby: "title"
     });
   }
 
   setSortToAscending(){
     this.setState({
+      offset: 0,
       sortdirection: "ascending"
     });
   }
 
   setSortToDescending(){
     this.setState({
+      offset: 0,
       sortdirection: "descending"
     });
   }
