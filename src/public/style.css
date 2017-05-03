@@ -9,6 +9,15 @@ body {
   min-height: 100vh;
 }
 
+.googlebtn{
+  background-color: #a1bc31;
+  border: none;
+}
+
+.read-story-link:hover{
+  cursor: pointer;
+}
+
 .following-button, .follow-button{
   width: 93px;
   height: 37px;
@@ -52,7 +61,7 @@ body {
   font-family: 'Rokkitt', serif;
   display: flex;
   overflow-x: auto;
-  margin-bottom: 20px !important;
+  margin-bottom: 250px !important;
 }
 
 .upchunked{
@@ -73,6 +82,12 @@ body {
   height: 100%;
 }
 
+.tree-popularity{
+  margin-left: 10px;
+  position: relative;
+  foat: right;
+}
+
 .tree-info{
   font-size: 64px;
   font-style: oblique;
@@ -86,12 +101,17 @@ body {
   margin-right: 60px !important;
   margin-bottom: 60px !important;
   background-color: rgba(255,255,255,0.5) !important;
+  font-family: 'Walter Turncoat', cursive;
 
 }
 
 .title-popularity {
   width: 25px;
   height: 25px;
+}
+
+.tree-story{
+  width: 50%;
 }
 
 .popularity {
@@ -130,6 +150,7 @@ body {
 
 .tree-dashboard-panel {
   width: 15vw;
+  font-family: 'Walter Turncoat', cursive;
   margin: auto;
   align-content: center;
   text-align: left;
@@ -141,16 +162,20 @@ body {
 .trees-display {
   display: flex;
 }
+
 .tree-columns {
-  width: 30%;
+  width: 170px;
   padding-left: 15px;
-  padding-right: 15px;
+  padding-right: 30px;
 }
 
 .tree-columns > a > h3 {
   margin-top: 0px;
 }
 
+.preview:hover{
+  text-shadow: 0px 0px 1px green;
+}
 
 .logo .container {
   margin: 0 !important;
@@ -158,19 +183,25 @@ body {
 }
 
 .story-background-image {
+  background-attachment: fixed;
   background-repeat: no-repeat;
-  background-size: 100vw;
+  background-size: cover;
   background-position: center;
-  height: 100vh;
   margin: 0px !important;
   padding: 0px !important;
+  height: auto;
+  min-height: 100vh;
 }
 
 .story-background-gradient{
   background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,.9), rgba(255,255,255,.5),rgba(255,255,255,.6), rgba(255,255,255,.8));
   margin: 0px !important;
   padding: 0px !important;
-  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: auto;
+  min-height: 100vh;
 }
 
 .story-content, .tree-list-content, .dashboard-content {
@@ -183,13 +214,18 @@ body {
 
 .story-content-top {
   display: flex;
-
 }
 
 .navbar {
   margin-bottom: 0px !important;
   background-color: rgba(144,178,4,0.8)!important;
   border-radius: 0px !important;
+}
+
+.navbar-default .navbar-nav li a {
+  color: white !important;
+  font-family: 'Walter Turncoat', cursive;
+  font-size: 20px;
 }
 
 .navbar-brand {
@@ -204,6 +240,12 @@ body {
 .navbar-collapse.collapsing{
   border: none;
   text-align: right;
+}
+
+.navStyling {
+  font-size: 20px;
+  color: white !important;
+  font-family: 'Walter Turncoat', cursive;
 }
 
 .header-text {
@@ -232,4 +274,8 @@ body {
 
 .modal-header {
   background-color: #59c9ef;
+}
+
+.about-text {
+  margin: 10px !important;
 }

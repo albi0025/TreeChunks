@@ -128,7 +128,7 @@ class Tree extends React.Component {
     .then(result => result.json())
     .then(res => {
       charcount += res.content.length;
-      story.push(<Link style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
       // story += res.content+ " ";
       if(res.children.length > 0 && charcount < 400){
         fetch("/getMostPopularChild/" + chunkId, {
@@ -146,7 +146,7 @@ class Tree extends React.Component {
         if(charcount > 400){
           story.pop();
           let newContent= res.content.substr(0, (400-(charcount-res.content.length)));
-          story.push(<Link style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
+          story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({
           mostPopularStory: story
@@ -227,21 +227,30 @@ class Tree extends React.Component {
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
 
               <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
-              <p onClick={this.lgOpen}>Read The Story</p>
-              <p>overall rating 1 million</p>
+              <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
             {followButton}
             </div>
-            <div className="tree-columns">
+            <div className="tree-story hidden-xs">
               {this.state.mostPopularStory}
             </div>
-            <div className="popularity">
-            {thumbUpButton}
-            <Badge>
-              <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip delayShow={1000} />
-            </Badge>
-            {thumbDownButton}
+            <div className="tree-popularity">
+              <div className="popularity hidden-xs">
+              {thumbUpButton}
+              <Badge>
+                <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+              </Badge>
+              {thumbDownButton}
+              </div>
             </div>
+          </div>
+          <br/>
+          <div className="popularity hidden-sm hidden-md hidden-lg hidden-xl">
+          {thumbUpButton}
+          <Badge>
+            <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+          </Badge>
+          {thumbDownButton}
           </div>
         </Panel>
         <FullStoryModal chunkId={this.props.tree.chunk._id} show={this.state.lgShow} onHide={this.lgClose}/>

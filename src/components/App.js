@@ -12,8 +12,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className="header-text container-fluid text-center">
-          <img src="/images/headertext.png" width="800"/>
+       <div className="header-text container-fluid text-center">
+        {this.props.userStore.loggedIn
+        ? <img className ="img-fluid" src="/images/welcomeonly.png" style={{maxWidth: "60%", height: "auto"}}/>
+        : <img className ="img-fluid" src="/images/headertext.png" style={{maxWidth: "70%", height: "auto"}} />
+        }
         </div>
         <div className="tree-list-content container-fluid">
           <Trees />

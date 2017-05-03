@@ -66,7 +66,7 @@ class NewTreeForm extends React.Component {
   }
   render() {
     return (
-      <Modal {...this.props} bsSize="lg" aria-labelledby="contained-modal-title-sm">
+      <Modal {...this.props} aria-labelledby="contained-modal-title-sm">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg card-text">Start A New Tree</Modal.Title>
         </Modal.Header>
