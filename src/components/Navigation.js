@@ -67,7 +67,9 @@ class Navigation extends React.Component {
           <Navbar .Collapse> {/*Header Toggle and Collapse will make our menu responsive to small screens*/}
             {
               this.props.userStore.loggedIn
-              ? <Nav pullRight>
+              ?
+
+                <Nav pullRight className="navStyling">
                   <NavItem onClick={this.aboutOpen}>
                   About
                   </NavItem>
