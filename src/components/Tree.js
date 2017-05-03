@@ -161,7 +161,7 @@ class Tree extends React.Component {
         if(charcount > 600){
           story.pop();
           let newContent= res.content.substr(0, (600-(charcount-res.content.length)));
-          story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "14px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
+          story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({
           mostPopularStory: story
