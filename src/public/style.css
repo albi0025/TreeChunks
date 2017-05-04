@@ -87,6 +87,10 @@ body {
   display: flex;
 }
 
+.glyphicon-thumbs-up:hover, .glyphicon-thumbs-down:hover {
+  cursor: pointer;
+}
+
 .flexy {
   justify-content: center;
   flex-wrap: wrap;
