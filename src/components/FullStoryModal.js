@@ -58,7 +58,7 @@ class FullStoryModal extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg card-text">The Most Popular Storyline</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{margin: "50px"}}>
+        <Modal.Body className="quick-read" style={{margin: "50px"}}>
           <p>{this.state.story}</p>
         </Modal.Body>
         <Modal.Footer>

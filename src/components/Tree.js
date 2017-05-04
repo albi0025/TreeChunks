@@ -145,7 +145,7 @@ class Tree extends React.Component {
       charcount += res.content.length;
       story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
       // story += res.content+ " ";
-      if(res.children.length > 0 && charcount < 600){
+      if(res.children.length > 0 && charcount < 400){
         fetch("/getMostPopularChild/" + chunkId, {
           method:"GET",
           headers: {
@@ -158,9 +158,9 @@ class Tree extends React.Component {
           this.preparePreview(res._id, story, charcount);
         });
       } else {
-        if(charcount > 600){
+        if(charcount > 400){
           story.pop();
-          let newContent= res.content.substr(0, (600-(charcount-res.content.length)));
+          let newContent= res.content.substr(0, (400-(charcount-res.content.length)));
           story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{newContent + "..."}</Link>);
         }
         this.setState({

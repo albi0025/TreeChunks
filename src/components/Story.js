@@ -19,6 +19,7 @@ class Story extends React.Component {
     this.fetchTree = this.fetchTree.bind(this);
     this.getChunks = this.getChunks.bind(this);
     this.prepareStory = this.prepareStory.bind(this);
+    this.deleteChunk = this.deleteChunk.bind(this);
   }
 
   componentWillMount(){ //need to change this as well
@@ -45,6 +46,23 @@ class Story extends React.Component {
         tree: res
       });
     }).then(()=>{this.getChunks(chunkId);});
+  }
+
+  deleteChunk(chunkId){
+    fetch("/deleteChunk/" + chunkId,{
+      method:"DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(() => {
+      let newArray = this.state.chunks;
+      newArray= newArray.filter(function(x){
+        return x._id !== chunkId;
+      });
+      this.setState({chunks: newArray});
+    });
   }
 
   getChunks(chunkId){
@@ -107,7 +125,7 @@ class Story extends React.Component {
               {(this.props.userStore.loggedIn)
               ?<NewChunkForm maxWords={this.state.tree.maxWords} chunkId={this.props.params.chunkId} treeId={this.state.tree._id}/>
               : ""}
-              <Chunks chunks={this.state.chunks} treeId={this.state.tree._id}/>
+              <Chunks deleteChunk={this.deleteChunk} chunks={this.state.chunks} treeId={this.state.tree._id}/>
             </div>
           </div>
         </div>

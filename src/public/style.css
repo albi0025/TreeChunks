@@ -131,6 +131,15 @@ body {
   font-size: 17px;
 }
 
+.quick-read {
+  font-family: 'Rokkitt', serif;
+}
+
+.tree-story .preview{
+  font-size: 19px !important;
+  font-size: 17px;
+}
+
 .popularity {
   display: flex;
   font-size: 20px;

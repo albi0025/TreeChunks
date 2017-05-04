@@ -129,6 +129,25 @@ chunkRoutes.get('/getChunks/:parentId', function(req, res) {
   });
 });
 
+chunkRoutes.delete('/deleteChunk/:chunkid', function(req, res, next) {
+  Chunk.findByIdAndRemove(req.params.chunkid, function(err, chunk){
+    if(err){
+      return next(err);
+    }else{
+      console.log(chunk);
+      Chunk.update({ _id: chunk.parentchunk }, { $pull: { children: chunk._id}}, function(err, raw) {
+        if(err){
+          console.log("error deleting child " + err);
+        } else {
+          res.json("chunk was deleted");
+        }
+      });
+    }
+  });
+});
+
+
+
 
 
 export default chunkRoutes;

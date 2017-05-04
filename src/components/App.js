@@ -22,7 +22,6 @@ class App extends React.Component {
     this.setSortToPopularity = this.setSortToPopularity.bind(this);
     this.setSortToAscending = this.setSortToAscending.bind(this);
     this.setSortToDescending = this.setSortToDescending.bind(this);
-    this.setSortToAuthor = this.setSortToAuthor.bind(this);
   }
 
   componentWillMount(){
@@ -70,13 +69,6 @@ class App extends React.Component {
     });
   }
 
-  setSortToAuthor(){
-    this.setState({
-      offset: 0,
-      sortby: "owner"
-    });
-  }
-
   setSortToPopularity(){
     this.setState({
       offset: 0,
@@ -119,7 +111,6 @@ class App extends React.Component {
             <MenuItem onClick={this.setSortToPopularity}>Popularity</MenuItem>
             <MenuItem onClick={this.setSortToDate}>Date Added</MenuItem>
             <MenuItem onClick={this.setSortToTitle}>Title</MenuItem>
-            <MenuItem onClick={this.setSortToAuthor}>Author</MenuItem>
           </DropdownButton>
           <DropdownButton title={"Sort Order: "+ this.state.sortdirection} id="sortdirection">
             <MenuItem onClick={this.setSortToDescending}>Descending</MenuItem>
