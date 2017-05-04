@@ -143,7 +143,7 @@ class Tree extends React.Component {
     .then(result => result.json())
     .then(res => {
       charcount += res.content.length;
-      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + " "}</Link>);
+      story.push(<Link className="preview" style={{textDecoration: "none", fontSize: "16px"}} key={res._id} to= {{pathname: '/Story/' + this.props.tree._id + '/' + res._id}}>{res.content + "..."}</Link>);
       // story += res.content+ " ";
       if(res.children.length > 0 && charcount < 400){
         fetch("/getMostPopularChild/" + chunkId, {

@@ -80,7 +80,7 @@ class NewTreeForm extends React.Component {
               <label> max words : &nbsp; </label>
               <input onChange={this.handleWordCountChange} type="number" min="0" name="chunk length" value={this.state.maxWords} placeholder="word limit"/>
               <br/>
-              <textarea onChange={this.handleContentChange} type="text" name="content" rows="9" cols="55" value={this.state.content} placeholder="Begining of story"/>
+              <textarea onChange={this.handleContentChange} style={{width:"475px", fontSize:"22px", fontFamily:"Rokkitt"}} type="text" name="content" rows="9" cols="55" value={this.state.content} placeholder="Begining of story"/>
               <br/>
               <Button onClick={this.submitTreeHandler} type="submit">Submit</Button>
             </div>
