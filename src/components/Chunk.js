@@ -122,7 +122,7 @@ class Chunk extends React.Component {
             </Badge>
           {thumbDownButton}
         </div>
-        <Button onClick={() => this.props.deleteChunk(this.state.chunk._id)} >delete</Button>
+        <Button style={{float: "right"}} onClick={() => this.props.deleteChunk(this.state.chunk._id)} ><Glyphicon glyph="trash"/></Button>
         </Panel>
       );
     }
