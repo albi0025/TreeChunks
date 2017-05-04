@@ -228,6 +228,11 @@ class Tree extends React.Component {
     return (
       <div>
         <Panel className="tree-panel" key={this.props.tree._id}>
+          <div style={{textAlign: "center"}} className="hidden-sm hidden-md hidden-lg hidden-xl">
+            <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
+            <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3>
+            </Link>
+          </div>
           <div className="trees-display">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
             <div className="tree-columns">
@@ -240,7 +245,7 @@ class Tree extends React.Component {
             </Link>
             <div className="tree-columns">
             <Link to= {{pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id}}>
-              <h3><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
+              <h3 className="hidden-xs"><p data-tip="Story Title">{this.props.tree.title}</p><ReactTooltip /></h3></Link>
               <p><Glyphicon glyph="pencil" /> {this.state.author}</p>
               {this.handleDate()}
               <p className="read-story-link" onClick={this.lgOpen}><Glyphicon glyph="book"/> Quick Read</p>
@@ -261,11 +266,11 @@ class Tree extends React.Component {
           </div>
           <br/>
           <div className="popularity hidden-sm hidden-md hidden-lg hidden-xl">
-          {thumbUpButton}
-          <Badge>
-            <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
-          </Badge>
-          {thumbDownButton}
+            {thumbUpButton}
+            <Badge>
+              <p data-tip="How Popular This Story Is... Go Ahead...Vote!">{this.state.popularity}</p><ReactTooltip />
+            </Badge>
+            {thumbDownButton}
           </div>
         </Panel>
         <FullStoryModal chunkId={this.props.tree.chunk._id} show={this.state.lgShow} onHide={this.lgClose}/>
