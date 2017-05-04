@@ -59669,7 +59669,6 @@ var App = function (_React$Component) {
     _this.setSortToPopularity = _this.setSortToPopularity.bind(_this);
     _this.setSortToAscending = _this.setSortToAscending.bind(_this);
     _this.setSortToDescending = _this.setSortToDescending.bind(_this);
-    _this.setSortToAuthor = _this.setSortToAuthor.bind(_this);
     return _this;
   }
 
@@ -59726,14 +59725,6 @@ var App = function (_React$Component) {
       this.setState({
         offset: 0,
         sortby: "date"
-      });
-    }
-  }, {
-    key: 'setSortToAuthor',
-    value: function setSortToAuthor() {
-      this.setState({
-        offset: 0,
-        sortby: "owner"
       });
     }
   }, {
@@ -59799,11 +59790,6 @@ var App = function (_React$Component) {
               _reactBootstrap.MenuItem,
               { onClick: this.setSortToTitle },
               'Title'
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.MenuItem,
-              { onClick: this.setSortToAuthor },
-              'Author'
             )
           ),
           _react2.default.createElement(
@@ -60049,10 +60035,10 @@ var Chunk = function (_React$Component) {
           ),
           _react2.default.createElement(
             _reactBootstrap.Button,
-            { onClick: function onClick() {
+            { style: { float: "right" }, onClick: function onClick() {
                 return _this5.props.deleteChunk(_this5.state.chunk._id);
               } },
-            'delete'
+            _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'trash' })
           )
         );
       } else if (this.state.chunk) {
@@ -61104,7 +61090,7 @@ var NewTreeForm = function (_React$Component) {
               ),
               _react2.default.createElement('input', { onChange: this.handleWordCountChange, type: 'number', min: '0', name: 'chunk length', value: this.state.maxWords, placeholder: 'word limit' }),
               _react2.default.createElement('br', null),
-              _react2.default.createElement('textarea', { onChange: this.handleContentChange, type: 'text', name: 'content', rows: '9', cols: '55', value: this.state.content, placeholder: 'Begining of story' }),
+              _react2.default.createElement('textarea', { onChange: this.handleContentChange, style: { width: "475px", fontSize: "22px", fontFamily: "Rokkitt" }, type: 'text', name: 'content', rows: '9', cols: '55', value: this.state.content, placeholder: 'Begining of story' }),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 _reactBootstrap.Button,
@@ -61583,7 +61569,7 @@ var Tree = function (_React$Component) {
           res.content + " "
         ));
         // story += res.content+ " ";
-        if (res.children.length > 0 && charcount < 600) {
+        if (res.children.length > 0 && charcount < 400) {
           fetch("/getMostPopularChild/" + chunkId, {
             method: "GET",
             headers: {
@@ -61596,15 +61582,16 @@ var Tree = function (_React$Component) {
             _this5.preparePreview(res._id, story, charcount);
           });
         } else {
-          if (charcount > 600) {
+          if (charcount > 400) {
             story.pop();
-            var newContent = res.content.substr(0, 600 - (charcount - res.content.length));
+            var newContent = res.content.substr(0, 400 - (charcount - res.content.length));
             story.push(_react2.default.createElement(
               _reactRouter.Link,
               { className: 'preview', style: { textDecoration: "none", fontSize: "16px" }, key: res._id, to: { pathname: '/Story/' + _this5.props.tree._id + '/' + res._id } },
-              newContent + "..."
+              newContent + " "
             ));
           }
+          story.push("...");
           _this5.setState({
             mostPopularStory: story
           });
@@ -61689,6 +61676,24 @@ var Tree = function (_React$Component) {
           { className: 'tree-panel', key: this.props.tree._id },
           _react2.default.createElement(
             'div',
+            { style: { textAlign: "center" }, className: 'hidden-sm hidden-md hidden-lg hidden-xl' },
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: { pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id } },
+              _react2.default.createElement(
+                'h3',
+                null,
+                _react2.default.createElement(
+                  'p',
+                  { 'data-tip': 'Story Title' },
+                  this.props.tree.title
+                ),
+                _react2.default.createElement(_reactTooltip2.default, null)
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
             { className: 'trees-display' },
             _react2.default.createElement(
               _reactRouter.Link,
@@ -61707,7 +61712,7 @@ var Tree = function (_React$Component) {
                 { to: { pathname: '/Story/' + this.props.tree._id + "/" + this.props.tree.chunk._id } },
                 _react2.default.createElement(
                   'h3',
-                  null,
+                  { className: 'hidden-xs' },
                   _react2.default.createElement(
                     'p',
                     { 'data-tip': 'Story Title' },
