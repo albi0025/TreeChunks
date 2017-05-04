@@ -154,6 +154,10 @@ body {
   font-style: none;
 }
 
+.tree-panel > .panel-body{
+  padding-top: 0px !important;
+}
+
 .badge {
   line-height: normal !important;
   margin: 0px 10px 0px 10px;
